@@ -69,10 +69,15 @@ This guide walks you through deploying the complete Full-Stack **StressGuard AI*
 ## 🌐 Step 4: Deploy Frontend (Vercel or Netlify)
 
 ### Option A: Vercel (Fastest & Recommended)
+#### Method 1: 1-Click Instant Deploy
+👉 Click: **[Deploy to Vercel](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FKAVIRAJ-27%2FAI-Based-Human-Stress-Prediction-System&root-directory=frontend)**  
+It pre-selects your repository and sets `frontend` as root directory automatically!
+
+#### Method 2: Manual Import
 1. Go to [https://vercel.com](https://vercel.com) and click **Add New Project**.
-2. Import your GitHub repository.
-3. In **Root Directory**, select `frontend`.
-4. Leave Build & Output settings default (it uses the static files + `vercel.json`).
+2. Select your repository: `KAVIRAJ-27/AI-Based-Human-Stress-Prediction-System`.
+3. In **Root Directory**, click edit and select `frontend` (or leave default, root `vercel.json` also routes properly).
+4. Leave Build & Output settings default.
 5. Click **Deploy**.
 6. Done! Your site will be live at `https://your-project.vercel.app`.
 

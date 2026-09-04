@@ -1,5 +1,12 @@
 # 🧠 StressGuard AI – Human Stress Prediction System
 
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FKAVIRAJ-27%2FAI-Based-Human-Stress-Prediction-System&root-directory=frontend)
+
+### 🌐 Live Public Deployments
+- **Live Frontend (GitHub Pages)**: [https://kaviraj-27.github.io/AI-Based-Human-Stress-Prediction-System/](https://kaviraj-27.github.io/AI-Based-Human-Stress-Prediction-System/)
+- **Live AI/ML Cloud Engine (Render)**: [https://ai-based-human-stress-prediction-system.onrender.com/health](https://ai-based-human-stress-prediction-system.onrender.com/health)
+- **1-Click Vercel Deploy**: Click the **Deploy with Vercel** button above for an instant custom `.vercel.app` domain.
+
 ## Tech Stack
 - **Frontend**: HTML5 + CSS3 + Bootstrap 5 + React 18 + Chart.js
 - **Backend**: Java 17 + Spring Boot 3.2 + JWT Auth + REST API
