@@ -1,0 +1,41 @@
+services:
+  # -------------------------------------------------------------
+  # 1. Python ML Service (Random Forest Stress Model)
+  # -------------------------------------------------------------
+  - type: web
+    name: stressguard-ml-service
+    env: python
+    region: oregon
+    plan: free
+    rootDir: ml-model
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app --bind 0.0.0.0:$PORT --workers 2 --timeout 120
+    healthCheckPath: /health
+    autoDeploy: true
+
+  # -------------------------------------------------------------
+  # 2. Spring Boot Java Backend (REST API + JWT)
+  # -------------------------------------------------------------
+  - type: web
+    name: stressguard-backend
+    env: docker
+    region: oregon
+    plan: free
+    rootDir: backend
+    dockerfilePath: Dockerfile
+    healthCheckPath: /api/auth/login
+    autoDeploy: true
+    envVars:
+      - key: PORT
+        value: 8080
+      - key: DB_URL
+        sync: false
+      - key: DB_USERNAME
+        sync: false
+      - key: DB_PASSWORD
+        sync: false
+      - key: ML_SERVICE_URL
+        fromService:
+          type: web
+          name: stressguard-ml-service
+          property: host
