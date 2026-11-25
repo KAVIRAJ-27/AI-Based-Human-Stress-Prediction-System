@@ -1,0 +1,102 @@
+[
+  {
+    "name": "01. Desktop Login Page",
+    "status": "PASS",
+    "detail": "Rendered Nature login design"
+  },
+  {
+    "name": "02. Desktop Register Page",
+    "status": "PASS",
+    "detail": "Rendered Nature register design"
+  },
+  {
+    "name": "Authentication Success Redirect",
+    "status": "PASS",
+    "detail": "Hash=dashboard"
+  },
+  {
+    "name": "Sidebar Brand Logo Present",
+    "status": "PASS",
+    "detail": "StressGuardShieldLogo rendered in sidebar"
+  },
+  {
+    "name": "03. Desktop Dashboard",
+    "status": "PASS",
+    "detail": "Rendered Wellness Dashboard"
+  },
+  {
+    "name": "04. Desktop Prediction Assessment",
+    "status": "PASS",
+    "detail": "Rendered 5-Domain assessment sliders"
+  },
+  {
+    "name": "05. Desktop Prediction Result",
+    "status": "PASS",
+    "detail": "Prediction outcome card & radar chart displayed"
+  },
+  {
+    "name": "06. Desktop History Archive",
+    "status": "PASS",
+    "detail": "History table, search, filters & export"
+  },
+  {
+    "name": "07. Desktop Telemetry Modal",
+    "status": "PASS",
+    "detail": "20-biomarker breakdown & radar chart"
+  },
+  {
+    "name": "08. Desktop Profile Page",
+    "status": "PASS",
+    "detail": "User profile & settings"
+  },
+  {
+    "name": "09. Desktop Admin Dashboard",
+    "status": "PASS",
+    "detail": "Enterprise telemetry & stress pie chart"
+  },
+  {
+    "name": "10. Desktop User Management",
+    "status": "PASS",
+    "detail": "Patient & user administrative roster"
+  },
+  {
+    "name": "Desktop No Horizontal Overflow",
+    "status": "PASS",
+    "detail": "scrollWidth=1920, clientWidth=1920"
+  },
+  {
+    "name": "11. Laptop 1366x768 Layout",
+    "status": "PASS",
+    "detail": "scrollWidth=1366, clientWidth=1366"
+  },
+  {
+    "name": "12. Tablet 768x1024 Layout",
+    "status": "PASS",
+    "detail": "scrollWidth=768, clientWidth=768"
+  },
+  {
+    "name": "13. Mobile 390x844 Dashboard",
+    "status": "PASS",
+    "detail": "scrollWidth=390, clientWidth=390"
+  },
+  {
+    "name": "14. Mobile Off-Canvas Drawer",
+    "status": "PASS",
+    "detail": "Mobile navigation menu"
+  },
+  {
+    "name": "15. Mobile 390x844 Prediction",
+    "status": "PASS",
+    "detail": "scrollWidth=390, clientWidth=390"
+  },
+  {
+    "name": "16. Small Mobile 360x800 Layout",
+    "status": "PASS",
+    "detail": "scrollWidth=360, clientWidth=360"
+  },
+  {
+    "name": "Zero Console Errors",
+    "status": "PASS",
+    "detail": "Errors: []"
+  }
+]

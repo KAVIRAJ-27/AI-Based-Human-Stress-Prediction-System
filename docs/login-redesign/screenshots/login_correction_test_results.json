@@ -1,0 +1,77 @@
+[
+  {
+    "name": "01. Desktop 1648x924 Login Screen",
+    "status": "PASS",
+    "detail": "Saved C:\\Users\\KAVIRAJ\\Desktop\\PROJECT\\AI-Human-Stress-Prediction\\docs\\login-redesign\\screenshots\\01_desktop_1648x924_login.png"
+  },
+  {
+    "name": "Desktop 1648x924 No Overflow",
+    "status": "PASS",
+    "detail": "scrollWidth=1648, clientWidth=1648"
+  },
+  {
+    "name": "Card Width Matches Spec (540-630px)",
+    "status": "PASS",
+    "detail": "width=580.0px"
+  },
+  {
+    "name": "Card Height Matches Spec (560-680px)",
+    "status": "PASS",
+    "detail": "height=620.0px"
+  },
+  {
+    "name": "Demo Accounts Removed Completely",
+    "status": "PASS",
+    "detail": "demo_count=0, demo_text=0"
+  },
+  {
+    "name": "Input Height Matches Spec (58-64px)",
+    "status": "PASS",
+    "detail": "height=60.0px"
+  },
+  {
+    "name": "Button Height Matches Spec (62-66px)",
+    "status": "PASS",
+    "detail": "height=64.0px"
+  },
+  {
+    "name": "02. Desktop 1920x1080 Full HD",
+    "status": "PASS",
+    "detail": "scrollWidth=1920, clientWidth=1920"
+  },
+  {
+    "name": "03. Laptop 1366x768 Login Screen",
+    "status": "PASS",
+    "detail": "scrollWidth=1366, clientWidth=1366"
+  },
+  {
+    "name": "04. Tablet 768x1024 Login Screen",
+    "status": "PASS",
+    "detail": "scrollWidth=768, clientWidth=768"
+  },
+  {
+    "name": "05. Mobile 390x844 Login Screen",
+    "status": "PASS",
+    "detail": "scrollWidth=390, clientWidth=390"
+  },
+  {
+    "name": "06. Small Mobile 360x800 Screen",
+    "status": "PASS",
+    "detail": "scrollWidth=360, clientWidth=360"
+  },
+  {
+    "name": "07. Registration Page Alignment",
+    "status": "PASS",
+    "detail": "Saved C:\\Users\\KAVIRAJ\\Desktop\\PROJECT\\AI-Human-Stress-Prediction\\docs\\login-redesign\\screenshots\\07_desktop_1648x924_register.png"
+  },
+  {
+    "name": "08. Spring Boot JWT Authentication",
+    "status": "PASS",
+    "detail": "Redirected to http://localhost:3000/#/dashboard"
+  },
+  {
+    "name": "09. Zero Console Errors",
+    "status": "PASS",
+    "detail": "Errors: []"
+  }
+]

@@ -1,0 +1,91 @@
+{
+  "viewports": [
+    {
+      "viewport": "1920x1080",
+      "name": "desktop_1080p",
+      "status": "PASS",
+      "scrollWidth": 1920,
+      "innerWidth": 1920
+    },
+    {
+      "viewport": "1648x924",
+      "name": "desktop_1648",
+      "status": "PASS",
+      "scrollWidth": 1648,
+      "innerWidth": 1648
+    },
+    {
+      "viewport": "1536x864",
+      "name": "laptop_1536",
+      "status": "PASS",
+      "scrollWidth": 1536,
+      "innerWidth": 1536
+    },
+    {
+      "viewport": "1366x768",
+      "name": "laptop_1366",
+      "status": "PASS",
+      "scrollWidth": 1366,
+      "innerWidth": 1366
+    },
+    {
+      "viewport": "768x1024",
+      "name": "tablet_768",
+      "status": "PASS",
+      "scrollWidth": 768,
+      "innerWidth": 768
+    },
+    {
+      "viewport": "390x844",
+      "name": "mobile_390",
+      "status": "PASS",
+      "scrollWidth": 390,
+      "innerWidth": 390
+    },
+    {
+      "viewport": "360x800",
+      "name": "mobile_360",
+      "status": "PASS",
+      "scrollWidth": 360,
+      "innerWidth": 360
+    }
+  ],
+  "metrics_1648": {
+    "card": {
+      "width": 600,
+      "height": 720
+    },
+    "input": {
+      "width": 456,
+      "height": 58
+    },
+    "button": {
+      "width": 496,
+      "height": 64
+    },
+    "headlineFontSize": "60px",
+    "gridTemplateColumns": "792px 648px",
+    "handwrittenVisible": true,
+    "featuresCount": 3
+  },
+  "password_visibility_test": true,
+  "registration_navigation_test": false,
+  "input_styling_test": {
+    "wrapperBackground": "rgba(255, 255, 255, 0.92)",
+    "wrapperBorder": "rgb(215, 234, 232)",
+    "wrapperRadius": "16px",
+    "inputColor": "rgb(23, 59, 93)",
+    "cardBackground": "rgba(255, 255, 255, 0.86)",
+    "cardBackdropFilter": "blur(20px) saturate(1.8)",
+    "boxBackground": "rgba(0, 0, 0, 0)",
+    "boxBorder": "rgb(18, 59, 93)"
+  },
+  "auth_regression": true,
+  "console_errors": [],
+  "screenshots": [
+    "C:\\Users\\KAVIRAJ\\Desktop\\PROJECT\\AI-Human-Stress-Prediction\\docs\\login-redesign\\screenshots\\01_desktop_1648x924.png",
+    "C:\\Users\\KAVIRAJ\\Desktop\\PROJECT\\AI-Human-Stress-Prediction\\docs\\login-redesign\\screenshots\\04_desktop_register_1648x924.png",
+    "C:\\Users\\KAVIRAJ\\Desktop\\PROJECT\\AI-Human-Stress-Prediction\\docs\\login-redesign\\screenshots\\02_desktop_1366x768.png",
+    "C:\\Users\\KAVIRAJ\\Desktop\\PROJECT\\AI-Human-Stress-Prediction\\docs\\login-redesign\\screenshots\\03_mobile_390x844.png"
+  ]
+}

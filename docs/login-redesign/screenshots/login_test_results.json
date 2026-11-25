@@ -1,0 +1,92 @@
+[
+  {
+    "test": "Desktop 1080p Brand & Hero loaded",
+    "status": "PASS",
+    "details": "Brand: StressGuard AI 2.0"
+  },
+  {
+    "test": "Three Feature Highlights present",
+    "status": "PASS",
+    "details": "Features: ['Predict Stress Early', 'Get Personalized Insights', 'Build a Healthier Future']"
+  },
+  {
+    "test": "Priority Pill present",
+    "status": "PASS",
+    "details": "Your Mental Health, Our Priority"
+  },
+  {
+    "test": "Handwritten text present",
+    "status": "PASS",
+    "details": "You're not alone..."
+  },
+  {
+    "test": "Desktop Login Screenshot captured",
+    "status": "PASS",
+    "details": "C:\\Users\\KAVIRAJ\\Desktop\\PROJECT\\AI-Human-Stress-Prediction\\docs\\login-redesign\\screenshots\\01_desktop_1920x1080_login.png"
+  },
+  {
+    "test": "Desktop No Horizontal Overflow",
+    "status": "PASS",
+    "details": "scrollWidth=1920, clientWidth=1920"
+  },
+  {
+    "test": "Demo Admin Autofill",
+    "status": "PASS",
+    "details": "u=admin, p=admin123"
+  },
+  {
+    "test": "Demo User Autofill",
+    "status": "PASS",
+    "details": "u=testuser, p=user123"
+  },
+  {
+    "test": "Password Visibility Toggle",
+    "status": "PASS",
+    "details": "initial=password, toggled=text, reverted=password"
+  },
+  {
+    "test": "Switch to Register Page",
+    "status": "PASS",
+    "details": "hash=#/register, form_visible=True"
+  },
+  {
+    "test": "Desktop Register Screenshot captured",
+    "status": "PASS",
+    "details": "C:\\Users\\KAVIRAJ\\Desktop\\PROJECT\\AI-Human-Stress-Prediction\\docs\\login-redesign\\screenshots\\02_desktop_1920x1080_register.png"
+  },
+  {
+    "test": "Switch back to Login Page",
+    "status": "PASS",
+    "details": "hash=#/login"
+  },
+  {
+    "test": "Laptop 1366x768 Layout & Overflow",
+    "status": "PASS",
+    "details": "scrollWidth=1366, clientWidth=1366"
+  },
+  {
+    "test": "Tablet 768x1024 Layout & Overflow",
+    "status": "PASS",
+    "details": "scrollWidth=768, clientWidth=768"
+  },
+  {
+    "test": "Mobile 390x844 Login Layout & Overflow",
+    "status": "PASS",
+    "details": "scrollWidth=390, clientWidth=390"
+  },
+  {
+    "test": "Mobile 390x844 Register Layout & Overflow",
+    "status": "PASS",
+    "details": "scrollWidth=390, clientWidth=390"
+  },
+  {
+    "test": "Small Mobile 360x800 Layout & Overflow",
+    "status": "PASS",
+    "details": "scrollWidth=360, clientWidth=360"
+  },
+  {
+    "test": "Console Errors Cleanliness",
+    "status": "PASS",
+    "details": "Errors: []"
+  }
+]

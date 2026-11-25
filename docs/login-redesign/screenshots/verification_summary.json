@@ -1,0 +1,109 @@
+{
+  "viewports": [
+    {
+      "viewport": "1920x1080",
+      "name": "desktop_1080p",
+      "status": "PASS",
+      "details": {
+        "scrollWidth": 1920,
+        "clientWidth": 1920,
+        "innerWidth": 1920,
+        "hasOverflow": false
+      }
+    },
+    {
+      "viewport": "1648x924",
+      "name": "desktop_1648",
+      "status": "PASS",
+      "details": {
+        "scrollWidth": 1648,
+        "clientWidth": 1648,
+        "innerWidth": 1648,
+        "hasOverflow": false
+      }
+    },
+    {
+      "viewport": "1536x864",
+      "name": "laptop_1536",
+      "status": "PASS",
+      "details": {
+        "scrollWidth": 1536,
+        "clientWidth": 1536,
+        "innerWidth": 1536,
+        "hasOverflow": false
+      }
+    },
+    {
+      "viewport": "1366x768",
+      "name": "laptop_1366",
+      "status": "PASS",
+      "details": {
+        "scrollWidth": 1366,
+        "clientWidth": 1366,
+        "innerWidth": 1366,
+        "hasOverflow": false
+      }
+    },
+    {
+      "viewport": "768x1024",
+      "name": "tablet_768",
+      "status": "PASS",
+      "details": {
+        "scrollWidth": 768,
+        "clientWidth": 768,
+        "innerWidth": 768,
+        "hasOverflow": false
+      }
+    },
+    {
+      "viewport": "390x844",
+      "name": "mobile_390",
+      "status": "PASS",
+      "details": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "innerWidth": 390,
+        "hasOverflow": false
+      }
+    },
+    {
+      "viewport": "360x800",
+      "name": "mobile_360",
+      "status": "PASS",
+      "details": {
+        "scrollWidth": 360,
+        "clientWidth": 360,
+        "innerWidth": 360,
+        "hasOverflow": false
+      }
+    }
+  ],
+  "metrics_1648": {
+    "card": {
+      "width": 600,
+      "height": 720
+    },
+    "input": {
+      "width": 456,
+      "height": 58
+    },
+    "button": {
+      "width": 496,
+      "height": 64
+    },
+    "headlineFontSize": "60px",
+    "headlineLineHeight": "67.2px",
+    "gridTemplateColumns": "792px 648px",
+    "handwrittenVisible": true,
+    "featuresCount": 3,
+    "badgesCount": 3
+  },
+  "auth_regression": true,
+  "console_errors": [],
+  "screenshots": [
+    "C:\\Users\\KAVIRAJ\\Desktop\\PROJECT\\AI-Human-Stress-Prediction\\docs\\login-redesign\\screenshots\\01_desktop_1648x924.png",
+    "C:\\Users\\KAVIRAJ\\Desktop\\PROJECT\\AI-Human-Stress-Prediction\\docs\\login-redesign\\screenshots\\04_desktop_register_1648x924.png",
+    "C:\\Users\\KAVIRAJ\\Desktop\\PROJECT\\AI-Human-Stress-Prediction\\docs\\login-redesign\\screenshots\\02_desktop_1366x768.png",
+    "C:\\Users\\KAVIRAJ\\Desktop\\PROJECT\\AI-Human-Stress-Prediction\\docs\\login-redesign\\screenshots\\03_mobile_390x844.png"
+  ]
+}
