@@ -1,5 +1,6 @@
 package com.stress.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.validation.constraints.*;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -211,11 +212,15 @@ public class Dtos {
         public void setLastStressLabel(String lastStressLabel) { this.lastStressLabel = lastStressLabel; }
     }
 
+    @JsonIgnoreProperties(ignoreUnknown = true)
     public static class UpdateUserRequest {
         public String fullName;
+        @Min(value = 1, message = "Age must be at least 1")
+        @Max(value = 130, message = "Age must be 130 or less")
         public Integer age;
         public String gender;
         public String phone;
+        @Email(message = "Invalid email format")
         public String email;
 
         public UpdateUserRequest() {}
@@ -317,6 +322,26 @@ public class Dtos {
         public List<String> recommendations;
         public Map<String, Double> topContributingFactors;
         public LocalDateTime createdAt;
+        public Integer anxietyLevel;
+        public Integer selfEsteem;
+        public Integer mentalHealthHistory;
+        public Integer depression;
+        public Integer headache;
+        public Integer bloodPressure;
+        public Integer sleepQuality;
+        public Integer breathingProblem;
+        public Integer noiseLevel;
+        public Integer livingConditions;
+        public Integer safety;
+        public Integer basicNeeds;
+        public Integer academicPerformance;
+        public Integer studyLoad;
+        public Integer teacherStudentRelationship;
+        public Integer futureCareerConcerns;
+        public Integer socialSupport;
+        public Integer peerPressure;
+        public Integer extracurricularActivities;
+        public Integer bullying;
 
         public PredictionResponse() {}
         public PredictionResponse(Long id, Integer stressLevel, String stressLabel, Double confidence, Map<String, Double> probabilities, List<String> recommendations, Map<String, Double> topContributingFactors, LocalDateTime createdAt) {
@@ -343,6 +368,26 @@ public class Dtos {
             private List<String> recommendations;
             private Map<String, Double> topContributingFactors;
             private LocalDateTime createdAt;
+            private Integer anxietyLevel;
+            private Integer selfEsteem;
+            private Integer mentalHealthHistory;
+            private Integer depression;
+            private Integer headache;
+            private Integer bloodPressure;
+            private Integer sleepQuality;
+            private Integer breathingProblem;
+            private Integer noiseLevel;
+            private Integer livingConditions;
+            private Integer safety;
+            private Integer basicNeeds;
+            private Integer academicPerformance;
+            private Integer studyLoad;
+            private Integer teacherStudentRelationship;
+            private Integer futureCareerConcerns;
+            private Integer socialSupport;
+            private Integer peerPressure;
+            private Integer extracurricularActivities;
+            private Integer bullying;
 
             public PredictionResponseBuilder id(Long id) { this.id = id; return this; }
             public PredictionResponseBuilder stressLevel(Integer stressLevel) { this.stressLevel = stressLevel; return this; }
@@ -352,9 +397,50 @@ public class Dtos {
             public PredictionResponseBuilder recommendations(List<String> recommendations) { this.recommendations = recommendations; return this; }
             public PredictionResponseBuilder topContributingFactors(Map<String, Double> topContributingFactors) { this.topContributingFactors = topContributingFactors; return this; }
             public PredictionResponseBuilder createdAt(LocalDateTime createdAt) { this.createdAt = createdAt; return this; }
+            public PredictionResponseBuilder anxietyLevel(Integer anxietyLevel) { this.anxietyLevel = anxietyLevel; return this; }
+            public PredictionResponseBuilder selfEsteem(Integer selfEsteem) { this.selfEsteem = selfEsteem; return this; }
+            public PredictionResponseBuilder mentalHealthHistory(Integer mentalHealthHistory) { this.mentalHealthHistory = mentalHealthHistory; return this; }
+            public PredictionResponseBuilder depression(Integer depression) { this.depression = depression; return this; }
+            public PredictionResponseBuilder headache(Integer headache) { this.headache = headache; return this; }
+            public PredictionResponseBuilder bloodPressure(Integer bloodPressure) { this.bloodPressure = bloodPressure; return this; }
+            public PredictionResponseBuilder sleepQuality(Integer sleepQuality) { this.sleepQuality = sleepQuality; return this; }
+            public PredictionResponseBuilder breathingProblem(Integer breathingProblem) { this.breathingProblem = breathingProblem; return this; }
+            public PredictionResponseBuilder noiseLevel(Integer noiseLevel) { this.noiseLevel = noiseLevel; return this; }
+            public PredictionResponseBuilder livingConditions(Integer livingConditions) { this.livingConditions = livingConditions; return this; }
+            public PredictionResponseBuilder safety(Integer safety) { this.safety = safety; return this; }
+            public PredictionResponseBuilder basicNeeds(Integer basicNeeds) { this.basicNeeds = basicNeeds; return this; }
+            public PredictionResponseBuilder academicPerformance(Integer academicPerformance) { this.academicPerformance = academicPerformance; return this; }
+            public PredictionResponseBuilder studyLoad(Integer studyLoad) { this.studyLoad = studyLoad; return this; }
+            public PredictionResponseBuilder teacherStudentRelationship(Integer teacherStudentRelationship) { this.teacherStudentRelationship = teacherStudentRelationship; return this; }
+            public PredictionResponseBuilder futureCareerConcerns(Integer futureCareerConcerns) { this.futureCareerConcerns = futureCareerConcerns; return this; }
+            public PredictionResponseBuilder socialSupport(Integer socialSupport) { this.socialSupport = socialSupport; return this; }
+            public PredictionResponseBuilder peerPressure(Integer peerPressure) { this.peerPressure = peerPressure; return this; }
+            public PredictionResponseBuilder extracurricularActivities(Integer extracurricularActivities) { this.extracurricularActivities = extracurricularActivities; return this; }
+            public PredictionResponseBuilder bullying(Integer bullying) { this.bullying = bullying; return this; }
 
             public PredictionResponse build() {
-                return new PredictionResponse(id, stressLevel, stressLabel, confidence, probabilities, recommendations, topContributingFactors, createdAt);
+                PredictionResponse res = new PredictionResponse(id, stressLevel, stressLabel, confidence, probabilities, recommendations, topContributingFactors, createdAt);
+                res.anxietyLevel = this.anxietyLevel;
+                res.selfEsteem = this.selfEsteem;
+                res.mentalHealthHistory = this.mentalHealthHistory;
+                res.depression = this.depression;
+                res.headache = this.headache;
+                res.bloodPressure = this.bloodPressure;
+                res.sleepQuality = this.sleepQuality;
+                res.breathingProblem = this.breathingProblem;
+                res.noiseLevel = this.noiseLevel;
+                res.livingConditions = this.livingConditions;
+                res.safety = this.safety;
+                res.basicNeeds = this.basicNeeds;
+                res.academicPerformance = this.academicPerformance;
+                res.studyLoad = this.studyLoad;
+                res.teacherStudentRelationship = this.teacherStudentRelationship;
+                res.futureCareerConcerns = this.futureCareerConcerns;
+                res.socialSupport = this.socialSupport;
+                res.peerPressure = this.peerPressure;
+                res.extracurricularActivities = this.extracurricularActivities;
+                res.bullying = this.bullying;
+                return res;
             }
         }
 
@@ -374,6 +460,46 @@ public class Dtos {
         public void setTopContributingFactors(Map<String, Double> topContributingFactors) { this.topContributingFactors = topContributingFactors; }
         public LocalDateTime getCreatedAt() { return createdAt; }
         public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
+        public Integer getAnxietyLevel() { return anxietyLevel; }
+        public void setAnxietyLevel(Integer anxietyLevel) { this.anxietyLevel = anxietyLevel; }
+        public Integer getSelfEsteem() { return selfEsteem; }
+        public void setSelfEsteem(Integer selfEsteem) { this.selfEsteem = selfEsteem; }
+        public Integer getMentalHealthHistory() { return mentalHealthHistory; }
+        public void setMentalHealthHistory(Integer mentalHealthHistory) { this.mentalHealthHistory = mentalHealthHistory; }
+        public Integer getDepression() { return depression; }
+        public void setDepression(Integer depression) { this.depression = depression; }
+        public Integer getHeadache() { return headache; }
+        public void setHeadache(Integer headache) { this.headache = headache; }
+        public Integer getBloodPressure() { return bloodPressure; }
+        public void setBloodPressure(Integer bloodPressure) { this.bloodPressure = bloodPressure; }
+        public Integer getSleepQuality() { return sleepQuality; }
+        public void setSleepQuality(Integer sleepQuality) { this.sleepQuality = sleepQuality; }
+        public Integer getBreathingProblem() { return breathingProblem; }
+        public void setBreathingProblem(Integer breathingProblem) { this.breathingProblem = breathingProblem; }
+        public Integer getNoiseLevel() { return noiseLevel; }
+        public void setNoiseLevel(Integer noiseLevel) { this.noiseLevel = noiseLevel; }
+        public Integer getLivingConditions() { return livingConditions; }
+        public void setLivingConditions(Integer livingConditions) { this.livingConditions = livingConditions; }
+        public Integer getSafety() { return safety; }
+        public void setSafety(Integer safety) { this.safety = safety; }
+        public Integer getBasicNeeds() { return basicNeeds; }
+        public void setBasicNeeds(Integer basicNeeds) { this.basicNeeds = basicNeeds; }
+        public Integer getAcademicPerformance() { return academicPerformance; }
+        public void setAcademicPerformance(Integer academicPerformance) { this.academicPerformance = academicPerformance; }
+        public Integer getStudyLoad() { return studyLoad; }
+        public void setStudyLoad(Integer studyLoad) { this.studyLoad = studyLoad; }
+        public Integer getTeacherStudentRelationship() { return teacherStudentRelationship; }
+        public void setTeacherStudentRelationship(Integer teacherStudentRelationship) { this.teacherStudentRelationship = teacherStudentRelationship; }
+        public Integer getFutureCareerConcerns() { return futureCareerConcerns; }
+        public void setFutureCareerConcerns(Integer futureCareerConcerns) { this.futureCareerConcerns = futureCareerConcerns; }
+        public Integer getSocialSupport() { return socialSupport; }
+        public void setSocialSupport(Integer socialSupport) { this.socialSupport = socialSupport; }
+        public Integer getPeerPressure() { return peerPressure; }
+        public void setPeerPressure(Integer peerPressure) { this.peerPressure = peerPressure; }
+        public Integer getExtracurricularActivities() { return extracurricularActivities; }
+        public void setExtracurricularActivities(Integer extracurricularActivities) { this.extracurricularActivities = extracurricularActivities; }
+        public Integer getBullying() { return bullying; }
+        public void setBullying(Integer bullying) { this.bullying = bullying; }
     }
 
     public static class PredictionHistoryItem {
@@ -382,6 +508,26 @@ public class Dtos {
         public Integer stressLevel;
         public Double confidence;
         public LocalDateTime createdAt;
+        public Integer anxietyLevel;
+        public Integer selfEsteem;
+        public Integer mentalHealthHistory;
+        public Integer depression;
+        public Integer headache;
+        public Integer bloodPressure;
+        public Integer sleepQuality;
+        public Integer breathingProblem;
+        public Integer noiseLevel;
+        public Integer livingConditions;
+        public Integer safety;
+        public Integer basicNeeds;
+        public Integer academicPerformance;
+        public Integer studyLoad;
+        public Integer teacherStudentRelationship;
+        public Integer futureCareerConcerns;
+        public Integer socialSupport;
+        public Integer peerPressure;
+        public Integer extracurricularActivities;
+        public Integer bullying;
 
         public PredictionHistoryItem() {}
         public PredictionHistoryItem(Long id, String stressLabel, Integer stressLevel, Double confidence, LocalDateTime createdAt) {
@@ -402,15 +548,76 @@ public class Dtos {
             private Integer stressLevel;
             private Double confidence;
             private LocalDateTime createdAt;
+            private Integer anxietyLevel;
+            private Integer selfEsteem;
+            private Integer mentalHealthHistory;
+            private Integer depression;
+            private Integer headache;
+            private Integer bloodPressure;
+            private Integer sleepQuality;
+            private Integer breathingProblem;
+            private Integer noiseLevel;
+            private Integer livingConditions;
+            private Integer safety;
+            private Integer basicNeeds;
+            private Integer academicPerformance;
+            private Integer studyLoad;
+            private Integer teacherStudentRelationship;
+            private Integer futureCareerConcerns;
+            private Integer socialSupport;
+            private Integer peerPressure;
+            private Integer extracurricularActivities;
+            private Integer bullying;
 
             public PredictionHistoryItemBuilder id(Long id) { this.id = id; return this; }
             public PredictionHistoryItemBuilder stressLabel(String stressLabel) { this.stressLabel = stressLabel; return this; }
             public PredictionHistoryItemBuilder stressLevel(Integer stressLevel) { this.stressLevel = stressLevel; return this; }
             public PredictionHistoryItemBuilder confidence(Double confidence) { this.confidence = confidence; return this; }
             public PredictionHistoryItemBuilder createdAt(LocalDateTime createdAt) { this.createdAt = createdAt; return this; }
+            public PredictionHistoryItemBuilder anxietyLevel(Integer anxietyLevel) { this.anxietyLevel = anxietyLevel; return this; }
+            public PredictionHistoryItemBuilder selfEsteem(Integer selfEsteem) { this.selfEsteem = selfEsteem; return this; }
+            public PredictionHistoryItemBuilder mentalHealthHistory(Integer mentalHealthHistory) { this.mentalHealthHistory = mentalHealthHistory; return this; }
+            public PredictionHistoryItemBuilder depression(Integer depression) { this.depression = depression; return this; }
+            public PredictionHistoryItemBuilder headache(Integer headache) { this.headache = headache; return this; }
+            public PredictionHistoryItemBuilder bloodPressure(Integer bloodPressure) { this.bloodPressure = bloodPressure; return this; }
+            public PredictionHistoryItemBuilder sleepQuality(Integer sleepQuality) { this.sleepQuality = sleepQuality; return this; }
+            public PredictionHistoryItemBuilder breathingProblem(Integer breathingProblem) { this.breathingProblem = breathingProblem; return this; }
+            public PredictionHistoryItemBuilder noiseLevel(Integer noiseLevel) { this.noiseLevel = noiseLevel; return this; }
+            public PredictionHistoryItemBuilder livingConditions(Integer livingConditions) { this.livingConditions = livingConditions; return this; }
+            public PredictionHistoryItemBuilder safety(Integer safety) { this.safety = safety; return this; }
+            public PredictionHistoryItemBuilder basicNeeds(Integer basicNeeds) { this.basicNeeds = basicNeeds; return this; }
+            public PredictionHistoryItemBuilder academicPerformance(Integer academicPerformance) { this.academicPerformance = academicPerformance; return this; }
+            public PredictionHistoryItemBuilder studyLoad(Integer studyLoad) { this.studyLoad = studyLoad; return this; }
+            public PredictionHistoryItemBuilder teacherStudentRelationship(Integer teacherStudentRelationship) { this.teacherStudentRelationship = teacherStudentRelationship; return this; }
+            public PredictionHistoryItemBuilder futureCareerConcerns(Integer futureCareerConcerns) { this.futureCareerConcerns = futureCareerConcerns; return this; }
+            public PredictionHistoryItemBuilder socialSupport(Integer socialSupport) { this.socialSupport = socialSupport; return this; }
+            public PredictionHistoryItemBuilder peerPressure(Integer peerPressure) { this.peerPressure = peerPressure; return this; }
+            public PredictionHistoryItemBuilder extracurricularActivities(Integer extracurricularActivities) { this.extracurricularActivities = extracurricularActivities; return this; }
+            public PredictionHistoryItemBuilder bullying(Integer bullying) { this.bullying = bullying; return this; }
 
             public PredictionHistoryItem build() {
-                return new PredictionHistoryItem(id, stressLabel, stressLevel, confidence, createdAt);
+                PredictionHistoryItem item = new PredictionHistoryItem(id, stressLabel, stressLevel, confidence, createdAt);
+                item.anxietyLevel = this.anxietyLevel;
+                item.selfEsteem = this.selfEsteem;
+                item.mentalHealthHistory = this.mentalHealthHistory;
+                item.depression = this.depression;
+                item.headache = this.headache;
+                item.bloodPressure = this.bloodPressure;
+                item.sleepQuality = this.sleepQuality;
+                item.breathingProblem = this.breathingProblem;
+                item.noiseLevel = this.noiseLevel;
+                item.livingConditions = this.livingConditions;
+                item.safety = this.safety;
+                item.basicNeeds = this.basicNeeds;
+                item.academicPerformance = this.academicPerformance;
+                item.studyLoad = this.studyLoad;
+                item.teacherStudentRelationship = this.teacherStudentRelationship;
+                item.futureCareerConcerns = this.futureCareerConcerns;
+                item.socialSupport = this.socialSupport;
+                item.peerPressure = this.peerPressure;
+                item.extracurricularActivities = this.extracurricularActivities;
+                item.bullying = this.bullying;
+                return item;
             }
         }
 
@@ -424,6 +631,46 @@ public class Dtos {
         public void setConfidence(Double confidence) { this.confidence = confidence; }
         public LocalDateTime getCreatedAt() { return createdAt; }
         public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
+        public Integer getAnxietyLevel() { return anxietyLevel; }
+        public void setAnxietyLevel(Integer anxietyLevel) { this.anxietyLevel = anxietyLevel; }
+        public Integer getSelfEsteem() { return selfEsteem; }
+        public void setSelfEsteem(Integer selfEsteem) { this.selfEsteem = selfEsteem; }
+        public Integer getMentalHealthHistory() { return mentalHealthHistory; }
+        public void setMentalHealthHistory(Integer mentalHealthHistory) { this.mentalHealthHistory = mentalHealthHistory; }
+        public Integer getDepression() { return depression; }
+        public void setDepression(Integer depression) { this.depression = depression; }
+        public Integer getHeadache() { return headache; }
+        public void setHeadache(Integer headache) { this.headache = headache; }
+        public Integer getBloodPressure() { return bloodPressure; }
+        public void setBloodPressure(Integer bloodPressure) { this.bloodPressure = bloodPressure; }
+        public Integer getSleepQuality() { return sleepQuality; }
+        public void setSleepQuality(Integer sleepQuality) { this.sleepQuality = sleepQuality; }
+        public Integer getBreathingProblem() { return breathingProblem; }
+        public void setBreathingProblem(Integer breathingProblem) { this.breathingProblem = breathingProblem; }
+        public Integer getNoiseLevel() { return noiseLevel; }
+        public void setNoiseLevel(Integer noiseLevel) { this.noiseLevel = noiseLevel; }
+        public Integer getLivingConditions() { return livingConditions; }
+        public void setLivingConditions(Integer livingConditions) { this.livingConditions = livingConditions; }
+        public Integer getSafety() { return safety; }
+        public void setSafety(Integer safety) { this.safety = safety; }
+        public Integer getBasicNeeds() { return basicNeeds; }
+        public void setBasicNeeds(Integer basicNeeds) { this.basicNeeds = basicNeeds; }
+        public Integer getAcademicPerformance() { return academicPerformance; }
+        public void setAcademicPerformance(Integer academicPerformance) { this.academicPerformance = academicPerformance; }
+        public Integer getStudyLoad() { return studyLoad; }
+        public void setStudyLoad(Integer studyLoad) { this.studyLoad = studyLoad; }
+        public Integer getTeacherStudentRelationship() { return teacherStudentRelationship; }
+        public void setTeacherStudentRelationship(Integer teacherStudentRelationship) { this.teacherStudentRelationship = teacherStudentRelationship; }
+        public Integer getFutureCareerConcerns() { return futureCareerConcerns; }
+        public void setFutureCareerConcerns(Integer futureCareerConcerns) { this.futureCareerConcerns = futureCareerConcerns; }
+        public Integer getSocialSupport() { return socialSupport; }
+        public void setSocialSupport(Integer socialSupport) { this.socialSupport = socialSupport; }
+        public Integer getPeerPressure() { return peerPressure; }
+        public void setPeerPressure(Integer peerPressure) { this.peerPressure = peerPressure; }
+        public Integer getExtracurricularActivities() { return extracurricularActivities; }
+        public void setExtracurricularActivities(Integer extracurricularActivities) { this.extracurricularActivities = extracurricularActivities; }
+        public Integer getBullying() { return bullying; }
+        public void setBullying(Integer bullying) { this.bullying = bullying; }
     }
 
     // ─── Dashboard ───────────────────────────────────────────────────────

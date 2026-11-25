@@ -1,0 +1,92 @@
+[
+  {
+    "test": "Backend: Unauthenticated GET /user/profile rejected",
+    "status": "PASS",
+    "details": "status=403"
+  },
+  {
+    "test": "Backend: Unauthenticated PUT /user/profile rejected",
+    "status": "PASS",
+    "details": "status=403"
+  },
+  {
+    "test": "Backend: Logged into controlled test user",
+    "status": "PASS",
+    "details": "status=200"
+  },
+  {
+    "test": "Backend: Authenticated GET /user/profile succeeded",
+    "status": "PASS",
+    "details": "username=phase5_testuser, email=phase5_testuser@example.com"
+  },
+  {
+    "test": "Backend: Rejects invalid email format with HTTP 400",
+    "status": "PASS",
+    "details": "status=400"
+  },
+  {
+    "test": "Backend: Rejects age > 130 with HTTP 400",
+    "status": "PASS",
+    "details": "status=400"
+  },
+  {
+    "test": "Backend: Rejects age < 1 with HTTP 400",
+    "status": "PASS",
+    "details": "status=400"
+  },
+  {
+    "test": "Backend: Update profile succeeded",
+    "status": "PASS",
+    "details": ""
+  },
+  {
+    "test": "Backend: Privileged field 'role' was NOT modified",
+    "status": "PASS",
+    "details": "role=USER"
+  },
+  {
+    "test": "Browser: UI login succeeded",
+    "status": "PASS",
+    "details": ""
+  },
+  {
+    "test": "Browser: Navigated to #/profile",
+    "status": "PASS",
+    "details": ""
+  },
+  {
+    "test": "Browser: ProfileView populated from backend GET /api/user/profile",
+    "status": "PASS",
+    "details": "name=Phase Five Verified"
+  },
+  {
+    "test": "Browser: Success banner displayed after verified database PUT",
+    "status": "PASS",
+    "details": ""
+  },
+  {
+    "test": "Browser: Page reload preserves updated profile from database",
+    "status": "PASS",
+    "details": "name=Dr. Phase 5 Specialist, phone=+1-800-STRESS-HELP, age=32"
+  },
+  {
+    "test": "Browser: Client/Server validation error displayed in UI",
+    "status": "PASS",
+    "details": ""
+  },
+  {
+    "test": "Browser: Logged out successfully",
+    "status": "PASS",
+    "details": ""
+  },
+  {
+    "test": "Browser: Logout and re-login maintains persisted database changes",
+    "status": "PASS",
+    "details": "name=Dr. Phase 5 Specialist, phone=+1-800-STRESS-HELP"
+  },
+  {
+    "test": "Regression: Phase 4 Browser Back/Forward remains fully functional",
+    "status": "PASS",
+    "details": "back=#/dashboard, fwd=#/profile"
+  }
+]

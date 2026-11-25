@@ -7,7 +7,7 @@ services:
     container_name: stressguard-mysql
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:-54400171}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:?DB_PASSWORD must be set in your .env file}
       MYSQL_DATABASE: stress_db
     ports:
       - "3306:3306"
@@ -45,7 +45,7 @@ services:
       - PORT=8080
       - DB_URL=jdbc:mysql://mysql:3306/stress_db?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
       - DB_USERNAME=root
-      - DB_PASSWORD=${DB_PASSWORD:-54400171}
+      - DB_PASSWORD=${DB_PASSWORD:?DB_PASSWORD must be set in your .env file}
       - ML_SERVICE_URL=http://ml-service:5000
     depends_on:
       mysql:

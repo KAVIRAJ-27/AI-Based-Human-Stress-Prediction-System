@@ -5,13 +5,14 @@
 ### 🌐 Live Public Deployments
 - **Live Frontend (GitHub Pages)**: [https://kaviraj-27.github.io/AI-Based-Human-Stress-Prediction-System/](https://kaviraj-27.github.io/AI-Based-Human-Stress-Prediction-System/)
 - **Live AI/ML Cloud Engine (Render)**: [https://ai-based-human-stress-prediction-system.onrender.com/health](https://ai-based-human-stress-prediction-system.onrender.com/health)
+- **Live Backend REST API (Render)**: [https://stressguard-backend-l5mp.onrender.com/api/health](https://stressguard-backend-l5mp.onrender.com/api/health)
 - **1-Click Vercel Deploy**: Click the **Deploy with Vercel** button above for an instant custom `.vercel.app` domain.
 
 ## Tech Stack
-- **Frontend**: HTML5 + CSS3 + Bootstrap 5 + React 18 + Chart.js
-- **Backend**: Java 17 + Spring Boot 3.2 + JWT Auth + REST API
-- **Database**: MySQL 8
-- **ML Service**: Python 3 + Flask + Scikit-learn (Random Forest)
+- **Frontend**: HTML5 + CSS3 + Bootstrap 5 + React 18 + Chart.js + Web Audio API
+- **Backend**: Java 17 + Spring Boot 3.3 + Spring Security (JWT) + REST API
+- **Database**: MySQL 8 / TiDB Cloud Serverless
+- **ML Service**: Python 3 + Flask + Scikit-learn (Random Forest) + Gunicorn
 - **Model Accuracy**: **88.64%** (Cross-Validation: 87.36%)
 
 ---
@@ -22,42 +23,55 @@
 stress-prediction/
 ├── ml-model/
 │   ├── app.py              ← Flask REST API for ML inference
-│   ├── stress_model.pkl    ← Trained Random Forest model
+│   ├── stress_model.pkl    ← Trained Random Forest model (100 trees)
 │   ├── scaler.pkl          ← Feature scaler
-│   └── model_meta.json     ← Model metadata & feature importance
+│   ├── model_meta.json     ← Model metadata & feature importance
+│   └── requirements.txt    ← Python dependencies
 │
 ├── backend/
-│   ├── pom.xml             ← Maven dependencies
+│   ├── pom.xml             ← Maven dependencies (Java 17, Spring Boot 3.3)
 │   └── src/main/java/com/stress/
 │       ├── entity/         ← JPA entities (User, PredictionRecord)
 │       ├── repository/     ← Spring Data JPA repositories
-│       ├── service/        ← Business logic
-│       ├── controller/     ← REST controllers
-│       ├── security/       ← JWT filter + utilities
-│       ├── config/         ← Security + CORS config
-│       └── dto/            ← Request/Response DTOs
+│       ├── service/        ← Business logic & RestTemplate ML integration
+│       ├── controller/     ← REST controllers (Auth, Predict, Admin, Health)
+│       ├── security/       ← JWT filter + fail-safe utilities
+│       ├── config/         ← Security + dynamic CORS configuration
+│       └── dto/            ← Request/Response DTOs (Zero-Lombok builders)
 │
 ├── frontend/
-│   └── index.html          ← Complete React SPA
+│   ├── index.html          ← Canonical React SPA (Single source of truth)
+│   ├── vercel.json         ← Vercel SPA routing configuration
+│   └── _redirects          ← Static hosting rewrite rules
 │
 └── database/
-    └── setup.sql           ← MySQL setup & seed script
+    ├── setup.sql           ← Clean production schema DDL (users & prediction_records)
+    └── seed-dev.sql        ← Local development sample accounts ONLY
 ```
 
 ---
 
 ## 🚀 Setup Instructions
 
-### Step 1 – MySQL Database
+### Step 1 – Database Setup
 
-```sql
-mysql -u root -p < database/setup.sql
-```
+1. **Initialize Database Schema:**
+   ```sql
+   mysql -u root -p < database/setup.sql
+   ```
+   *Note:* `database/setup.sql` creates the `stress_db` database and table structures with zero hardcoded default credentials.
 
-Update `backend/src/main/resources/application.properties`:
-```properties
-spring.datasource.password=YOUR_MYSQL_PASSWORD
-```
+2. **(Optional) Local Development Seed Data:**
+   In local development environments only, you can optionally seed sample accounts:
+   ```sql
+   mysql -u root -p stress_db < database/seed-dev.sql
+   ```
+
+3. **Configure Local Credentials Safely:**
+   Do **not** commit passwords to `application.properties`. Instead, set the `DB_PASSWORD` environment variable or create `backend/src/main/resources/application-local.properties` (which is git-ignored):
+   ```properties
+   spring.datasource.password=YOUR_MYSQL_PASSWORD
+   ```
 
 ---
 
@@ -67,17 +81,17 @@ spring.datasource.password=YOUR_MYSQL_PASSWORD
 cd ml-model
 
 # Install dependencies
-pip install flask scikit-learn pandas numpy joblib
+pip install -r requirements.txt
 
 # Start the Flask API
 python app.py
 # Runs on http://localhost:5000
 ```
 
-**Test it:**
+**Test health:**
 ```bash
 curl http://localhost:5000/health
-# {"status":"ok","model":"RandomForest","accuracy":88.64}
+# {"accuracy":88.64,"model":"RandomForest","model_loaded":true,"scaler_loaded":true,"service":"stressguard-ml-service","status":"ok"}
 ```
 
 ---
@@ -86,38 +100,54 @@ curl http://localhost:5000/health
 
 ```bash
 cd backend
-mvn clean install
+mvn clean test
 mvn spring-boot:run
 # Runs on http://localhost:8080/api
+```
+
+**Test health:**
+```bash
+curl http://localhost:8080/api/health
+# {"status":"UP","service":"stressguard-backend","version":"1.0.0"}
 ```
 
 ---
 
 ### Step 4 – Frontend
 
-Simply open `frontend/index.html` in any browser.
+The canonical frontend file is `frontend/index.html`.
 
-Or serve it:
+You can serve it with any local static HTTP server:
 ```bash
 cd frontend
-npx serve .      # OR
-python3 -m http.server 3000
+python -m http.server 3000
+# Open http://localhost:3000 in your browser
 ```
 
 ---
 
-## 🔑 Login Credentials
+## 🔑 User Accounts
 
-| Role  | Username  | Password  |
-|-------|-----------|-----------|
-| Admin | `admin`   | `admin123`|
-| User  | `testuser`| `user123` |
+### Production
+Production databases start clean with zero default accounts for security. Create your account directly using the **"Register here"** button on the login view.
 
-Or register a new user via the UI.
+### Local Development Seed Accounts (Optional)
+If you populated your local database with `database/seed-dev.sql`, the following test accounts are available:
+
+| Role  | Username  | Password  | Scope |
+|-------|-----------|-----------|-------|
+| Admin | `admin`   | `admin123`| Local development only |
+| User  | `testuser`| `user123` | Local development only |
 
 ---
 
 ## 📡 API Endpoints
+
+### System & Health
+| Method | URL | Description |
+|--------|-----|-------------|
+| GET | `/api/health` | Backend container health status |
+| GET | `http://localhost:5000/health` | ML microservice health & model status |
 
 ### Auth
 | Method | URL | Description |
@@ -128,28 +158,29 @@ Or register a new user via the UI.
 ### Predictions (JWT required)
 | Method | URL | Description |
 |--------|-----|-------------|
-| POST | `/api/predict` | Submit prediction |
-| GET | `/api/predict/history` | Get user's history |
+| POST | `/api/predict` | Submit 20-biomarker prediction |
+| GET | `/api/predict/history` | Get current user's history |
 | GET | `/api/predict/{id}` | Get prediction by ID |
-| GET | `/api/predict/dashboard` | User dashboard stats |
+| GET | `/api/predict/dashboard` | User personal dashboard stats |
 
-### Admin (ADMIN role only)
+### Admin (ADMIN role required)
 | Method | URL | Description |
 |--------|-----|-------------|
-| GET | `/api/admin/stats` | System statistics |
+| GET | `/api/admin/stats` | System-wide statistics |
 | GET | `/api/admin/users` | All users list |
-| PUT | `/api/admin/users/{id}` | Update user |
-| DELETE | `/api/admin/users/{id}` | Delete user |
-| GET | `/api/admin/stress-distribution` | Stress breakdown |
-| GET | `/api/admin/recent-predictions` | Recent activity |
+| GET | `/api/admin/users/{id}` | User details |
+| PUT | `/api/admin/users/{id}` | Update user status or role |
+| DELETE | `/api/admin/users/{id}` | Delete user account |
+| GET | `/api/admin/stress-distribution` | Global stress distribution |
+| GET | `/api/admin/recent-predictions` | Recent global predictions |
 
-### ML Service (Python)
+### ML Service (Python Microservice)
 | Method | URL | Description |
 |--------|-----|-------------|
-| GET | `/health` | Model health check |
+| GET | `/health` | Model health & status |
 | POST | `/predict` | Single prediction |
 | POST | `/batch-predict` | Batch predictions |
-| GET | `/model-info` | Model details |
+| GET | `/model-info` | Feature list & importance |
 
 ---
 
@@ -186,28 +217,27 @@ Or register a new user via the UI.
 
 ### User Module
 - Register / Login with JWT
-- View personal dashboard
-- Submit stress predictions (slider UI)
-- View prediction history
-- Edit profile
+- View personal wellness dashboard
+- Submit stress predictions (20-slider clinical UI)
+- View prediction history archive with CSV export
+- Edit personal profile
 
 ### Admin Module
-- System-wide statistics
-- All users management (activate/deactivate/delete)
-- View all predictions
-- Stress distribution analytics
+- System-wide user and prediction statistics
+- User management (activate/deactivate/delete)
+- Global stress distribution analytics
+- Recent prediction audit stream
 
 ### Dashboard Module
-- Doughnut charts for stress distribution
-- Recent prediction history
-- Confidence metrics
-- Model performance indicators
+- Trend and distribution charts via Chart.js
+- Real-time confidence metrics
+- Clinical vulnerability domain mapping
 
 ### Prediction Module
-- 20-feature input form with sliders
-- Real-time Random Forest prediction
-- Probability distribution bar chart
-- Top contributing factors with progress bars
+- 20-feature input form categorized across 5 clinical domains
+- Clinical presets (Exam Period, Healthy Baseline, High Burnout, Chronic Stress)
+- 4-7-8 guided breathing relaxation widget
+- Real-time Random Forest prediction with probability distributions
 - Personalized recommendations
 
 ---
@@ -215,18 +245,24 @@ Or register a new user via the UI.
 ## 📦 Dependencies Summary
 
 ### Backend (pom.xml)
-- spring-boot-starter-web
-- spring-boot-starter-data-jpa
-- spring-boot-starter-security
-- spring-boot-starter-validation
-- mysql-connector-j
-- jjwt (0.11.5)
-- lombok
+- `spring-boot-starter-web` (Spring Boot 3.3.0)
+- `spring-boot-starter-data-jpa`
+- `spring-boot-starter-security`
+- `spring-boot-starter-validation`
+- `mysql-connector-j`
+- `jjwt-api`, `jjwt-impl`, `jjwt-jackson` (0.11.5)
+- *(Zero Lombok — 100% manual builders and accessors)*
 
-### Python ML
-- flask, scikit-learn, pandas, numpy, joblib
+### Python ML Service (requirements.txt)
+- `Flask==3.0.3`
+- `gunicorn==23.0.0`
+- `scikit-learn==1.5.1`
+- `numpy==2.0.2`
+- `joblib==1.4.2`
 
 ### Frontend (CDN)
-- Bootstrap 5.3
-- React 18 + Babel
-- Chart.js 4.4
+- Bootstrap 5.3.2
+- React 18.2.0 + Babel Standalone 7.23.2
+- Chart.js 4.4.0
+- Google Fonts (Outfit & Plus Jakarta Sans)
+- Web Audio API (native browser engine)

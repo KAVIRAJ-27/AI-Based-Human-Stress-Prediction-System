@@ -1,0 +1,137 @@
+[
+  {
+    "test": "Setup: Logged in existing test user",
+    "status": "PASS",
+    "details": ""
+  },
+  {
+    "test": "Navigation: Routed to #/predict",
+    "status": "PASS",
+    "details": ""
+  },
+  {
+    "test": "Responsive: Desktop 1920x1080 screenshot captured",
+    "status": "PASS",
+    "details": ""
+  },
+  {
+    "test": "Responsive: Tablet 768x1024 screenshot captured",
+    "status": "PASS",
+    "details": ""
+  },
+  {
+    "test": "Responsive: Mobile 390x844 screenshot captured",
+    "status": "PASS",
+    "details": ""
+  },
+  {
+    "test": "Responsive: Small Mobile 360x800 screenshot captured",
+    "status": "PASS",
+    "details": ""
+  },
+  {
+    "test": "Form: All 20 biomarkers have synchronized numeric inputs and sliders",
+    "status": "PASS",
+    "details": ""
+  },
+  {
+    "test": "Bi-Directional: Slider movement immediately updates numeric input",
+    "status": "PASS",
+    "details": "num_val=18"
+  },
+  {
+    "test": "Bi-Directional: Numeric input typing immediately updates slider",
+    "status": "PASS",
+    "details": "slider_val=25"
+  },
+  {
+    "test": "Validation: Values exceeding maximum show inline error",
+    "status": "PASS",
+    "details": ""
+  },
+  {
+    "test": "Validation: Values below minimum show inline error",
+    "status": "PASS",
+    "details": ""
+  },
+  {
+    "test": "Validation: Decimal values where whole number required show inline error",
+    "status": "PASS",
+    "details": ""
+  },
+  {
+    "test": "Validation: Empty fields show inline error",
+    "status": "PASS",
+    "details": ""
+  },
+  {
+    "test": "Validation: Invalid form prevents submission and shows alert banner",
+    "status": "PASS",
+    "details": ""
+  },
+  {
+    "test": "Presets: 'Calm & Balanced' populates valid synchronized values",
+    "status": "PASS",
+    "details": "anxiety=2, selfEsteem=26"
+  },
+  {
+    "test": "Presets: Presets clear previous validation errors",
+    "status": "PASS",
+    "details": ""
+  },
+  {
+    "test": "Presets: 'Severe Burnout' populates high risk values",
+    "status": "PASS",
+    "details": "anxiety=20"
+  },
+  {
+    "test": "Inference: Stress classification result displayed",
+    "status": "PASS",
+    "details": "result=HIGH"
+  },
+  {
+    "test": "Inference: Confidence percentage rendered",
+    "status": "PASS",
+    "details": ""
+  },
+  {
+    "test": "Inference: 5-Domain Radar chart rendered",
+    "status": "PASS",
+    "details": ""
+  },
+  {
+    "test": "Inference: Probability bar chart rendered",
+    "status": "PASS",
+    "details": ""
+  },
+  {
+    "test": "Inference: Top contributing factors rendered",
+    "status": "PASS",
+    "details": ""
+  },
+  {
+    "test": "Inference: Clinical action plan checklist rendered",
+    "status": "PASS",
+    "details": ""
+  },
+  {
+    "test": "Payload: Backend accepts exact 20 camelCase features contract",
+    "status": "PASS",
+    "details": "status=200"
+  },
+  {
+    "test": "Payload: Response matches expected schema",
+    "status": "PASS",
+    "details": ""
+  },
+  {
+    "test": "Regression: Profile view intact and hydrated",
+    "status": "PASS",
+    "details": ""
+  },
+  {
+    "test": "Regression: Phase 4 browser history navigation intact",
+    "status": "PASS",
+    "details": ""
+  }
+]

@@ -1,0 +1,152 @@
+[
+  {
+    "test": "Desktop: Hamburger button hidden",
+    "status": "PASS",
+    "details": "display=none"
+  },
+  {
+    "test": "Desktop: Sidebar visible",
+    "status": "PASS",
+    "details": ""
+  },
+  {
+    "test": "Desktop: Sidebar backdrop hidden",
+    "status": "PASS",
+    "details": "display=none"
+  },
+  {
+    "test": "Desktop: Navigate to Predict via sidebar",
+    "status": "PASS",
+    "details": "hash=#/predict"
+  },
+  {
+    "test": "Desktop: Navigate to History via sidebar",
+    "status": "PASS",
+    "details": "hash=#/history"
+  },
+  {
+    "test": "Desktop: Browser Back button returns to Predict",
+    "status": "PASS",
+    "details": "hash=#/predict"
+  },
+  {
+    "test": "Desktop: Browser Forward button advances to History",
+    "status": "PASS",
+    "details": "hash=#/history"
+  },
+  {
+    "test": "Desktop: Page reload retains route #/history",
+    "status": "PASS",
+    "details": "hash=#/history"
+  },
+  {
+    "test": "Laptop: Hamburger hidden",
+    "status": "PASS",
+    "details": "display=none"
+  },
+  {
+    "test": "Laptop: Sidebar visible",
+    "status": "PASS",
+    "details": ""
+  },
+  {
+    "test": "Tablet: Hamburger button visible",
+    "status": "PASS",
+    "details": "display=flex"
+  },
+  {
+    "test": "Tablet: Sidebar closed initially",
+    "status": "PASS",
+    "details": ""
+  },
+  {
+    "test": "Tablet: Hamburger ARIA attributes present",
+    "status": "PASS",
+    "details": "label=Open navigation menu, expanded=false, controls=app-sidebar"
+  },
+  {
+    "test": "Tablet: Drawer opened on hamburger click",
+    "status": "PASS",
+    "details": ""
+  },
+  {
+    "test": "Tablet: Backdrop active on open",
+    "status": "PASS",
+    "details": ""
+  },
+  {
+    "test": "Tablet: Body scroll locked on open",
+    "status": "PASS",
+    "details": "overflow=hidden"
+  },
+  {
+    "test": "Tablet: aria-expanded is true when open",
+    "status": "PASS",
+    "details": ""
+  },
+  {
+    "test": "Tablet: Close button closes drawer",
+    "status": "PASS",
+    "details": ""
+  },
+  {
+    "test": "Tablet: Escape key closes drawer",
+    "status": "PASS",
+    "details": ""
+  },
+  {
+    "test": "Tablet: Backdrop click closes drawer",
+    "status": "PASS",
+    "details": ""
+  },
+  {
+    "test": "Tablet: Nav selection closes drawer & changes route",
+    "status": "PASS",
+    "details": "closed=True, hash=#/predict"
+  },
+  {
+    "test": "Mobile: No horizontal page overflow",
+    "status": "PASS",
+    "details": "scroll=390, client=390"
+  },
+  {
+    "test": "Small Mobile: No horizontal overflow",
+    "status": "PASS",
+    "details": "scroll=360, client=360"
+  },
+  {
+    "test": "Auth: Direct load of #/login renders Login form",
+    "status": "PASS",
+    "details": ""
+  },
+  {
+    "test": "Auth: Clicking 'Register here' updates hash to #/register",
+    "status": "PASS",
+    "details": ""
+  },
+  {
+    "test": "Auth: Browser Back returns to #/login",
+    "status": "PASS",
+    "details": ""
+  },
+  {
+    "test": "Auth: Browser Forward advances to #/register",
+    "status": "PASS",
+    "details": ""
+  },
+  {
+    "test": "Security: Non-admin accessing #/admin-dashboard redirected to #/dashboard",
+    "status": "PASS",
+    "details": "hash=#/dashboard, adminVisible=False"
+  },
+  {
+    "test": "Security: Non-admin accessing #/admin-users redirected to #/dashboard",
+    "status": "PASS",
+    "details": ""
+  },
+  {
+    "test": "Security: Admin user accessing #/admin-dashboard allowed",
+    "status": "PASS",
+    "details": "hash=#/admin-dashboard"
+  }
+]

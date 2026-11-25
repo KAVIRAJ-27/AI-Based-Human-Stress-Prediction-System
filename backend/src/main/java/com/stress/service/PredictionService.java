@@ -7,8 +7,10 @@ import com.stress.repository.PredictionRepository;
 import com.stress.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.*;
 
@@ -111,12 +113,32 @@ public class PredictionService {
                 .recommendations(recommendations)
                 .topContributingFactors(factors)
                 .createdAt(predictionRecord.getCreatedAt())
+                .anxietyLevel(predictionRecord.getAnxietyLevel())
+                .selfEsteem(predictionRecord.getSelfEsteem())
+                .mentalHealthHistory(predictionRecord.getMentalHealthHistory())
+                .depression(predictionRecord.getDepression())
+                .headache(predictionRecord.getHeadache())
+                .bloodPressure(predictionRecord.getBloodPressure())
+                .sleepQuality(predictionRecord.getSleepQuality())
+                .breathingProblem(predictionRecord.getBreathingProblem())
+                .noiseLevel(predictionRecord.getNoiseLevel())
+                .livingConditions(predictionRecord.getLivingConditions())
+                .safety(predictionRecord.getSafety())
+                .basicNeeds(predictionRecord.getBasicNeeds())
+                .academicPerformance(predictionRecord.getAcademicPerformance())
+                .studyLoad(predictionRecord.getStudyLoad())
+                .teacherStudentRelationship(predictionRecord.getTeacherStudentRelationship())
+                .futureCareerConcerns(predictionRecord.getFutureCareerConcerns())
+                .socialSupport(predictionRecord.getSocialSupport())
+                .peerPressure(predictionRecord.getPeerPressure())
+                .extracurricularActivities(predictionRecord.getExtracurricularActivities())
+                .bullying(predictionRecord.getBullying())
                 .build();
     }
 
     public List<PredictionHistoryItem> getUserHistory(String username) {
         User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
 
         return predictionRepository.findByUserIdOrderByCreatedAtDesc(user.getId())
                 .stream()
@@ -126,16 +148,36 @@ public class PredictionService {
                         .stressLevel(p.getStressLevel())
                         .confidence(p.getConfidence())
                         .createdAt(p.getCreatedAt())
+                        .anxietyLevel(p.getAnxietyLevel())
+                        .selfEsteem(p.getSelfEsteem())
+                        .mentalHealthHistory(p.getMentalHealthHistory())
+                        .depression(p.getDepression())
+                        .headache(p.getHeadache())
+                        .bloodPressure(p.getBloodPressure())
+                        .sleepQuality(p.getSleepQuality())
+                        .breathingProblem(p.getBreathingProblem())
+                        .noiseLevel(p.getNoiseLevel())
+                        .livingConditions(p.getLivingConditions())
+                        .safety(p.getSafety())
+                        .basicNeeds(p.getBasicNeeds())
+                        .academicPerformance(p.getAcademicPerformance())
+                        .studyLoad(p.getStudyLoad())
+                        .teacherStudentRelationship(p.getTeacherStudentRelationship())
+                        .futureCareerConcerns(p.getFutureCareerConcerns())
+                        .socialSupport(p.getSocialSupport())
+                        .peerPressure(p.getPeerPressure())
+                        .extracurricularActivities(p.getExtracurricularActivities())
+                        .bullying(p.getBullying())
                         .build())
                 .toList();
     }
 
     public PredictionResponse getPredictionById(Long id, String username) {
         PredictionRecord p = predictionRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Prediction not found"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Prediction not found"));
 
         if (!p.getUser().getUsername().equals(username))
-            throw new IllegalArgumentException("Access denied");
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Access denied");
 
         Map<String, Double> probs = Map.of(
                 "Low", p.getLowProbability(),
@@ -155,6 +197,26 @@ public class PredictionService {
                 .probabilities(probs)
                 .recommendations(recs)
                 .createdAt(p.getCreatedAt())
+                .anxietyLevel(p.getAnxietyLevel())
+                .selfEsteem(p.getSelfEsteem())
+                .mentalHealthHistory(p.getMentalHealthHistory())
+                .depression(p.getDepression())
+                .headache(p.getHeadache())
+                .bloodPressure(p.getBloodPressure())
+                .sleepQuality(p.getSleepQuality())
+                .breathingProblem(p.getBreathingProblem())
+                .noiseLevel(p.getNoiseLevel())
+                .livingConditions(p.getLivingConditions())
+                .safety(p.getSafety())
+                .basicNeeds(p.getBasicNeeds())
+                .academicPerformance(p.getAcademicPerformance())
+                .studyLoad(p.getStudyLoad())
+                .teacherStudentRelationship(p.getTeacherStudentRelationship())
+                .futureCareerConcerns(p.getFutureCareerConcerns())
+                .socialSupport(p.getSocialSupport())
+                .peerPressure(p.getPeerPressure())
+                .extracurricularActivities(p.getExtracurricularActivities())
+                .bullying(p.getBullying())
                 .build();
     }
 

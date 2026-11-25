@@ -1,7 +1,23 @@
+# Java & Maven
 backend/target/
 *.class
+
+# Python
+__pycache__/
+*.pyc
+
+# Local Environment & Secrets
 .env
 application-local.properties
 backend/src/main/resources/application-local.properties
-__pycache__/
-*.pyc
+
+# Node & Frontend
+node_modules/
+
+# IDE & Editor Configurations
+.idea/
+.vscode/
+
+# OS Metadata
+.DS_Store
+Thumbs.db

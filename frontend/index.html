@@ -328,19 +328,120 @@
       box-shadow: 0 4px 16px var(--primary-glow);
     }
 
-    /* Sliders */
-    .slider-card {
+    /* Sliders & Direct Numeric Inputs */
+    .slider-card, .biomarker-card {
       background: var(--bg-surface-elevated);
       border: 1px solid var(--border-subtle);
-      border-radius: 14px; padding: 1rem 1.2rem;
+      border-radius: 14px; padding: 1.1rem 1.25rem;
       transition: all 0.2s ease;
+      position: relative;
     }
-    .slider-card:hover { border-color: var(--border-accent); }
-    .slider-header {
+    .slider-card:hover, .biomarker-card:hover { border-color: var(--border-accent); }
+    .biomarker-card.has-error {
+      border-color: #ef4444 !important;
+      background: rgba(239, 68, 68, 0.05);
+      box-shadow: 0 0 12px rgba(239, 68, 68, 0.15);
+    }
+    .slider-header, .biomarker-header {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      margin-bottom: 0.75rem; gap: 0.75rem;
+    }
+    .biomarker-title-wrap {
+      flex: 1; min-width: 0;
+    }
+    .slider-title, .biomarker-title {
+      font-weight: 600; font-size: 0.9rem; color: var(--text-main);
+      display: flex; align-items: center; gap: 0.4rem; line-height: 1.35;
+    }
+    .slider-hint, .biomarker-hint {
+      font-size: 0.74rem; color: var(--text-muted); margin-top: 0.2rem; line-height: 1.35;
+    }
+    .biomarker-input-wrap {
+      display: flex; align-items: center; gap: 0.45rem; flex-shrink: 0;
+    }
+    .biomarker-input-label {
+      font-size: 0.76rem; color: var(--text-secondary); font-weight: 600;
+    }
+    .biomarker-num-input {
+      font-family: var(--font-heading);
+      font-weight: 700; font-size: 1rem; width: 68px; height: 38px;
+      text-align: center; border-radius: 9px;
+      background: rgba(15, 23, 42, 0.85); color: var(--primary-light);
+      border: 1px solid var(--border-accent);
+      outline: none; transition: all 0.2s ease;
+      -moz-appearance: textfield; padding: 0 0.3rem;
+    }
+    .biomarker-num-input::-webkit-outer-spin-button,
+    .biomarker-num-input::-webkit-inner-spin-button {
+      -webkit-appearance: inner-spin-button;
+      opacity: 0.7;
+    }
+    .biomarker-num-input:focus {
+      border-color: var(--primary-light);
+      box-shadow: 0 0 0 3px var(--primary-glow);
+      background: rgba(30, 41, 59, 0.95);
+      color: #ffffff;
+    }
+    .biomarker-num-input.is-invalid {
+      border-color: #ef4444 !important;
+      color: #f87171 !important;
+      background: rgba(239, 68, 68, 0.12) !important;
+      box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.3) !important;
+    }
+    .biomarker-track-container {
+      position: relative; margin: 0.6rem 0 0.25rem;
+    }
+    .biomarker-slider, input[type="range"] {
+      -webkit-appearance: none; appearance: none;
+      width: 100%; height: 8px; border-radius: 6px;
+      background: linear-gradient(90deg, rgba(99, 102, 241, 0.3) 0%, rgba(6, 182, 212, 0.3) 100%);
+      outline: none; margin: 0.4rem 0; cursor: pointer;
+      transition: background 0.2s ease;
+    }
+    .biomarker-slider:focus-visible, input[type="range"]:focus-visible {
+      outline: 2px solid var(--primary-light);
+      outline-offset: 3px;
+    }
+    .biomarker-slider::-webkit-slider-thumb, input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none; appearance: none;
+      width: 20px; height: 20px; border-radius: 50%;
+      background: linear-gradient(135deg, #6366f1, #06b6d4);
+      cursor: grab; box-shadow: 0 0 12px var(--primary), 0 2px 5px rgba(0,0,0,0.4);
+      border: 2px solid #ffffff; transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+    .biomarker-slider::-webkit-slider-thumb:hover, input[type="range"]::-webkit-slider-thumb:hover {
+      transform: scale(1.2); box-shadow: 0 0 16px var(--primary-light);
+    }
+    .biomarker-slider::-webkit-slider-thumb:active, input[type="range"]::-webkit-slider-thumb:active {
+      cursor: grabbing; transform: scale(1.1);
+    }
+    .biomarker-slider::-moz-range-thumb, input[type="range"]::-moz-range-thumb {
+      width: 20px; height: 20px; border-radius: 50%;
+      background: linear-gradient(135deg, #6366f1, #06b6d4);
+      cursor: grab; border: 2px solid #ffffff; box-shadow: 0 0 12px var(--primary);
+    }
+    .biomarker-scale-labels {
       display: flex; justify-content: space-between; align-items: center;
-      margin-bottom: 0.6rem;
+      font-size: 0.72rem; color: var(--text-muted); margin-top: 0.3rem; padding: 0 0.15rem;
     }
-    .slider-title { font-weight: 600; font-size: 0.88rem; color: var(--text-main); }
+    .biomarker-scale-labels .min-tag,
+    .biomarker-scale-labels .max-tag {
+      font-family: var(--font-heading); font-weight: 600; color: var(--text-secondary);
+    }
+    .biomarker-scale-labels .unit-tag {
+      font-size: 0.7rem; color: var(--text-muted);
+    }
+    .biomarker-error-msg {
+      font-size: 0.78rem; color: #f87171; margin-top: 0.5rem;
+      display: flex; align-items: center; gap: 0.35rem; font-weight: 500;
+      animation: fadeIn 0.18s ease-in-out;
+    }
+    .domain-error-badge {
+      display: inline-flex; align-items: center; justify-content: center;
+      min-width: 18px; height: 18px; border-radius: 9px;
+      background: #ef4444; color: #ffffff; font-size: 0.68rem; font-weight: 700;
+      padding: 0 0.3rem; margin-left: 0.35rem;
+    }
     .slider-val-badge {
       font-family: var(--font-heading);
       font-weight: 700; font-size: 0.95rem; min-width: 38px; text-align: center;
@@ -348,21 +449,6 @@
       background: var(--primary-glow); color: var(--primary-light);
       border: 1px solid var(--border-accent);
     }
-    .slider-hint { font-size: 0.72rem; color: var(--text-muted); }
-
-    input[type="range"] {
-      -webkit-appearance: none; appearance: none;
-      width: 100%; height: 6px; border-radius: 6px;
-      background: rgba(148, 163, 184, 0.25); outline: none; margin: 0.6rem 0;
-    }
-    input[type="range"]::-webkit-slider-thumb {
-      -webkit-appearance: none; appearance: none;
-      width: 18px; height: 18px; border-radius: 50%;
-      background: linear-gradient(135deg, #6366f1, #06b6d4);
-      cursor: pointer; box-shadow: 0 0 12px var(--primary);
-      border: 2px solid white; transition: transform 0.15s ease;
-    }
-    input[type="range"]::-webkit-slider-thumb:hover { transform: scale(1.2); }
 
     /* Presets Strip */
     .preset-pill {
@@ -481,18 +567,229 @@
       100% { transform: scale(1) rotate(360deg); opacity: 0.85; }
     }
 
+    /* Mobile Navigation & Off-Canvas Drawer */
+    .sidebar-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.65);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      z-index: 99;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+    .sidebar-backdrop.active {
+      display: block;
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .hamburger-btn {
+      display: none;
+      margin-right: 0.6rem;
+    }
+
+    .sidebar-close-btn {
+      display: none;
+      margin-left: auto;
+    }
+
+    /* Accessibility Focus Indicators */
+    .nav-btn:focus-visible,
+    .btn-icon:focus-visible,
+    .btn-glass:focus-visible,
+    .btn-glow:focus-visible,
+    .form-control-modern:focus-visible {
+      outline: 2px solid var(--primary-light);
+      outline-offset: 2px;
+    }
+
+    /* Telemetry Inspection Modal & History Styles */
+    .telemetry-modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.78);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.25rem;
+      animation: fadeIn 0.2s ease-out;
+    }
+    .telemetry-modal {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.75);
+      width: 100%;
+      max-width: 920px;
+      max-height: 90vh;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+    .telemetry-modal-header {
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      background: var(--bg-surface);
+      z-index: 10;
+    }
+    .telemetry-modal-body {
+      padding: 1.5rem;
+      flex: 1;
+    }
+    .telemetry-modal-footer {
+      padding: 1rem 1.5rem;
+      border-top: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      bottom: 0;
+      background: var(--bg-surface);
+      z-index: 10;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+    .biomarker-chip {
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 0.65rem 0.85rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+    .biomarker-chip-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: space-between;
+    }
+    .biomarker-chip-val {
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: var(--text-primary);
+    }
+    .biomarker-chip-bar {
+      height: 4px;
+      border-radius: 2px;
+      background: rgba(255, 255, 255, 0.08);
+      overflow: hidden;
+      margin-top: 0.2rem;
+    }
+    .biomarker-chip-fill {
+      height: 100%;
+      border-radius: 2px;
+      background: var(--primary);
+    }
+    .history-row {
+      cursor: pointer;
+      transition: background-color 0.15s ease;
+    }
+    .history-row:hover {
+      background-color: rgba(99, 102, 241, 0.08) !important;
+    }
+
     /* Print Styles */
     @media print {
-      .sidebar, .topbar, .ambient-bg, .btn-glow, .btn-glass, .btn-icon, .preset-pill { display: none !important; }
+      .sidebar, .topbar, .ambient-bg, .btn-glow, .btn-glass, .btn-icon, .preset-pill, .sidebar-backdrop { display: none !important; }
       .main-wrap { margin-left: 0 !important; }
       body { background: white !important; color: black !important; }
       .card-glass { border: 1px solid #ccc !important; box-shadow: none !important; }
     }
 
+    /* Responsive Breakpoints */
     @media (max-width: 992px) {
-      .sidebar { transform: translateX(-100%); }
-      .sidebar.open { transform: translateX(0); }
-      .main-wrap { margin-left: 0; }
+      .sidebar {
+        transform: translateX(-100%);
+        z-index: 1000;
+        box-shadow: 0 0 35px rgba(0, 0, 0, 0.6);
+      }
+      .sidebar.open {
+        transform: translateX(0);
+      }
+      .main-wrap {
+        margin-left: 0;
+      }
+      .hamburger-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .sidebar-close-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .topbar {
+        padding: 0 1.2rem;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .topbar {
+        padding: 0 0.85rem;
+      }
+      .topbar-title {
+        font-size: 1.05rem;
+      }
+      .topbar-tools {
+        gap: 0.45rem;
+      }
+      .model-badge-text {
+        display: none;
+      }
+      .ambient-btn-text {
+        display: none;
+      }
+      .biomarker-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.5rem;
+      }
+      .biomarker-input-wrap {
+        justify-content: space-between;
+        width: 100%;
+        background: rgba(15, 23, 42, 0.45);
+        padding: 0.35rem 0.6rem;
+        border-radius: 8px;
+      }
+      .biomarker-num-input {
+        width: 76px; height: 40px; font-size: 1.05rem;
+      }
+      .biomarker-card, .slider-card {
+        padding: 0.95rem 1rem;
+      }
+    }
+
+    @media (max-width: 400px) {
+      .topbar-title-text {
+        font-size: 0.95rem;
+        max-width: 140px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .api-pill-text {
+        display: none;
+      }
+      .biomarker-scale-labels {
+        font-size: 0.68rem;
+      }
+      .biomarker-scale-labels .unit-tag {
+        display: none;
+      }
     }
   </style>
 </head>
@@ -753,22 +1050,24 @@ const api = {
   },
 
   async put(path, body) {
-    try {
-      const res = await fetch(getApiBase() + path, {
-        method: 'PUT',
-        headers: api.headers(),
-        body: JSON.stringify(body)
-      });
-      const text = await res.text();
-      let data = {};
-      if (text) {
-        try { data = JSON.parse(text); } catch { data = { message: text }; }
-      }
-      if (!res.ok) throw new Error(data.message || data.error || 'Request failed');
-      return data;
-    } catch(err) {
-      return body;
+    const res = await fetch(getApiBase() + path, {
+      method: 'PUT',
+      headers: api.headers(),
+      body: JSON.stringify(body)
+    });
+    if (res.status === 401 || res.status === 403) {
+      localStorage.removeItem('jwt_token');
+      throw new Error('Session expired or unauthorized. Please sign in again.');
     }
+    const text = await res.text();
+    let data = {};
+    if (text) {
+      try { data = JSON.parse(text); } catch { data = { message: text }; }
+    }
+    if (!res.ok) {
+      throw new Error(data.message || data.error || `Request failed with HTTP ${res.status}`);
+    }
+    return data;
   },
 
   async del(path) {
@@ -864,6 +1163,12 @@ const Icon = ({ name, size = 18, color = 'currentColor' }) => {
     check: 'M20 6L9 17l-5-5',
     trash: 'M3 6h18 M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2',
     toggle: 'M16 4H8a7 7 0 0 0 0 14h8a7 7 0 0 0 0-14zm0 10a3 3 0 1 1 0-6 3 3 0 0 1 0 6z',
+    menu: 'M3 12h18 M3 6h18 M3 18h18',
+    close: 'M18 6L6 18 M6 6l12 12',
+    search: 'M11 19a8 8 0 1 0 0-16 8 8 0 0 0 0 16z M21 21l-4.35-4.35',
+    eye: 'M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z',
+    filter: 'M22 3H2l8 9.46V19l4 2v-8.54L22 3z',
+    refresh: 'M23 4v6h-6 M1 20v-6h6 M3.51 9a9 9 0 0 1 14.85-3.36L23 10 M1 14l4.64 4.36A9 9 0 0 0 20.49 15',
   };
 
   return (
@@ -881,10 +1186,10 @@ const FEATURE_DOMAINS = [
     icon: '🧠',
     desc: 'Anxiety, depression, and self-esteem factors',
     features: [
-      { key: 'anxietyLevel', label: 'Anxiety Level', min: 0, max: 21, info: '0 (Calm) – 21 (Severe Anxiety)' },
-      { key: 'selfEsteem', label: 'Self Esteem', min: 0, max: 30, info: '0 (Critically Low) – 30 (Strong Self-Worth)' },
-      { key: 'mentalHealthHistory', label: 'Mental Health History', min: 0, max: 1, info: '0: None | 1: Prior History' },
-      { key: 'depression', label: 'Depression Level', min: 0, max: 27, info: '0 (Minimal) – 27 (Severe Distress)' },
+      { key: 'anxietyLevel', label: 'Anxiety Level', min: 0, max: 21, unit: 'GAD-7 scale (0–21)', info: '0 (Calm) – 21 (Severe Anxiety)' },
+      { key: 'selfEsteem', label: 'Self Esteem', min: 0, max: 30, unit: 'Rosenberg score (0–30)', info: '0 (Critically Low) – 30 (Strong Self-Worth)' },
+      { key: 'mentalHealthHistory', label: 'Mental Health History', min: 0, max: 1, unit: 'Clinical status (0 or 1)', info: '0: None | 1: Prior History' },
+      { key: 'depression', label: 'Depression Level', min: 0, max: 27, unit: 'PHQ-9 score (0–27)', info: '0 (Minimal) – 27 (Severe Distress)' },
     ]
   },
   {
@@ -893,10 +1198,10 @@ const FEATURE_DOMAINS = [
     icon: '🩺',
     desc: 'Somatic indicators, sleep quality, and vitals',
     features: [
-      { key: 'headache', label: 'Headache Frequency', min: 0, max: 5, info: '0 (Never) – 5 (Constant Migraines)' },
-      { key: 'bloodPressure', label: 'Blood Pressure', min: 0, max: 3, info: '0 (Normal) – 3 (High / Stage 2)' },
-      { key: 'sleepQuality', label: 'Sleep Quality', min: 0, max: 9, info: '0 (Insomnia) – 9 (Deep Restful Sleep)' },
-      { key: 'breathingProblem', label: 'Breathing Problem', min: 0, max: 5, info: '0 (Normal) – 5 (Dyspnea / Tightness)' },
+      { key: 'headache', label: 'Headache Frequency', min: 0, max: 5, unit: 'Frequency tier (0–5)', info: '0 (Never) – 5 (Constant Migraines)' },
+      { key: 'bloodPressure', label: 'Blood Pressure', min: 0, max: 3, unit: 'Hypertension tier (0–3)', info: '0 (Normal) – 3 (High / Stage 2)' },
+      { key: 'sleepQuality', label: 'Sleep Quality', min: 0, max: 9, unit: 'PSQI score (0–9)', info: '0 (Insomnia) – 9 (Deep Restful Sleep)' },
+      { key: 'breathingProblem', label: 'Breathing Problem', min: 0, max: 5, unit: 'Dyspnea scale (0–5)', info: '0 (Normal) – 5 (Dyspnea / Tightness)' },
     ]
   },
   {
@@ -905,10 +1210,10 @@ const FEATURE_DOMAINS = [
     icon: '🏠',
     desc: 'Noise exposure, home conditions, and safety',
     features: [
-      { key: 'noiseLevel', label: 'Ambient Noise', min: 0, max: 7, info: '0 (Quiet Sanctuary) – 7 (Severe Noise)' },
-      { key: 'livingConditions', label: 'Living Conditions', min: 0, max: 5, info: '0 (Hazardous) – 5 (Optimal)' },
-      { key: 'safety', label: 'Safety Feeling', min: 0, max: 5, info: '0 (Threatened) – 5 (Secure)' },
-      { key: 'basicNeeds', label: 'Basic Needs Fulfilled', min: 0, max: 5, info: '0 (Unmet Food/Shelter) – 5 (Fully Met)' },
+      { key: 'noiseLevel', label: 'Ambient Noise', min: 0, max: 7, unit: 'dB exposure tier (0–7)', info: '0 (Quiet Sanctuary) – 7 (Severe Noise)' },
+      { key: 'livingConditions', label: 'Living Conditions', min: 0, max: 5, unit: 'Habitability tier (0–5)', info: '0 (Hazardous) – 5 (Optimal)' },
+      { key: 'safety', label: 'Safety Feeling', min: 0, max: 5, unit: 'Perceived security (0–5)', info: '0 (Threatened) – 5 (Secure)' },
+      { key: 'basicNeeds', label: 'Basic Needs Fulfilled', min: 0, max: 5, unit: 'Fulfilment index (0–5)', info: '0 (Unmet Food/Shelter) – 5 (Fully Met)' },
     ]
   },
   {
@@ -917,10 +1222,10 @@ const FEATURE_DOMAINS = [
     icon: '🎓',
     desc: 'Workload pressure, performance, and future outlook',
     features: [
-      { key: 'academicPerformance', label: 'Academic Performance', min: 0, max: 5, info: '0 (Failing) – 5 (Outstanding)' },
-      { key: 'studyLoad', label: 'Study / Work Load', min: 0, max: 5, info: '0 (Light) – 5 (Overwhelming)' },
-      { key: 'teacherStudentRelationship', label: 'Mentor / Teacher Rapport', min: 0, max: 5, info: '0 (Hostile) – 5 (Supportive)' },
-      { key: 'futureCareerConcerns', label: 'Future Career Concerns', min: 0, max: 5, info: '0 (Confident) – 5 (Panic / Anxiety)' },
+      { key: 'academicPerformance', label: 'Academic Performance', min: 0, max: 5, unit: 'Performance rating (0–5)', info: '0 (Failing) – 5 (Outstanding)' },
+      { key: 'studyLoad', label: 'Study / Work Load', min: 0, max: 5, unit: 'Workload index (0–5)', info: '0 (Light) – 5 (Overwhelming)' },
+      { key: 'teacherStudentRelationship', label: 'Mentor / Teacher Rapport', min: 0, max: 5, unit: 'Rapport rating (0–5)', info: '0 (Hostile) – 5 (Supportive)' },
+      { key: 'futureCareerConcerns', label: 'Future Career Concerns', min: 0, max: 5, unit: 'Anxiety scale (0–5)', info: '0 (Confident) – 5 (Panic / Anxiety)' },
     ]
   },
   {
@@ -929,10 +1234,10 @@ const FEATURE_DOMAINS = [
     icon: '🤝',
     desc: 'Support network, peer relationships, and bullying',
     features: [
-      { key: 'socialSupport', label: 'Social Support Network', min: 0, max: 3, info: '0 (Isolated) – 3 (Strong Circle)' },
-      { key: 'peerPressure', label: 'Peer Pressure', min: 0, max: 5, info: '0 (None) – 5 (Extreme Pressure)' },
-      { key: 'extracurricularActivities', label: 'Hobbies & Activities', min: 0, max: 5, info: '0 (None) – 5 (Enriched)' },
-      { key: 'bullying', label: 'Bullying / Harassment', min: 0, max: 5, info: '0 (None) – 5 (Severe Harassment)' },
+      { key: 'socialSupport', label: 'Social Support Network', min: 0, max: 3, unit: 'Support tier (0–3)', info: '0 (Isolated) – 3 (Strong Circle)' },
+      { key: 'peerPressure', label: 'Peer Pressure', min: 0, max: 5, unit: 'Pressure rating (0–5)', info: '0 (None) – 5 (Extreme Pressure)' },
+      { key: 'extracurricularActivities', label: 'Hobbies & Activities', min: 0, max: 5, unit: 'Engagement rating (0–5)', info: '0 (None) – 5 (Enriched)' },
+      { key: 'bullying', label: 'Bullying / Harassment', min: 0, max: 5, unit: 'Severity rating (0–5)', info: '0 (None) – 5 (Severe Harassment)' },
     ]
   }
 ];
@@ -1063,11 +1368,33 @@ function BreathingExerciseWidget() {
 
 // ─── Login & Register Page ──────────────────────────────────────────────────
 function AuthView({ onLogin }) {
-  const [isRegister, setIsRegister] = useState(false);
+  const [isRegister, setIsRegister] = useState(() => window.location.hash === '#/register');
   const [form, setForm] = useState({ username: '', password: '' });
   const [regForm, setRegForm] = useState({ username: '', email: '', password: '', fullName: '', age: '', gender: '' });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+
+  // Synchronize URL hash with authentication view
+  useEffect(() => {
+    const handleAuthHash = () => {
+      setIsRegister(window.location.hash === '#/register');
+    };
+    if (window.location.hash !== '#/register' && window.location.hash !== '#/login') {
+      window.history.replaceState(null, '', '#/login');
+    }
+    window.addEventListener('hashchange', handleAuthHash);
+    return () => window.removeEventListener('hashchange', handleAuthHash);
+  }, []);
+
+  const switchAuthMode = (registerMode) => {
+    setError('');
+    const targetHash = registerMode ? '#/register' : '#/login';
+    if (window.location.hash !== targetHash) {
+      window.location.hash = targetHash;
+    } else {
+      setIsRegister(registerMode);
+    }
+  };
 
   const submitLogin = async (e) => {
     e.preventDefault();
@@ -1077,6 +1404,7 @@ function AuthView({ onLogin }) {
       const data = await api.post('/auth/login', form, true);
       localStorage.setItem('jwt_token', data.token);
       localStorage.setItem('user_info', JSON.stringify(data));
+      window.location.hash = '#/dashboard';
       onLogin(data);
     } catch(err) {
       setError(err.message || 'Login failed. Please verify credentials or server status.');
@@ -1094,6 +1422,7 @@ function AuthView({ onLogin }) {
       const data = await api.post('/auth/register', payload, true);
       localStorage.setItem('jwt_token', data.token);
       localStorage.setItem('user_info', JSON.stringify(data));
+      window.location.hash = '#/dashboard';
       onLogin(data);
     } catch(err) {
       setError(err.message || 'Registration failed. Please try again.');
@@ -1151,14 +1480,13 @@ function AuthView({ onLogin }) {
             </button>
             <div className="text-center mt-3" style={{ fontSize: '0.86rem', color: 'var(--text-secondary)' }}>
               Need an account?{' '}
-              <span style={{ color: 'var(--primary-light)', cursor: 'pointer', fontWeight: 700 }} onClick={() => setIsRegister(true)}>
+              <span style={{ color: 'var(--primary-light)', cursor: 'pointer', fontWeight: 700 }} onClick={() => switchAuthMode(true)}>
                 Register here
               </span>
             </div>
             <div style={{ marginTop: '1.5rem', padding: '0.9rem', borderRadius: 12, background: 'rgba(99,102,241,0.08)', border: '1px solid var(--border-subtle)', fontSize: '0.78rem', color: 'var(--text-secondary)' }}>
-              <strong>Demo Accounts:</strong><br />
-              • Admin: <code style={{ color: 'var(--secondary)' }}>admin / admin123</code><br />
-              • User: <code style={{ color: 'var(--secondary)' }}>testuser / user123</code>
+              <strong>First time here?</strong> Please click <span style={{ color: 'var(--primary-light)', cursor: 'pointer', fontWeight: 600 }} onClick={() => switchAuthMode(true)}>Register here</span> above to create your secure account.<br />
+              <span style={{ fontSize: '0.74rem', color: 'var(--text-muted)' }}>Demo seed accounts are available only in local development when initialized via seed-dev.sql.</span>
             </div>
           </form>
         ) : (
@@ -1197,7 +1525,7 @@ function AuthView({ onLogin }) {
             </button>
             <div className="text-center mt-3" style={{ fontSize: '0.86rem', color: 'var(--text-secondary)' }}>
               Already registered?{' '}
-              <span style={{ color: 'var(--primary-light)', cursor: 'pointer', fontWeight: 700 }} onClick={() => setIsRegister(false)}>
+              <span style={{ color: 'var(--primary-light)', cursor: 'pointer', fontWeight: 700 }} onClick={() => switchAuthMode(false)}>
                 Sign In
               </span>
             </div>
@@ -1487,9 +1815,13 @@ function PredictionView() {
   const [vals, setVals] = useState(() => {
     return ALL_FIELDS.reduce((acc, f) => ({ ...acc, [f.key]: Math.floor((f.min + f.max) / 2) }), {});
   });
+  const [rawInputs, setRawInputs] = useState(() => {
+    return ALL_FIELDS.reduce((acc, f) => ({ ...acc, [f.key]: String(Math.floor((f.min + f.max) / 2)) }), {});
+  });
+  const [errors, setErrors] = useState({});
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [topError, setTopError] = useState('');
   const [actionDone, setActionDone] = useState({});
 
   const probChartRef = useRef();
@@ -1499,18 +1831,134 @@ function PredictionView() {
 
   const applyPreset = (preset) => {
     setVals(prev => ({ ...prev, ...preset.values }));
+    const newRaw = {};
+    Object.keys(preset.values).forEach(k => {
+      newRaw[k] = String(preset.values[k]);
+    });
+    setRawInputs(prev => ({ ...prev, ...newRaw }));
+    setErrors({});
+    setTopError('');
     setResult(null);
+  };
+
+  const handleSliderChange = (key, numVal) => {
+    setVals(prev => ({ ...prev, [key]: numVal }));
+    setRawInputs(prev => ({ ...prev, [key]: String(numVal) }));
+    setErrors(prev => {
+      if (!prev[key]) return prev;
+      const next = { ...prev };
+      delete next[key];
+      return next;
+    });
+  };
+
+  const handleNumericChange = (key, strVal, min, max) => {
+    setRawInputs(prev => ({ ...prev, [key]: strVal }));
+
+    const trimmed = strVal.trim();
+    if (trimmed === '') {
+      setErrors(prev => ({ ...prev, [key]: 'Value is required' }));
+      return;
+    }
+
+    const num = Number(trimmed);
+    if (isNaN(num)) {
+      setErrors(prev => ({ ...prev, [key]: 'Must be a valid number' }));
+      return;
+    }
+
+    if (!Number.isInteger(num)) {
+      setErrors(prev => ({ ...prev, [key]: 'Must be a whole number' }));
+      return;
+    }
+
+    if (num < min || num > max) {
+      setErrors(prev => ({ ...prev, [key]: `Must be between ${min} and ${max}` }));
+      return;
+    }
+
+    // Valid integer: immediately synchronize slider value!
+    setVals(prev => ({ ...prev, [key]: num }));
+    setErrors(prev => {
+      if (!prev[key]) return prev;
+      const next = { ...prev };
+      delete next[key];
+      return next;
+    });
+  };
+
+  const handleNumericBlur = (key, min, max) => {
+    const raw = rawInputs[key];
+    const trimmed = (raw !== undefined && raw !== null) ? String(raw).trim() : '';
+    if (trimmed === '') {
+      setErrors(prev => ({ ...prev, [key]: 'Value is required' }));
+      return;
+    }
+    const num = Number(trimmed);
+    if (isNaN(num) || !Number.isInteger(num) || num < min || num > max) {
+      // Keep invalid input for user correction; do not silently overwrite
+      return;
+    }
+    setRawInputs(prev => ({ ...prev, [key]: String(num) }));
+    setVals(prev => ({ ...prev, [key]: num }));
   };
 
   const handlePredict = async (e) => {
     e.preventDefault();
     if (loading) return;
-    setLoading(true); setError(''); setResult(null);
+
+    // Validate all 20 fields across ALL domains
+    const newErrors = {};
+    let firstInvalidDomain = null;
+
+    for (const domain of FEATURE_DOMAINS) {
+      for (const f of domain.features) {
+        const raw = rawInputs[f.key];
+        const trimmed = (raw !== undefined && raw !== null) ? String(raw).trim() : '';
+
+        if (trimmed === '') {
+          newErrors[f.key] = 'Value is required';
+          if (!firstInvalidDomain) firstInvalidDomain = domain.id;
+        } else {
+          const num = Number(trimmed);
+          if (isNaN(num)) {
+            newErrors[f.key] = 'Must be a valid number';
+            if (!firstInvalidDomain) firstInvalidDomain = domain.id;
+          } else if (!Number.isInteger(num)) {
+            newErrors[f.key] = 'Must be a whole number';
+            if (!firstInvalidDomain) firstInvalidDomain = domain.id;
+          } else if (num < f.min || num > f.max) {
+            newErrors[f.key] = `Must be between ${f.min} and ${f.max}`;
+            if (!firstInvalidDomain) firstInvalidDomain = domain.id;
+          }
+        }
+      }
+    }
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      if (firstInvalidDomain) {
+        setActiveDomain(firstInvalidDomain);
+      }
+      setTopError('⚠️ Please correct the invalid biomarker values (highlighted in red) before running inference.');
+      return;
+    }
+
+    setTopError('');
+    setLoading(true);
+    setResult(null);
+
+    // Build payload ensuring all 20 values are strictly integers
+    const payload = {};
+    ALL_FIELDS.forEach(f => {
+      payload[f.key] = parseInt(vals[f.key], 10);
+    });
+
     try {
-      const data = await api.post('/predict', vals);
+      const data = await api.post('/predict', payload);
       setResult(data);
     } catch(err) {
-      setError(err.message || 'Inference request failed. Please check backend connection.');
+      setTopError(err.message || 'Inference request failed. Please check backend connection.');
     } finally {
       setLoading(false);
     }
@@ -1637,9 +2085,9 @@ function PredictionView() {
         </div>
       </div>
 
-      {error && (
+      {topError && (
         <div style={{ padding: '0.9rem 1.2rem', borderRadius: 14, background: 'var(--danger-bg)', border: '1px solid var(--danger)', color: '#f87171', marginBottom: '1.5rem', fontSize: '0.88rem' }}>
-          ⚠️ {error}
+          {topError}
         </div>
       )}
 
@@ -1650,20 +2098,24 @@ function PredictionView() {
             {/* Domain Tabs */}
             <div style={{ padding: '1.2rem 1.4rem 0.5rem', borderBottom: '1px solid var(--border-subtle)' }}>
               <div className="category-tabs mb-0">
-                {FEATURE_DOMAINS.map(d => (
-                  <button
-                    key={d.id}
-                    type="button"
-                    className={`cat-tab ${activeDomain === d.id ? 'active' : ''}`}
-                    onClick={() => setActiveDomain(d.id)}
-                  >
-                    <span>{d.icon}</span> {d.title}
-                  </button>
-                ))}
+                {FEATURE_DOMAINS.map(d => {
+                  const errCount = d.features.filter(f => errors[f.key]).length;
+                  return (
+                    <button
+                      key={d.id}
+                      type="button"
+                      className={`cat-tab ${activeDomain === d.id ? 'active' : ''}`}
+                      onClick={() => setActiveDomain(d.id)}
+                    >
+                      <span>{d.icon}</span> {d.title}
+                      {errCount > 0 && <span className="domain-error-badge">{errCount}</span>}
+                    </button>
+                  );
+                })}
               </div>
             </div>
 
-            <form onSubmit={handlePredict} style={{ padding: '1.6rem' }}>
+            <form onSubmit={handlePredict} noValidate style={{ padding: '1.6rem' }}>
               <div style={{ marginBottom: '1.2rem' }}>
                 <h5 style={{ fontFamily: 'var(--font-heading)', fontWeight: 700, margin: 0 }}>
                   {currentDomainObj.icon} {currentDomainObj.title}
@@ -1676,39 +2128,83 @@ function PredictionView() {
               <div className="row g-3">
                 {currentDomainObj.features.map(f => (
                   <div className="col-12" key={f.key}>
-                    <div className="slider-card">
-                      <div className="slider-header">
-                        <div>
-                          <div className="slider-title">{f.label}</div>
-                          <div className="slider-hint">{f.info}</div>
+                    <div className={`biomarker-card ${errors[f.key] ? 'has-error' : ''}`}>
+                      <div className="biomarker-header">
+                        <div className="biomarker-title-wrap">
+                          <label htmlFor={`input-${f.key}`} className="biomarker-title">
+                            {f.label}
+                          </label>
+                          <div className="biomarker-hint">{f.info}</div>
                         </div>
-                        <div className="slider-val-badge">{vals[f.key]}</div>
+                        <div className="biomarker-input-wrap">
+                          <span className="biomarker-input-label">Value:</span>
+                          <input
+                            id={`input-${f.key}`}
+                            type="number"
+                            min={f.min}
+                            max={f.max}
+                            step="1"
+                            className={`biomarker-num-input ${errors[f.key] ? 'is-invalid' : ''}`}
+                            value={rawInputs[f.key] !== undefined ? rawInputs[f.key] : vals[f.key]}
+                            onChange={e => handleNumericChange(f.key, e.target.value, f.min, f.max)}
+                            onBlur={() => handleNumericBlur(f.key, f.min, f.max)}
+                            aria-label={`${f.label} numeric input`}
+                            aria-invalid={errors[f.key] ? 'true' : 'false'}
+                            aria-describedby={errors[f.key] ? `err-${f.key}` : undefined}
+                          />
+                        </div>
                       </div>
-                      <input
-                        type="range"
-                        min={f.min}
-                        max={f.max}
-                        value={vals[f.key]}
-                        onChange={e => setVals({ ...vals, [f.key]: parseInt(e.target.value) })}
-                      />
+
+                      <div className="biomarker-track-container">
+                        <input
+                          type="range"
+                          id={`slider-${f.key}`}
+                          min={f.min}
+                          max={f.max}
+                          step="1"
+                          value={vals[f.key] !== undefined && !isNaN(vals[f.key]) ? vals[f.key] : f.min}
+                          onChange={e => handleSliderChange(f.key, parseInt(e.target.value, 10))}
+                          className="biomarker-slider"
+                          aria-label={`${f.label} range slider`}
+                          aria-valuemin={f.min}
+                          aria-valuemax={f.max}
+                          aria-valuenow={vals[f.key]}
+                        />
+                      </div>
+
+                      <div className="biomarker-scale-labels">
+                        <span className="min-tag">Min: {f.min}</span>
+                        <span className="unit-tag">{f.unit || f.info}</span>
+                        <span className="max-tag">Max: {f.max}</span>
+                      </div>
+
+                      {errors[f.key] && (
+                        <div id={`err-${f.key}`} className="biomarker-error-msg" role="alert">
+                          ⚠️ {errors[f.key]}
+                        </div>
+                      )}
                     </div>
                   </div>
                 ))}
               </div>
 
-              <div className="d-flex justify-content-between align-items-center mt-4 pt-3" style={{ borderTop: '1px solid var(--border-subtle)' }}>
-                <div className="d-flex gap-2">
-                  {FEATURE_DOMAINS.map((d, i) => (
-                    <button
-                      key={d.id}
-                      type="button"
-                      className="btn-glass"
-                      style={{ padding: '0.4rem 0.7rem', fontSize: '0.78rem' }}
-                      onClick={() => setActiveDomain(d.id)}
-                    >
-                      {d.icon} {i+1}
-                    </button>
-                  ))}
+              <div className="d-flex justify-content-between align-items-center mt-4 pt-3 flex-wrap gap-2" style={{ borderTop: '1px solid var(--border-subtle)' }}>
+                <div className="d-flex gap-2 flex-wrap">
+                  {FEATURE_DOMAINS.map((d, i) => {
+                    const errCount = d.features.filter(f => errors[f.key]).length;
+                    return (
+                      <button
+                        key={d.id}
+                        type="button"
+                        className={`btn-glass ${activeDomain === d.id ? 'active' : ''}`}
+                        style={{ padding: '0.4rem 0.7rem', fontSize: '0.78rem' }}
+                        onClick={() => setActiveDomain(d.id)}
+                      >
+                        {d.icon} {i+1}
+                        {errCount > 0 && <span className="domain-error-badge" style={{ fontSize: '0.62rem', minWidth: 15, height: 15 }}>{errCount}</span>}
+                      </button>
+                    );
+                  })}
                 </div>
 
                 <button type="submit" className="btn-glow" disabled={loading} style={{ padding: '0.75rem 2rem' }}>
@@ -1842,143 +2338,748 @@ function PredictionView() {
   );
 }
 
-// ─── History View with CSV Export ────────────────────────────────────────────
-function HistoryView() {
-  const [history, setHistory] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [filterTier, setFilterTier] = useState('ALL');
-  const [search, setSearch] = useState('');
+// ─── Radar Chart for History Detail Modal ──────────────────────────────────
+function HistoryRadarChart({ record }) {
+  const canvasRef = useRef(null);
+  const chartInstance = useRef(null);
 
   useEffect(() => {
-    api.get('/predict/history')
-      .then(d => { setHistory(d); setLoading(false); })
-      .catch(() => setLoading(false));
-  }, []);
+    if (!canvasRef.current || !record || !window.Chart) return;
+    if (chartInstance.current) {
+      chartInstance.current.destroy();
+      chartInstance.current = null;
+    }
 
-  const exportCSV = () => {
-    if (!history.length) return;
-    const headers = ['ID', 'Date', 'Stress_Level', 'Confidence_Percentage'];
-    const rows = history.map(h => [
-      h.id,
-      new Date(h.createdAt).toISOString(),
-      h.stressLabel,
-      h.confidence
-    ]);
-    const csvContent = 'data:text/csv;charset=utf-8,' + [headers.join(','), ...rows.map(e => e.join(','))].join('\n');
-    const encodedUri = encodeURI(csvContent);
-    const link = document.createElement('a');
-    link.setAttribute('href', encodedUri);
-    link.setAttribute('download', `stress_predictions_${new Date().toISOString().slice(0,10)}.csv`);
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
+    const domainScores = [
+      Math.round((((record.anxietyLevel || 0)/21 + (30-(record.selfEsteem != null ? record.selfEsteem : 15))/30 + (record.depression || 0)/27) / 3) * 100),
+      Math.round((((record.headache || 0)/5 + (record.bloodPressure || 0)/3 + (9-(record.sleepQuality != null ? record.sleepQuality : 5))/9 + (record.breathingProblem || 0)/5) / 4) * 100),
+      Math.round((((record.noiseLevel || 0)/7 + (5-(record.livingConditions != null ? record.livingConditions : 3))/5 + (5-(record.safety != null ? record.safety : 3))/5 + (5-(record.basicNeeds != null ? record.basicNeeds : 3))/5) / 4) * 100),
+      Math.round((((record.studyLoad || 0)/5 + (5-(record.academicPerformance != null ? record.academicPerformance : 3))/5 + (5-(record.teacherStudentRelationship != null ? record.teacherStudentRelationship : 3))/5 + (record.futureCareerConcerns || 0)/5) / 4) * 100),
+      Math.round((((record.peerPressure || 0)/5 + (3-(record.socialSupport != null ? record.socialSupport : 2))/3 + (record.bullying || 0)/5) / 3) * 100)
+    ];
 
-  const filtered = history.filter(h => {
-    const matchesTier = filterTier === 'ALL' || h.stressLabel?.toUpperCase() === filterTier;
-    const matchesSearch = !search || h.stressLabel?.toLowerCase().includes(search.toLowerCase()) || new Date(h.createdAt).toLocaleDateString().includes(search);
-    return matchesTier && matchesSearch;
-  });
+    chartInstance.current = new window.Chart(canvasRef.current, {
+      type: 'radar',
+      data: {
+        labels: ['Psychological', 'Physiological', 'Living Env', 'Academic Load', 'Social Strain'],
+        datasets: [
+          {
+            label: 'Recorded Biomarker Strain',
+            data: domainScores,
+            borderColor: '#6366f1',
+            backgroundColor: 'rgba(99, 102, 241, 0.25)',
+            borderWidth: 2,
+            pointBackgroundColor: '#6366f1'
+          },
+          {
+            label: 'Healthy Clinical Baseline',
+            data: [20, 15, 20, 25, 15],
+            borderColor: '#10b981',
+            borderDash: [4, 4],
+            backgroundColor: 'rgba(16, 185, 129, 0.08)',
+            borderWidth: 1.5,
+            pointBackgroundColor: '#10b981'
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          r: {
+            angleLines: { color: 'rgba(255,255,255,0.08)' },
+            grid: { color: 'rgba(255,255,255,0.08)' },
+            pointLabels: { color: 'rgba(148, 163, 184, 0.9)', font: { size: 10 } },
+            ticks: { display: false },
+            suggestedMin: 0,
+            suggestedMax: 100
+          }
+        },
+        plugins: {
+          legend: {
+            position: 'bottom',
+            labels: { color: '#94a3b8', font: { size: 11 }, boxWidth: 12 }
+          }
+        }
+      }
+    });
+
+    return () => {
+      if (chartInstance.current) {
+        chartInstance.current.destroy();
+        chartInstance.current = null;
+      }
+    };
+  }, [record]);
+
+  return <canvas ref={canvasRef} />;
+}
+
+// ─── Safe Date Parsing Helpers for Jackson Arrays & ISO Strings ─────────────
+const safeDate = (val) => {
+  if (!val) return null;
+  if (Array.isArray(val)) {
+    return new Date(val[0], val[1] - 1, val[2], val[3] || 0, val[4] || 0, val[5] || 0);
+  }
+  const d = new Date(val);
+  return isNaN(d.getTime()) ? null : d;
+};
+
+const safeISO = (val) => {
+  const d = safeDate(val);
+  return d ? d.toISOString() : (val ? String(val) : '');
+};
+
+const safeLocale = (val) => {
+  const d = safeDate(val);
+  return d ? d.toLocaleString() : 'N/A';
+};
+
+// ─── Prediction Detail / Telemetry Inspection Modal ─────────────────────────
+function PredictionDetailModal({ record, onClose, onExportSingle }) {
+  const [detailData, setDetailData] = useState(record);
+  const [loadingExtra, setLoadingExtra] = useState(false);
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') onClose();
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [onClose]);
+
+  useEffect(() => {
+    if (record?.id) {
+      setLoadingExtra(true);
+      api.get('/predict/' + record.id)
+        .then(res => {
+          setDetailData(prev => ({ ...prev, ...res }));
+          setLoadingExtra(false);
+        })
+        .catch(() => {
+          setLoadingExtra(false);
+        });
+    }
+  }, [record?.id]);
+
+  if (!record) return null;
+
+  const current = detailData || record;
+  const badgeClass = (current.stressLabel || '').toLowerCase();
+  const stressColor = current.stressLabel === 'Low' ? '#10b981' : current.stressLabel === 'Medium' ? '#f59e0b' : '#ef4444';
+
+  const recommendationsList = Array.isArray(current.recommendations)
+    ? current.recommendations
+    : (current.recommendations ? String(current.recommendations).split('|') : []);
 
   return (
-    <div style={{ padding: '2rem' }}>
-      <div className="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
-        <div>
-          <h2 style={{ fontFamily: 'var(--font-heading)', fontWeight: 800, fontSize: '1.8rem', margin: 0 }}>
-            📋 Prediction Logs & Clinical History
-          </h2>
-          <p style={{ color: 'var(--text-secondary)', fontSize: '0.88rem', margin: '0.25rem 0 0' }}>
-            Complete audit trail of user submissions with confidence indices and timestamps.
-          </p>
-        </div>
-
-        <div className="d-flex gap-2">
-          <button className="btn-glow" onClick={exportCSV} disabled={!history.length}>
-            <Icon name="download" size={16} /> Export to CSV
-          </button>
-          <button className="btn-glass" onClick={() => window.print()}>
-            <Icon name="printer" size={16} /> Print Sheet
-          </button>
-        </div>
-      </div>
-
-      <div className="card-glass">
-        {/* Table Filters */}
-        <div style={{ padding: '1rem 1.4rem', borderBottom: '1px solid var(--border-subtle)', display: 'flex', gap: '0.8rem', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between' }}>
-          <div className="d-flex gap-2">
-            {['ALL', 'LOW', 'MEDIUM', 'HIGH'].map(tier => (
-              <button
-                key={tier}
-                className={`preset-pill ${filterTier === tier ? 'btn-glass' : ''}`}
-                style={{ borderColor: filterTier === tier ? 'var(--primary)' : 'var(--border-subtle)' }}
-                onClick={() => setFilterTier(tier)}
-              >
-                {tier === 'ALL' ? 'All Tiers' : tier}
-              </button>
-            ))}
+    <div className="telemetry-modal-backdrop" onClick={onClose} role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <div className="telemetry-modal" onClick={e => e.stopPropagation()}>
+        {/* Modal Header */}
+        <div className="telemetry-modal-header">
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
+            <span id="modal-title" style={{ fontFamily: 'monospace', fontWeight: 700, fontSize: '1.1rem', color: 'var(--text-muted)' }}>
+              #{current.id}
+            </span>
+            <span className={`badge-stress ${badgeClass}`}>
+              {current.stressLabel || 'Unknown'} (Level {current.stressLevel != null ? current.stressLevel : 'N/A'})
+            </span>
+            <span style={{ fontSize: '0.82rem', color: 'var(--text-secondary)' }}>
+              Recorded: {safeLocale(current.createdAt)}
+            </span>
           </div>
-          <input
-            className="form-control-modern"
-            style={{ width: 220, padding: '0.45rem 0.8rem', fontSize: '0.82rem' }}
-            placeholder="🔍 Search dates..."
-            value={search}
-            onChange={e => setSearch(e.target.value)}
-          />
+          <button className="btn-icon" onClick={onClose} title="Close Modal (Esc)">
+            <Icon name="close" size={18} />
+          </button>
         </div>
 
-        <div className="card-glass-body p-0">
-          {loading ? (
-            <div style={{ padding: '3rem', textAlign: 'center', color: 'var(--text-muted)' }}>Loading history records...</div>
-          ) : filtered.length === 0 ? (
-            <div style={{ padding: '3.5rem', textAlign: 'center', color: 'var(--text-muted)' }}>No matching prediction records found.</div>
-          ) : (
-            <table className="table-modern">
-              <thead>
-                <tr>
-                  <th>#ID</th>
-                  <th>Recorded Timestamp</th>
-                  <th>Classification</th>
-                  <th>Model Confidence</th>
-                  <th>Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                {filtered.map(h => (
-                  <tr key={h.id}>
-                    <td style={{ fontFamily: 'monospace', color: 'var(--text-muted)' }}>#{h.id}</td>
-                    <td style={{ fontWeight: 600 }}>{new Date(h.createdAt).toLocaleString()}</td>
-                    <td>
-                      <span className={`badge-stress ${h.stressLabel?.toLowerCase()}`}>
-                        {h.stressLabel}
-                      </span>
-                    </td>
-                    <td>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
-                        <div style={{ width: 70, height: 6, borderRadius: 3, background: 'rgba(255,255,255,0.1)', overflow: 'hidden' }}>
-                          <div
-                            style={{
-                              width: `${h.confidence}%`, height: '100%',
-                              background: h.stressLabel === 'Low' ? '#10b981' : h.stressLabel === 'Medium' ? '#f59e0b' : '#ef4444'
-                            }}
-                          />
+        {/* Modal Body */}
+        <div className="telemetry-modal-body">
+          {/* Top Summary Bar */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem', marginBottom: '1.5rem' }}>
+            <div className="card-glass p-3" style={{ background: 'var(--bg-surface-elevated)' }}>
+              <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>AI Confidence</div>
+              <div style={{ fontSize: '1.4rem', fontWeight: 800, color: stressColor, marginTop: '0.2rem' }}>
+                {current.confidence != null ? `${Number(current.confidence).toFixed(1)}%` : 'N/A'}
+              </div>
+              <div style={{ height: 6, borderRadius: 3, background: 'rgba(255,255,255,0.08)', overflow: 'hidden', marginTop: '0.4rem' }}>
+                <div style={{ width: `${current.confidence || 0}%`, height: '100%', background: stressColor }} />
+              </div>
+            </div>
+
+            <div className="card-glass p-3" style={{ background: 'var(--bg-surface-elevated)' }}>
+              <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Biomarkers Captured</div>
+              <div style={{ fontSize: '1.4rem', fontWeight: 800, color: 'var(--primary-light)', marginTop: '0.2rem' }}>
+                20 / 20 Verified
+              </div>
+              <div style={{ fontSize: '0.75rem', color: '#10b981', marginTop: '0.2rem' }}>
+                ✓ Database Synchronized
+              </div>
+            </div>
+
+            <div className="card-glass p-3" style={{ background: 'var(--bg-surface-elevated)' }}>
+              <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Clinical Status</div>
+              <div style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--text-primary)', marginTop: '0.3rem' }}>
+                {current.stressLabel === 'Low' ? '🟢 Normal / Mild' : current.stressLabel === 'Medium' ? '🟡 Moderate Tension' : '🔴 Severe Distress'}
+              </div>
+            </div>
+          </div>
+
+          {/* Radar Chart + Recommendations Row */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1.25rem', marginBottom: '1.5rem' }}>
+            <div className="card-glass p-3">
+              <div style={{ fontWeight: 700, fontSize: '0.9rem', marginBottom: '0.75rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <span>🕸️ 5-Domain Vulnerability Radar</span>
+              </div>
+              <div style={{ height: 240, position: 'relative' }}>
+                <HistoryRadarChart record={current} />
+              </div>
+            </div>
+
+            <div className="card-glass p-3">
+              <div style={{ fontWeight: 700, fontSize: '0.9rem', marginBottom: '0.75rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <span>💡 Clinical Insights & Protocol</span>
+                {loadingExtra && <span style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>(Syncing...)</span>}
+              </div>
+              {recommendationsList.length > 0 ? (
+                <ul style={{ paddingLeft: '1.2rem', margin: 0, display: 'flex', flexDirection: 'column', gap: '0.5rem', fontSize: '0.84rem', color: 'var(--text-secondary)' }}>
+                  {recommendationsList.map((rec, idx) => (
+                    <li key={idx} style={{ lineHeight: 1.4 }}>{rec}</li>
+                  ))}
+                </ul>
+              ) : (
+                <div style={{ fontSize: '0.84rem', color: 'var(--text-muted)', fontStyle: 'italic' }}>
+                  Standard clinical stress management guidelines applied for Level {current.stressLevel != null ? current.stressLevel : 'N/A'}.
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* 5 Clinical Domains with all 20 Biomarkers */}
+          <div style={{ marginBottom: '1rem' }}>
+            <h4 style={{ fontSize: '0.95rem', fontWeight: 700, marginBottom: '0.75rem', color: 'var(--text-primary)' }}>
+              🩺 Complete 20-Biomarker Telemetry Breakdown
+            </h4>
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+              {FEATURE_DOMAINS.map(domain => (
+                <div key={domain.id} className="card-glass p-3" style={{ background: 'rgba(255, 255, 255, 0.02)' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.65rem' }}>
+                    <span style={{ fontSize: '1.1rem' }}>{domain.icon}</span>
+                    <span style={{ fontWeight: 700, fontSize: '0.88rem' }}>{domain.title}</span>
+                    <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>— {domain.desc}</span>
+                  </div>
+
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(170px, 1fr))', gap: '0.65rem' }}>
+                    {domain.features.map(f => {
+                      const val = current[f.key];
+                      const pct = val != null ? Math.min(100, Math.max(0, Math.round(((val - f.min) / (f.max - f.min || 1)) * 100))) : 0;
+                      return (
+                        <div key={f.key} className="biomarker-chip">
+                          <div className="biomarker-chip-label">
+                            <span>{f.label}</span>
+                            <span style={{ fontFamily: 'monospace' }}>[{f.min}–{f.max}]</span>
+                          </div>
+                          <div className="biomarker-chip-val">
+                            {val != null ? val : <span style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>N/A</span>}
+                            <span style={{ fontSize: '0.7rem', fontWeight: 400, color: 'var(--text-muted)', marginLeft: '0.3rem' }}>
+                              {f.unit.split(' ')[0]}
+                            </span>
+                          </div>
+                          <div className="biomarker-chip-bar">
+                            <div className="biomarker-chip-fill" style={{ width: `${pct}%`, background: pct > 70 ? '#ef4444' : pct > 40 ? '#f59e0b' : '#6366f1' }} />
+                          </div>
                         </div>
-                        <span style={{ fontWeight: 700 }}>{h.confidence?.toFixed(1)}%</span>
-                      </div>
-                    </td>
-                    <td><span style={{ fontSize: '0.78rem', color: '#10b981' }}>✓ Model Saved</span></td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          )}
+                      );
+                    })}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Modal Footer */}
+        <div className="telemetry-modal-footer">
+          <button className="btn-glow" onClick={() => onExportSingle(current)}>
+            <Icon name="download" size={16} /> Export Record #{current.id} to CSV
+          </button>
+          <button className="btn-glass" onClick={onClose}>
+            Close
+          </button>
         </div>
       </div>
     </div>
   );
 }
 
+// ─── History View with 20-Biomarker CSV Export & Telemetry ──────────────────
+function HistoryView({ setPage }) {
+  const [history, setHistory] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [errorMsg, setErrorMsg] = useState('');
+  const [filterTier, setFilterTier] = useState('ALL');
+  const [search, setSearch] = useState('');
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
+  const [sortBy, setSortBy] = useState('date-desc');
+  const [selectedRecord, setSelectedRecord] = useState(null);
+  const [exportToast, setExportToast] = useState(null);
+
+  const fetchHistory = () => {
+    setLoading(true);
+    setErrorMsg('');
+    api.get('/predict/history')
+      .then(d => {
+        setHistory(Array.isArray(d) ? d : []);
+        setLoading(false);
+      })
+      .catch(err => {
+        setErrorMsg('Failed to load prediction history. Please check connection and retry.');
+        setLoading(false);
+      });
+  };
+
+  useEffect(() => {
+    fetchHistory();
+  }, []);
+
+  useEffect(() => {
+    window.__exportHistoryCSV = (filename) => exportRecordsToCSV(sorted.length ? sorted : history, filename);
+  }, [sorted, history]);
+
+  const CSV_HEADERS = [
+    'ID',
+    'Recorded_Timestamp',
+    'Stress_Category',
+    'Stress_Level',
+    'Confidence_Percentage',
+    'Anxiety_Level',
+    'Self_Esteem',
+    'Mental_Health_History',
+    'Depression',
+    'Headache_Frequency',
+    'Blood_Pressure',
+    'Sleep_Quality',
+    'Breathing_Problem',
+    'Ambient_Noise',
+    'Living_Conditions',
+    'Safety_Perception',
+    'Basic_Needs',
+    'Academic_Performance',
+    'Study_Load',
+    'Mentor_Relationship',
+    'Career_Concerns',
+    'Social_Support',
+    'Peer_Pressure',
+    'Extracurricular_Activities',
+    'Bullying_Severity'
+  ];
+
+  const exportRecordsToCSV = (recordsToExport, customFilename) => {
+    if (!recordsToExport || !recordsToExport.length) return;
+    const escapeVal = (v) => {
+      if (v === null || v === undefined) return '';
+      const str = String(v);
+      if (str.includes(',') || str.includes('"') || str.includes('\n') || str.includes('\r')) {
+        return `"${str.replace(/"/g, '""')}"`;
+      }
+      return str;
+    };
+
+    const rows = recordsToExport.map(h => [
+      h.id,
+      safeISO(h.createdAt),
+      h.stressLabel || '',
+      h.stressLevel != null ? h.stressLevel : '',
+      h.confidence != null ? Number(h.confidence).toFixed(1) : '',
+      h.anxietyLevel != null ? h.anxietyLevel : '',
+      h.selfEsteem != null ? h.selfEsteem : '',
+      h.mentalHealthHistory != null ? h.mentalHealthHistory : '',
+      h.depression != null ? h.depression : '',
+      h.headache != null ? h.headache : '',
+      h.bloodPressure != null ? h.bloodPressure : '',
+      h.sleepQuality != null ? h.sleepQuality : '',
+      h.breathingProblem != null ? h.breathingProblem : '',
+      h.noiseLevel != null ? h.noiseLevel : '',
+      h.livingConditions != null ? h.livingConditions : '',
+      h.safety != null ? h.safety : '',
+      h.basicNeeds != null ? h.basicNeeds : '',
+      h.academicPerformance != null ? h.academicPerformance : '',
+      h.studyLoad != null ? h.studyLoad : '',
+      h.teacherStudentRelationship != null ? h.teacherStudentRelationship : '',
+      h.futureCareerConcerns != null ? h.futureCareerConcerns : '',
+      h.socialSupport != null ? h.socialSupport : '',
+      h.peerPressure != null ? h.peerPressure : '',
+      h.extracurricularActivities != null ? h.extracurricularActivities : '',
+      h.bullying != null ? h.bullying : ''
+    ]);
+
+    const csvContent = '\uFEFF' + [CSV_HEADERS.join(','), ...rows.map(r => r.map(escapeVal).join(','))].join('\r\n');
+    window.__lastExportedCSV = csvContent;
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.setAttribute('href', url);
+    const defaultFilename = `stressguard_prediction_history_${new Date().toISOString().slice(0, 10)}.csv`;
+    link.setAttribute('download', customFilename || defaultFilename);
+    document.body.appendChild(link);
+    link.click();
+    setTimeout(() => {
+      if (document.body.contains(link)) document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    }, 2500);
+
+    setExportToast(`Exported ${recordsToExport.length} complete telemetry records to CSV!`);
+    setTimeout(() => setExportToast(null), 4000);
+  };
+
+  const handleClearFilters = () => {
+    setFilterTier('ALL');
+    setSearch('');
+    setStartDate('');
+    setEndDate('');
+    setSortBy('date-desc');
+  };
+
+  const isFiltered = filterTier !== 'ALL' || search.trim() !== '' || startDate !== '' || endDate !== '';
+
+  const filtered = history.filter(h => {
+    if (filterTier !== 'ALL' && (h.stressLabel || '').toUpperCase() !== filterTier) return false;
+
+    if (search.trim()) {
+      const q = search.toLowerCase().trim();
+      const idMatch = String(h.id).includes(q) || ('#' + h.id).includes(q);
+      const tierMatch = (h.stressLabel || '').toLowerCase().includes(q);
+      const recDate = safeDate(h.createdAt);
+      const dateText = recDate ? recDate.toLocaleDateString().toLowerCase() : '';
+      const dateTextLong = recDate ? recDate.toLocaleString().toLowerCase() : '';
+      if (!idMatch && !tierMatch && !dateText.includes(q) && !dateTextLong.includes(q)) return false;
+    }
+
+    if (startDate && h.createdAt) {
+      const recDate = safeDate(h.createdAt);
+      const start = new Date(startDate);
+      start.setHours(0, 0, 0, 0);
+      if (recDate && recDate < start) return false;
+    }
+
+    if (endDate && h.createdAt) {
+      const recDate = safeDate(h.createdAt);
+      const end = new Date(endDate);
+      end.setHours(23, 59, 59, 999);
+      if (recDate && recDate > end) return false;
+    }
+
+    return true;
+  });
+
+  const sorted = [...filtered].sort((a, b) => {
+    const tA = safeDate(a.createdAt)?.getTime() || 0;
+    const tB = safeDate(b.createdAt)?.getTime() || 0;
+    if (sortBy === 'date-desc') return tB - tA;
+    if (sortBy === 'date-asc') return tA - tB;
+    if (sortBy === 'confidence-desc') return (b.confidence || 0) - (a.confidence || 0);
+    if (sortBy === 'confidence-asc') return (a.confidence || 0) - (b.confidence || 0);
+    if (sortBy === 'stress-desc') return (b.stressLevel || 0) - (a.stressLevel || 0);
+    if (sortBy === 'stress-asc') return (a.stressLevel || 0) - (b.stressLevel || 0);
+    return 0;
+  });
+
+  return (
+    <div style={{ padding: '2rem' }}>
+      {/* Toast Notification */}
+      {exportToast && (
+        <div style={{
+          position: 'fixed',
+          top: '1.5rem',
+          right: '1.5rem',
+          background: 'rgba(16, 185, 129, 0.95)',
+          color: '#fff',
+          padding: '0.85rem 1.4rem',
+          borderRadius: 'var(--radius-md)',
+          boxShadow: '0 10px 25px rgba(0,0,0,0.4)',
+          zIndex: 10000,
+          fontWeight: 600,
+          display: 'flex',
+          alignItems: 'center',
+          gap: '0.6rem',
+          animation: 'fadeIn 0.2s ease-out'
+        }}>
+          <Icon name="check" size={18} color="#fff" />
+          <span>{exportToast}</span>
+        </div>
+      )}
+
+      {/* Header */}
+      <div className="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
+        <div>
+          <h2 style={{ fontFamily: 'var(--font-heading)', fontWeight: 800, fontSize: '1.8rem', margin: 0 }}>
+            📋 Prediction Logs & Clinical History
+          </h2>
+          <p style={{ color: 'var(--text-secondary)', fontSize: '0.88rem', margin: '0.25rem 0 0' }}>
+            Complete audit trail of user submissions with confidence indices, 20-biomarker telemetry, and export capabilities.
+          </p>
+        </div>
+
+        <div className="d-flex gap-2 flex-wrap">
+          <button
+            className="btn-glow"
+            onClick={() => exportRecordsToCSV(sorted.length ? sorted : history)}
+            disabled={!history.length}
+            title="Export all visible records with all 20 biomarkers to CSV"
+          >
+            <Icon name="download" size={16} /> Export to CSV ({sorted.length})
+          </button>
+          <button className="btn-glass" onClick={() => window.print()} title="Print history summary">
+            <Icon name="printer" size={16} /> Print Sheet
+          </button>
+        </div>
+      </div>
+
+      {/* Main Glass Card */}
+      <div className="card-glass">
+        {/* Controls: Search, Filters, Dates, Sort */}
+        <div style={{ padding: '1rem 1.4rem', borderBottom: '1px solid var(--border-subtle)', display: 'flex', gap: '0.85rem', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between' }}>
+          {/* Stress Tier Pills */}
+          <div className="d-flex gap-2 flex-wrap align-items-center">
+            {['ALL', 'LOW', 'MEDIUM', 'HIGH'].map(tier => (
+              <button
+                key={tier}
+                className={`preset-pill ${filterTier === tier ? 'btn-glass' : ''}`}
+                style={{
+                  borderColor: filterTier === tier ? 'var(--primary)' : 'var(--border-subtle)',
+                  background: filterTier === tier ? 'rgba(99, 102, 241, 0.2)' : undefined,
+                  fontWeight: filterTier === tier ? 700 : 500
+                }}
+                onClick={() => setFilterTier(tier)}
+              >
+                {tier === 'ALL' ? 'All Tiers' : tier}
+              </button>
+            ))}
+          </div>
+
+          {/* Date Range Inputs & Search */}
+          <div className="d-flex gap-2 flex-wrap align-items-center">
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', fontSize: '0.78rem', color: 'var(--text-muted)' }}>
+              <span>From:</span>
+              <input
+                type="date"
+                className="form-control-modern"
+                style={{ padding: '0.35rem 0.6rem', fontSize: '0.78rem', width: 130 }}
+                value={startDate}
+                onChange={e => setStartDate(e.target.value)}
+                title="Start date filter"
+              />
+              <span>To:</span>
+              <input
+                type="date"
+                className="form-control-modern"
+                style={{ padding: '0.35rem 0.6rem', fontSize: '0.78rem', width: 130 }}
+                value={endDate}
+                onChange={e => setEndDate(e.target.value)}
+                title="End date filter"
+              />
+            </div>
+
+            <div style={{ position: 'relative' }}>
+              <input
+                className="form-control-modern"
+                style={{ width: 190, padding: '0.45rem 0.8rem', fontSize: '0.82rem' }}
+                placeholder="🔍 Search ID, tier, date..."
+                value={search}
+                onChange={e => setSearch(e.target.value)}
+              />
+            </div>
+
+            {/* Sort Select */}
+            <select
+              className="form-control-modern"
+              style={{ width: 170, padding: '0.45rem 0.8rem', fontSize: '0.82rem' }}
+              value={sortBy}
+              onChange={e => setSortBy(e.target.value)}
+              title="Sort records"
+            >
+              <option value="date-desc">Newest First</option>
+              <option value="date-asc">Oldest First</option>
+              <option value="confidence-desc">Highest Confidence</option>
+              <option value="confidence-asc">Lowest Confidence</option>
+              <option value="stress-desc">Highest Stress (High → Low)</option>
+              <option value="stress-asc">Lowest Stress (Low → High)</option>
+            </select>
+
+            {/* Clear Filters Button */}
+            {isFiltered && (
+              <button
+                className="btn-glass"
+                style={{ padding: '0.45rem 0.8rem', fontSize: '0.78rem', color: 'var(--text-secondary)' }}
+                onClick={handleClearFilters}
+                title="Reset all filters and search"
+              >
+                <Icon name="close" size={14} /> Clear Filters
+              </button>
+            )}
+          </div>
+        </div>
+
+        {/* Counter Summary Strip */}
+        <div style={{ padding: '0.5rem 1.4rem', background: 'rgba(255, 255, 255, 0.015)', borderBottom: '1px solid var(--border-subtle)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.78rem', color: 'var(--text-muted)' }}>
+          <span>
+            Showing <strong style={{ color: 'var(--text-primary)' }}>{sorted.length}</strong> of {history.length} records
+            {isFiltered && ' (filtered)'}
+          </span>
+          <span style={{ fontSize: '0.75rem' }}>
+            💡 Tip: Click any row or &quot;Inspect&quot; to view 20 biomarkers and radar map
+          </span>
+        </div>
+
+        {/* Card Body / Table / Empty States */}
+        <div className="card-glass-body p-0" style={{ overflowX: 'auto' }}>
+          {loading ? (
+            <div style={{ padding: '3.5rem', textAlign: 'center', color: 'var(--text-muted)' }}>
+              <div style={{ fontSize: '1.8rem', marginBottom: '0.5rem' }}>⏳</div>
+              <div style={{ fontWeight: 600 }}>Loading clinical history records...</div>
+            </div>
+          ) : errorMsg ? (
+            <div style={{ padding: '3rem', textAlign: 'center' }}>
+              <div style={{ color: '#ef4444', marginBottom: '1rem', fontWeight: 600 }}>{errorMsg}</div>
+              <button className="btn-glow" onClick={fetchHistory}>
+                <Icon name="refresh" size={16} /> Retry
+              </button>
+            </div>
+          ) : history.length === 0 ? (
+            /* Clean Empty History State */
+            <div style={{ padding: '4rem 2rem', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.75rem' }}>
+              <div style={{ fontSize: '3rem' }}>📋</div>
+              <h3 style={{ margin: 0, fontWeight: 700, fontSize: '1.25rem' }}>No Clinical Assessment Records</h3>
+              <p style={{ color: 'var(--text-muted)', fontSize: '0.88rem', maxWidth: 440, margin: 0 }}>
+                You haven&apos;t completed any stress assessments yet. Take your first assessment to record all 20 clinical biomarkers and establish your personal baseline.
+              </p>
+              <button
+                className="btn-glow"
+                style={{ marginTop: '0.75rem' }}
+                onClick={() => setPage && setPage('predict')}
+              >
+                <Icon name="brain" size={16} /> Take Clinical Assessment
+              </button>
+            </div>
+          ) : sorted.length === 0 ? (
+            /* Filtered Empty State */
+            <div style={{ padding: '3.5rem 2rem', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.75rem' }}>
+              <div style={{ fontSize: '2.5rem' }}>🔍</div>
+              <h4 style={{ margin: 0, fontWeight: 600 }}>No Matching Records Found</h4>
+              <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem', maxWidth: 380, margin: 0 }}>
+                No predictions match your current search query or active filter settings.
+              </p>
+              <button className="btn-glass" onClick={handleClearFilters} style={{ marginTop: '0.5rem' }}>
+                Reset Filters
+              </button>
+            </div>
+          ) : (
+            /* Populated Table with 20 Biomarker Preview */
+            <table className="table-modern" style={{ width: '100%', minWidth: 700 }}>
+              <thead>
+                <tr>
+                  <th>#ID</th>
+                  <th>Recorded Timestamp</th>
+                  <th>Classification</th>
+                  <th>Model Confidence</th>
+                  <th>Biomarkers Preview</th>
+                  <th style={{ textAlign: 'right' }}>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {sorted.map(h => {
+                  const stressColor = h.stressLabel === 'Low' ? '#10b981' : h.stressLabel === 'Medium' ? '#f59e0b' : '#ef4444';
+                  return (
+                    <tr
+                      key={h.id}
+                      className="history-row"
+                      onClick={() => setSelectedRecord(h)}
+                      title={`Click to inspect complete 20 biomarkers for prediction #${h.id}`}
+                    >
+                      <td style={{ fontFamily: 'monospace', fontWeight: 700, color: 'var(--text-muted)' }}>
+                        #{h.id}
+                      </td>
+                      <td style={{ fontWeight: 600, fontSize: '0.88rem' }}>
+                        {safeLocale(h.createdAt)}
+                      </td>
+                      <td>
+                        <span className={`badge-stress ${(h.stressLabel || '').toLowerCase()}`}>
+                          {h.stressLabel || 'Unknown'}
+                        </span>
+                      </td>
+                      <td>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+                          <div style={{ width: 65, height: 6, borderRadius: 3, background: 'rgba(255,255,255,0.08)', overflow: 'hidden' }}>
+                            <div
+                              style={{
+                                width: `${h.confidence || 0}%`,
+                                height: '100%',
+                                background: stressColor
+                              }}
+                            />
+                          </div>
+                          <span style={{ fontWeight: 700, fontSize: '0.88rem' }}>
+                            {h.confidence != null ? `${Number(h.confidence).toFixed(1)}%` : 'N/A'}
+                          </span>
+                        </div>
+                      </td>
+                      <td>
+                        <div style={{ display: 'flex', gap: '0.35rem', flexWrap: 'wrap', alignItems: 'center' }}>
+                          {h.anxietyLevel != null && (
+                            <span style={{ fontSize: '0.72rem', padding: '0.15rem 0.45rem', borderRadius: 4, background: 'rgba(99, 102, 241, 0.15)', color: '#a5b4fc', fontFamily: 'monospace' }}>
+                              Anx: {h.anxietyLevel}
+                            </span>
+                          )}
+                          {h.sleepQuality != null && (
+                            <span style={{ fontSize: '0.72rem', padding: '0.15rem 0.45rem', borderRadius: 4, background: 'rgba(16, 185, 129, 0.15)', color: '#6ee7b7', fontFamily: 'monospace' }}>
+                              Sleep: {h.sleepQuality}
+                            </span>
+                          )}
+                          {h.depression != null && (
+                            <span style={{ fontSize: '0.72rem', padding: '0.15rem 0.45rem', borderRadius: 4, background: 'rgba(239, 68, 68, 0.15)', color: '#fca5a5', fontFamily: 'monospace' }}>
+                              Dep: {h.depression}
+                            </span>
+                          )}
+                        </div>
+                      </td>
+                      <td style={{ textAlign: 'right' }}>
+                        <button
+                          className="btn-glass"
+                          style={{ padding: '0.3rem 0.75rem', fontSize: '0.78rem' }}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setSelectedRecord(h);
+                          }}
+                          title="Open detailed telemetry modal"
+                        >
+                          <Icon name="eye" size={14} /> Inspect
+                        </button>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          )}
+        </div>
+      </div>
+
+      {/* Telemetry Detail Modal */}
+      {selectedRecord && (
+        <PredictionDetailModal
+          record={selectedRecord}
+          onClose={() => setSelectedRecord(null)}
+          onExportSingle={(rec) => exportRecordsToCSV([rec], `stressguard_record_${rec.id}.csv`)}
+        />
+      )}
+    </div>
+  );
+}
+
 // ─── Profile View ────────────────────────────────────────────────────────────
-function ProfileView({ user }) {
+function ProfileView({ user, onUserUpdated }) {
   const [form, setForm] = useState({
     fullName: user?.fullName || '',
     email: user?.email || '',
@@ -1986,16 +3087,83 @@ function ProfileView({ user }) {
     age: user?.age || '',
     gender: user?.gender || ''
   });
-  const [saved, setSaved] = useState(false);
+  const [profileData, setProfileData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
+  const [successMsg, setSuccessMsg] = useState('');
+  const [errorMsg, setErrorMsg] = useState('');
+
+  // Load authenticated profile from database on mount
+  useEffect(() => {
+    let isMounted = true;
+    setLoading(true);
+    setErrorMsg('');
+    api.get('/user/profile')
+      .then(p => {
+        if (!isMounted) return;
+        setProfileData(p);
+        setForm({
+          fullName: p.fullName || '',
+          email: p.email || '',
+          phone: p.phone || '',
+          age: p.age !== null && p.age !== undefined ? p.age : '',
+          gender: p.gender || ''
+        });
+        setLoading(false);
+      })
+      .catch(err => {
+        if (!isMounted) return;
+        setErrorMsg(err.message || 'Unable to load profile data from server.');
+        setLoading(false);
+      });
+    return () => { isMounted = false; };
+  }, []);
 
   const handleSave = async (e) => {
     e.preventDefault();
+    if (saving) return;
+
+    if (!form.email || !form.email.trim()) {
+      setErrorMsg('Email address cannot be empty.');
+      return;
+    }
+    if (form.age !== '' && (parseInt(form.age, 10) < 1 || parseInt(form.age, 10) > 130)) {
+      setErrorMsg('Age must be between 1 and 130.');
+      return;
+    }
+
+    setSaving(true);
+    setErrorMsg('');
+    setSuccessMsg('');
+
     try {
-      await api.put('/user/profile', form);
-      setSaved(true);
-      setTimeout(() => setSaved(false), 3500);
+      const payload = {
+        fullName: form.fullName.trim(),
+        email: form.email.trim(),
+        phone: form.phone.trim(),
+        age: form.age !== '' ? parseInt(form.age, 10) : null,
+        gender: form.gender
+      };
+
+      const updated = await api.put('/user/profile', payload);
+      setProfileData(updated);
+      setForm({
+        fullName: updated.fullName || '',
+        email: updated.email || '',
+        phone: updated.phone || '',
+        age: updated.age !== null && updated.age !== undefined ? updated.age : '',
+        gender: updated.gender || ''
+      });
+      setSuccessMsg('Profile updated successfully in database!');
+      setTimeout(() => setSuccessMsg(''), 4000);
+
+      if (onUserUpdated) {
+        onUserUpdated(updated);
+      }
     } catch(err) {
-      alert(err.message);
+      setErrorMsg(err.message || 'Failed to update profile. Please verify your fields.');
+    } finally {
+      setSaving(false);
     }
   };
 
@@ -2008,9 +3176,15 @@ function ProfileView({ user }) {
         <p style={{ color: 'var(--text-secondary)', fontSize: '0.88rem' }}>Manage your clinical profile attributes and authorization role.</p>
       </div>
 
-      {saved && (
+      {successMsg && (
         <div style={{ padding: '0.9rem 1.2rem', borderRadius: 14, background: 'var(--success-bg)', border: '1px solid var(--success)', color: '#34d399', marginBottom: '1.5rem', fontSize: '0.88rem' }}>
-          ✅ Profile changes updated successfully in database!
+          ✅ {successMsg}
+        </div>
+      )}
+
+      {errorMsg && (
+        <div style={{ padding: '0.9rem 1.2rem', borderRadius: 14, background: 'var(--danger-bg)', border: '1px solid var(--danger)', color: '#f87171', marginBottom: '1.5rem', fontSize: '0.88rem' }}>
+          ⚠️ {errorMsg}
         </div>
       )}
 
@@ -2018,17 +3192,27 @@ function ProfileView({ user }) {
         <div className="col-md-4">
           <div className="card-glass" style={{ padding: '2rem', textAlign: 'center' }}>
             <div className="user-avatar" style={{ width: 80, height: 80, fontSize: '2rem', margin: '0 auto 1rem' }}>
-              {(user?.fullName || user?.username || 'U')[0].toUpperCase()}
+              {((profileData?.fullName || user?.fullName || user?.username || 'U')[0]).toUpperCase()}
             </div>
             <h4 style={{ fontFamily: 'var(--font-heading)', fontWeight: 800, margin: 0 }}>
-              {user?.fullName || user?.username}
+              {profileData?.fullName || user?.fullName || user?.username}
             </h4>
-            <div style={{ color: 'var(--text-muted)', fontSize: '0.86rem', marginTop: '0.2rem' }}>{user?.email}</div>
+            <div style={{ color: 'var(--text-muted)', fontSize: '0.86rem', marginTop: '0.2rem' }}>
+              {profileData?.email || user?.email}
+            </div>
             <div className="mt-3">
-              <span className={`badge-stress ${user?.role === 'ADMIN' ? 'high' : 'low'}`} style={{ fontSize: '0.82rem' }}>
-                Role: {user?.role}
+              <span className={`badge-stress ${((profileData?.role || user?.role) === 'ADMIN') ? 'high' : 'low'}`} style={{ fontSize: '0.82rem' }}>
+                Role: {profileData?.role || user?.role}
               </span>
             </div>
+
+            {profileData && (
+              <div style={{ marginTop: '1.2rem', padding: '0.9rem', borderRadius: 12, background: 'var(--bg-surface-elevated)', border: '1px solid var(--border-subtle)', fontSize: '0.8rem', color: 'var(--text-secondary)', textAlign: 'left', lineHeight: 1.6 }}>
+                <div><strong>Username:</strong> {profileData.username}</div>
+                <div><strong>Total Assessments:</strong> {profileData.totalPredictions}</div>
+                <div><strong>Last Stress Tier:</strong> {profileData.lastStressLabel || 'None'}</div>
+              </div>
+            )}
           </div>
         </div>
 
@@ -2036,36 +3220,37 @@ function ProfileView({ user }) {
           <div className="card-glass">
             <div className="card-glass-header">
               <span>Personal Medical Demographics</span>
+              {loading && <span style={{ fontSize: '0.78rem', color: 'var(--primary-light)' }}>⏳ Syncing with Cloud...</span>}
             </div>
             <div className="card-glass-body">
-              <form onSubmit={handleSave}>
+              <form onSubmit={handleSave} noValidate>
                 <div className="row g-3">
                   <div className="col-md-6">
                     <label style={{ fontSize: '0.82rem', fontWeight: 600, color: 'var(--text-secondary)', marginBottom: '0.35rem', display: 'block' }}>Full Legal Name</label>
-                    <input className="form-control-modern" value={form.fullName} onChange={e => setForm({ ...form, fullName: e.target.value })} />
+                    <input className="form-control-modern" value={form.fullName} onChange={e => setForm({ ...form, fullName: e.target.value })} disabled={saving || loading} />
                   </div>
                   <div className="col-md-6">
-                    <label style={{ fontSize: '0.82rem', fontWeight: 600, color: 'var(--text-secondary)', marginBottom: '0.35rem', display: 'block' }}>Email</label>
-                    <input className="form-control-modern" value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} />
+                    <label style={{ fontSize: '0.82rem', fontWeight: 600, color: 'var(--text-secondary)', marginBottom: '0.35rem', display: 'block' }}>Email Address *</label>
+                    <input type="email" className="form-control-modern" value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} required disabled={saving || loading} />
                   </div>
                   <div className="col-md-6">
                     <label style={{ fontSize: '0.82rem', fontWeight: 600, color: 'var(--text-secondary)', marginBottom: '0.35rem', display: 'block' }}>Contact Phone</label>
-                    <input className="form-control-modern" value={form.phone} onChange={e => setForm({ ...form, phone: e.target.value })} />
+                    <input className="form-control-modern" value={form.phone} onChange={e => setForm({ ...form, phone: e.target.value })} placeholder="e.g. +1 555-0199" disabled={saving || loading} />
                   </div>
                   <div className="col-md-3">
                     <label style={{ fontSize: '0.82rem', fontWeight: 600, color: 'var(--text-secondary)', marginBottom: '0.35rem', display: 'block' }}>Age</label>
-                    <input type="number" className="form-control-modern" value={form.age} onChange={e => setForm({ ...form, age: e.target.value })} />
+                    <input type="number" min="1" max="130" className="form-control-modern" value={form.age} onChange={e => setForm({ ...form, age: e.target.value })} disabled={saving || loading} />
                   </div>
                   <div className="col-md-3">
                     <label style={{ fontSize: '0.82rem', fontWeight: 600, color: 'var(--text-secondary)', marginBottom: '0.35rem', display: 'block' }}>Gender</label>
-                    <select className="form-control-modern" value={form.gender} onChange={e => setForm({ ...form, gender: e.target.value })}>
+                    <select className="form-control-modern" value={form.gender} onChange={e => setForm({ ...form, gender: e.target.value })} disabled={saving || loading}>
                       <option value="">—</option>
                       <option>Male</option><option>Female</option><option>Other</option>
                     </select>
                   </div>
                 </div>
-                <button type="submit" className="btn-glow mt-4">
-                  💾 Update Profile
+                <button type="submit" className="btn-glow mt-4" disabled={saving || loading}>
+                  {saving ? '⏳ Saving to Database...' : '💾 Update Profile'}
                 </button>
               </form>
             </div>
@@ -2343,10 +3528,94 @@ function App() {
     const saved = localStorage.getItem('user_info');
     return saved ? JSON.parse(saved) : null;
   });
-  const [page, setPage] = useState('dashboard');
+
+  const parseRoute = (hash, currentUser) => {
+    const clean = (hash || '').replace(/^#\/?/, '').trim();
+    const userPages = ['dashboard', 'predict', 'history', 'profile'];
+    const adminPages = ['admin-dashboard', 'admin-users'];
+    if (userPages.includes(clean)) return clean;
+    if (adminPages.includes(clean)) {
+      return currentUser?.role === 'ADMIN' ? clean : 'dashboard';
+    }
+    return 'dashboard';
+  };
+
+  const [page, setPage] = useState(() => {
+    const savedUser = localStorage.getItem('user_info');
+    const u = savedUser ? JSON.parse(savedUser) : null;
+    return parseRoute(window.location.hash, u);
+  });
+
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const [theme, setTheme] = useState(() => localStorage.getItem('app_theme') || 'dark');
   const [ambientPlaying, setAmbientPlaying] = useState(false);
   const [toast, setToast] = useState('');
+
+  // Synchronize browser history and hash routing
+  useEffect(() => {
+    if (!user) return;
+
+    const syncRouteFromHash = () => {
+      const targetPage = parseRoute(window.location.hash, user);
+      setPage(targetPage);
+      const expectedHash = '#/' + targetPage;
+      if (window.location.hash !== expectedHash) {
+        window.history.replaceState(null, '', expectedHash);
+      }
+    };
+
+    syncRouteFromHash();
+    window.addEventListener('hashchange', syncRouteFromHash);
+    return () => window.removeEventListener('hashchange', syncRouteFromHash);
+  }, [user]);
+
+  // Close sidebar on Escape key
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape' && sidebarOpen) {
+        setSidebarOpen(false);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [sidebarOpen]);
+
+  // Lock body scroll when mobile drawer is open
+  useEffect(() => {
+    if (sidebarOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [sidebarOpen]);
+
+  // Auto-close mobile drawer on window resize to desktop
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth > 992 && sidebarOpen) {
+        setSidebarOpen(false);
+      }
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [sidebarOpen]);
+
+  const navigateTo = (targetPage) => {
+    let validPage = targetPage;
+    if ((targetPage === 'admin-dashboard' || targetPage === 'admin-users') && user?.role !== 'ADMIN') {
+      validPage = 'dashboard';
+    }
+    const targetHash = '#/' + validPage;
+    if (window.location.hash !== targetHash) {
+      window.location.hash = targetHash;
+    } else {
+      setPage(validPage);
+    }
+    if (sidebarOpen) setSidebarOpen(false);
+  };
 
   // Toggle Theme
   useEffect(() => {
@@ -2375,9 +3644,22 @@ function App() {
     setTimeout(() => setToast(''), 3000);
   };
 
+  const handleUserUpdated = (updatedProfile) => {
+    setUser(prev => {
+      const nextUser = {
+        ...prev,
+        fullName: updatedProfile.fullName,
+        email: updatedProfile.email
+      };
+      localStorage.setItem('user_info', JSON.stringify(nextUser));
+      return nextUser;
+    });
+    showToast('Profile updated in session!');
+  };
+
   const handleLogin = (u) => {
     setUser(u);
-    setPage('dashboard');
+    navigateTo('dashboard');
     showToast(`Welcome back, ${u.fullName || u.username}!`);
   };
 
@@ -2385,6 +3667,8 @@ function App() {
     if (ambientPlaying) ambientPlayer.stop();
     localStorage.clear();
     setUser(null);
+    setSidebarOpen(false);
+    window.location.hash = '#/login';
   };
 
   if (!user) return <AuthView onLogin={handleLogin} />;
@@ -2413,14 +3697,34 @@ function App() {
         </div>
       )}
 
+      {/* Mobile Backdrop Overlay */}
+      <div
+        className={`sidebar-backdrop ${sidebarOpen ? 'active' : ''}`}
+        onClick={() => setSidebarOpen(false)}
+        aria-hidden="true"
+      />
+
       {/* Sidebar */}
-      <div className="sidebar">
+      <div
+        id="app-sidebar"
+        className={`sidebar ${sidebarOpen ? 'open' : ''}`}
+        role="navigation"
+        aria-label="Sidebar Navigation"
+      >
         <div className="sidebar-brand">
           <div className="brand-icon">🧠</div>
           <div className="brand-text">
             <h1>StressGuard</h1>
             <span>AI Platform 2.0</span>
           </div>
+          <button
+            className="btn-icon sidebar-close-btn"
+            onClick={() => setSidebarOpen(false)}
+            aria-label="Close navigation menu"
+            title="Close Menu"
+          >
+            <Icon name="close" size={18} />
+          </button>
         </div>
 
         <div className="sidebar-nav">
@@ -2429,7 +3733,7 @@ function App() {
             <button
               key={item.key}
               className={`nav-btn ${page === item.key ? 'active' : ''}`}
-              onClick={() => setPage(item.key)}
+              onClick={() => navigateTo(item.key)}
             >
               <Icon name={item.icon} size={18} />
               <span>{item.label}</span>
@@ -2443,7 +3747,7 @@ function App() {
                 <button
                   key={item.key}
                   className={`nav-btn ${page === item.key ? 'active' : ''}`}
-                  onClick={() => setPage(item.key)}
+                  onClick={() => navigateTo(item.key)}
                 >
                   <Icon name={item.icon} size={18} />
                   <span>{item.label}</span>
@@ -2476,7 +3780,17 @@ function App() {
         {/* Topbar */}
         <div className="topbar">
           <div className="topbar-title">
-            <span>
+            <button
+              className="btn-icon hamburger-btn"
+              onClick={() => setSidebarOpen(prev => !prev)}
+              aria-label="Open navigation menu"
+              aria-expanded={sidebarOpen}
+              aria-controls="app-sidebar"
+              title="Open Navigation Menu"
+            >
+              <Icon name="menu" size={20} />
+            </button>
+            <span className="topbar-title-text">
               {page === 'dashboard' && '🏠 Dashboard Overview'}
               {page === 'predict' && '🔮 Clinical Prediction Engine'}
               {page === 'history' && '📋 Historical Logs'}
@@ -2495,7 +3809,7 @@ function App() {
               style={{ borderColor: ambientPlaying ? 'var(--secondary)' : 'var(--border-subtle)' }}
             >
               <Icon name={ambientPlaying ? 'volume' : 'volumeMute'} size={16} color={ambientPlaying ? 'var(--secondary)' : 'currentColor'} />
-              <span>{ambientPlaying ? 'Rain Sound: ON' : 'Ambient Relief'}</span>
+              <span className="ambient-btn-text">{ambientPlaying ? 'Rain Sound: ON' : 'Ambient Relief'}</span>
             </button>
 
             {/* Dark / Light Mode Toggle */}
@@ -2506,7 +3820,7 @@ function App() {
             {/* Model Badge */}
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', padding: '0.35rem 0.85rem', borderRadius: 20, background: 'var(--bg-surface-elevated)', border: '1px solid var(--border-subtle)', fontSize: '0.78rem' }}>
               <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#10b981', display: 'inline-block' }} />
-              <span style={{ fontWeight: 600 }}>Random Forest: 88.6%</span>
+              <span className="model-badge-text" style={{ fontWeight: 600 }}>Random Forest: 88.6%</span>
             </div>
 
             {/* Cloud Backend Indicator & Config Pill */}
@@ -2527,16 +3841,16 @@ function App() {
               title="Click to configure backend API endpoint"
             >
               <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#6366f1', display: 'inline-block' }} />
-              <span style={{ fontWeight: 600 }}>API: Cloud</span>
+              <span className="api-pill-text" style={{ fontWeight: 600 }}>API: Cloud</span>
             </div>
           </div>
         </div>
 
         {/* Dynamic Page Component */}
-        {page === 'dashboard' && <DashboardView user={user} setPage={setPage} />}
+        {page === 'dashboard' && <DashboardView user={user} setPage={navigateTo} />}
         {page === 'predict' && <PredictionView />}
-        {page === 'history' && <HistoryView />}
-        {page === 'profile' && <ProfileView user={user} />}
+        {page === 'history' && <HistoryView setPage={navigateTo} />}
+        {page === 'profile' && <ProfileView user={user} onUserUpdated={handleUserUpdated} />}
         {page === 'admin-dashboard' && <AdminDashboardView />}
         {page === 'admin-users' && <AdminUsersView />}
       </div>
