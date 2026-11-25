@@ -4,12 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>StressGuard AI 2.0 – Clinical Intelligence & Stress Prediction</title>
-  
-  <!-- Modern Google Fonts: Plus Jakarta Sans & Outfit -->
+  <link rel="icon" type="image/x-icon" href="favicon.ico" />
+
+  <!-- Modern Google Fonts: Plus Jakarta Sans, Inter, JetBrains Mono & Caveat -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
-  
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet" />
+
   <!-- Bootstrap 5 & Chart.js -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.development.js"></script>
@@ -19,103 +20,127 @@
 
   <style>
     /* =========================================================================
-       ULTRA-PREMIUM DESIGN SYSTEM & THEME TOKENS
+       STRESSGUARD AI 2.0 – UNIFIED WELLNESS DESIGN SYSTEM
+       Soft Green (#4CAF50, #A8DFA5) & Sky Blue (#87CEEB, #2998D8) Palette
        ========================================================================= */
     :root {
-      --font-body: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
-      --font-heading: 'Outfit', 'Plus Jakarta Sans', sans-serif;
+      --font-body: 'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, sans-serif;
+      --font-heading: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      --font-numeric: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', 'SF Mono', 'Segoe UI Mono', Menlo, Consolas, monospace;
+      --font-script: 'Caveat', 'Dancing Script', cursive;
 
-      /* Dark Theme (Default) */
-      --bg-base: #070913;
-      --bg-surface: rgba(15, 23, 42, 0.72);
-      --bg-surface-elevated: rgba(30, 41, 59, 0.65);
-      --bg-card: rgba(18, 24, 43, 0.65);
-      --bg-card-hover: rgba(28, 38, 68, 0.8);
-      --border-subtle: rgba(255, 255, 255, 0.08);
-      --border-accent: rgba(99, 102, 241, 0.35);
-      --border-glow: rgba(99, 102, 241, 0.5);
+      /* Wellness Light Theme (Default & Universal) */
+      --bg-base: #F5FAFC;
+      --bg-surface: rgba(255, 255, 255, 0.94);
+      --bg-surface-elevated: #FFFFFF;
+      --bg-card: #FFFFFF;
+      --bg-card-hover: #F8FCFD;
+      --border-subtle: #D7EAE8;
+      --border-accent: rgba(41, 152, 216, 0.35);
+      --border-glow: rgba(76, 175, 80, 0.25);
 
-      --text-main: #f8fafc;
-      --text-secondary: #94a3b8;
-      --text-muted: #64748b;
+      --text-main: #173B50;
+      --text-secondary: #637D8B;
+      --text-muted: #8FA7B5;
 
-      /* Brand Accents */
-      --primary: #6366f1;
-      --primary-light: #818cf8;
-      --primary-dark: #4338ca;
-      --primary-glow: rgba(99, 102, 241, 0.35);
+      /* Primary Sky Blue Palette */
+      --primary-sky: #87CEEB;
+      --primary: #2998D8;
+      --primary-light: #87CEEB;
+      --primary-dark: #1A7BB7;
+      --primary-glow: rgba(41, 152, 216, 0.22);
+      --light-sky: #EAF7FF;
 
-      --secondary: #06b6d4;
-      --secondary-glow: rgba(6, 182, 212, 0.35);
+      /* Soft & Fresh Green Palette */
+      --secondary: #4CAF50;
+      --secondary-soft: #A8DFA5;
+      --secondary-pale: #EFF9EE;
+      --secondary-dark: #2E7D32;
+      --secondary-glow: rgba(76, 175, 80, 0.22);
 
-      --success: #10b981;
-      --success-bg: rgba(16, 185, 129, 0.15);
-      --success-glow: rgba(16, 185, 129, 0.3);
+      --success: #4CAF50;
+      --success-bg: #EFF9EE;
+      --success-glow: rgba(76, 175, 80, 0.25);
 
-      --warning: #f59e0b;
-      --warning-bg: rgba(245, 158, 11, 0.15);
-      --warning-glow: rgba(245, 158, 11, 0.3);
+      --warning: #F59E0B;
+      --warning-bg: #FFFBEB;
+      --warning-glow: rgba(245, 158, 11, 0.25);
 
-      --danger: #ef4444;
-      --danger-bg: rgba(239, 68, 68, 0.15);
-      --danger-glow: rgba(239, 68, 68, 0.3);
+      --danger: #EF4444;
+      --danger-bg: #FEF2F2;
+      --danger-glow: rgba(239, 68, 68, 0.25);
 
-      --glass-blur: blur(24px) saturate(190%);
-      --card-shadow: 0 12px 36px -4px rgba(0, 0, 0, 0.5), 0 0 0 1px var(--border-subtle);
+      --glass-blur: blur(16px);
+      --card-shadow: 0 4px 20px -2px rgba(23, 59, 80, 0.05), 0 1px 3px rgba(0, 0, 0, 0.03), 0 0 0 1px var(--border-subtle);
       --topbar-h: 70px;
       --sidebar-w: 270px;
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --radius-xl: 28px;
     }
 
-    /* Light Theme Overrides */
-    [data-theme="light"] {
-      --bg-base: #f1f5f9;
-      --bg-surface: rgba(255, 255, 255, 0.85);
-      --bg-surface-elevated: rgba(255, 255, 255, 0.95);
-      --bg-card: rgba(255, 255, 255, 0.8);
-      --bg-card-hover: rgba(255, 255, 255, 0.95);
-      --border-subtle: rgba(148, 163, 184, 0.2);
-      --border-accent: rgba(99, 102, 241, 0.4);
-      --border-glow: rgba(99, 102, 241, 0.3);
-
-      --text-main: #0f172a;
-      --text-secondary: #475569;
-      --text-muted: #64748b;
-      --card-shadow: 0 12px 30px -4px rgba(99, 102, 241, 0.12), 0 0 0 1px var(--border-subtle);
+    /* Light Theme (Preserves consistent wellness palette) */
+    [data-theme="light"], [data-theme="wellness"], [data-theme="dark"] {
+      --bg-base: #F5FAFC;
+      --bg-surface: rgba(255, 255, 255, 0.94);
+      --bg-surface-elevated: #FFFFFF;
+      --bg-card: #FFFFFF;
+      --bg-card-hover: #F8FCFD;
+      --border-subtle: #D7EAE8;
+      --border-accent: rgba(41, 152, 216, 0.35);
+      --border-glow: rgba(76, 175, 80, 0.25);
+      --text-main: #173B50;
+      --text-secondary: #637D8B;
+      --text-muted: #8FA7B5;
+      --card-shadow: 0 4px 20px -2px rgba(23, 59, 80, 0.05), 0 1px 3px rgba(0, 0, 0, 0.03), 0 0 0 1px var(--border-subtle);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body { min-height: 100%; font-family: var(--font-body); color: var(--text-main); background: var(--bg-base); transition: background-color 0.3s ease, color 0.3s ease; overflow-x: hidden; }
+    html, body {
+      min-height: 100%;
+      font-family: var(--font-body);
+      color: var(--text-main);
+      background: var(--bg-base);
+      transition: background-color 0.3s ease, color 0.3s ease;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+    }
 
-    /* Animated Ambient Orb Backdrops */
+    /* Soft Nature Ambient Glow */
     .ambient-bg {
       position: fixed;
       inset: 0;
       pointer-events: none;
       z-index: 0;
       overflow: hidden;
+      background: #F5FAFC;
     }
     .ambient-orb {
       position: absolute;
       border-radius: 50%;
-      filter: blur(100px);
-      opacity: 0.28;
+      filter: blur(120px);
+      opacity: 0.22;
       animation: floatOrb 22s ease-in-out infinite alternate;
     }
-    .orb-1 { width: 550px; height: 550px; background: radial-gradient(circle, #6366f1, #3b82f6); top: -120px; left: -100px; animation-duration: 25s; }
-    .orb-2 { width: 500px; height: 500px; background: radial-gradient(circle, #06b6d4, #10b981); bottom: -80px; right: -80px; animation-duration: 20s; }
-    .orb-3 { width: 400px; height: 400px; background: radial-gradient(circle, #ec4899, #8b5cf6); top: 40%; left: 35%; animation-duration: 28s; }
+    .orb-1 { width: 550px; height: 550px; background: radial-gradient(circle, #87CEEB, #EAF7FF); top: -120px; left: -100px; animation-duration: 25s; }
+    .orb-2 { width: 500px; height: 500px; background: radial-gradient(circle, #A8DFA5, #EFF9EE); bottom: -80px; right: -80px; animation-duration: 20s; }
+    .orb-3 { width: 400px; height: 400px; background: radial-gradient(circle, #EAF7FF, #A8DFA5); top: 40%; left: 35%; animation-duration: 28s; }
 
     @keyframes floatOrb {
       0% { transform: translate(0, 0) scale(1); }
-      50% { transform: translate(40px, -30px) scale(1.08); }
-      100% { transform: translate(-30px, 40px) scale(0.95); }
+      50% { transform: translate(30px, -20px) scale(1.05); }
+      100% { transform: translate(-20px, 30px) scale(0.96); }
     }
 
     #root { position: relative; z-index: 1; }
 
     /* Layout */
-    .app-layout { display: flex; min-height: 100vh; }
-    
+    .app-layout { display: flex; min-height: 100vh; background: var(--bg-base); }
+
     /* Sidebar */
     .sidebar {
       width: var(--sidebar-w);
@@ -127,33 +152,30 @@
       top: 0; bottom: 0; left: 0;
       display: flex; flex-direction: column;
       z-index: 100;
-      transition: transform 0.3s ease;
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 2px 0 16px rgba(23, 59, 80, 0.04);
     }
     .sidebar-brand {
       padding: 1.5rem 1.4rem;
       border-bottom: 1px solid var(--border-subtle);
-      display: flex; align-items: center; gap: 0.75rem;
+      display: flex; align-items: center; justify-content: space-between;
     }
     .brand-icon {
       width: 44px; height: 44px; border-radius: 14px;
-      background: linear-gradient(135deg, #6366f1, #a855f7);
+      background: linear-gradient(135deg, #2998D8, #4CAF50);
       display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 8px 20px var(--primary-glow);
+      box-shadow: 0 4px 14px var(--secondary-glow);
       color: white; font-size: 1.4rem;
     }
     .brand-text h1 {
       font-family: var(--font-heading);
-      font-size: 1.22rem; font-weight: 800; margin: 0;
-      background: linear-gradient(135deg, #ffffff, #c7d2fe);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    }
-    [data-theme="light"] .brand-text h1 {
-      background: linear-gradient(135deg, #1e1b4b, #4338ca);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      font-size: 1.25rem; font-weight: 800; margin: 0;
+      color: var(--text-main);
+      letter-spacing: -0.01em;
     }
     .brand-text span {
-      font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase;
-      color: var(--secondary); font-weight: 700;
+      font-size: 0.72rem; letter-spacing: 0.05em; text-transform: uppercase;
+      color: var(--secondary-dark); font-weight: 700;
     }
 
     .sidebar-nav { padding: 1.2rem 0.9rem; flex: 1; overflow-y: auto; }
@@ -163,44 +185,45 @@
     }
     .nav-btn {
       display: flex; align-items: center; gap: 0.85rem;
-      width: 100%; padding: 0.72rem 1rem; margin-bottom: 0.3rem;
-      border-radius: 12px; border: 1px solid transparent;
+      width: 100%; padding: 0.72rem 1rem; margin-bottom: 0.35rem;
+      border-radius: 14px; border: 1px solid transparent;
       background: transparent; color: var(--text-secondary);
       font-size: 0.88rem; font-weight: 600; cursor: pointer;
       transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
       text-align: left;
     }
     .nav-btn:hover {
-      background: var(--border-subtle); color: var(--text-main);
+      background: var(--light-sky); color: var(--text-main);
+      border-color: var(--border-subtle);
       transform: translateX(3px);
     }
     .nav-btn.active {
-      background: linear-gradient(135deg, rgba(99, 102, 241, 0.22), rgba(168, 85, 247, 0.15));
-      border-color: var(--border-accent);
-      color: #fff; box-shadow: 0 4px 20px var(--primary-glow);
+      background: linear-gradient(135deg, #EAF7FF 0%, #EFF9EE 100%);
+      border-color: var(--secondary-soft);
+      color: var(--text-main); font-weight: 700;
+      box-shadow: 0 3px 12px rgba(41, 152, 216, 0.1);
     }
-    [data-theme="light"] .nav-btn.active {
-      background: linear-gradient(135deg, rgba(99, 102, 241, 0.14), rgba(168, 85, 247, 0.08));
-      color: var(--primary-dark);
+    .nav-btn.active svg {
+      color: var(--primary) !important;
     }
 
     .sidebar-footer {
       padding: 1rem 1.1rem;
       border-top: 1px solid var(--border-subtle);
-      background: rgba(0,0,0,0.1);
+      background: rgba(234, 247, 255, 0.45);
       display: flex; align-items: center; gap: 0.8rem;
     }
     .user-avatar {
       width: 40px; height: 40px; border-radius: 12px;
-      background: linear-gradient(135deg, #4f46e5, #06b6d4);
+      background: linear-gradient(135deg, #2998D8, #4CAF50);
       color: white; font-weight: 700; display: flex;
       align-items: center; justify-content: center; font-size: 0.95rem;
-      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.25);
+      box-shadow: 0 4px 12px rgba(41, 152, 216, 0.25);
     }
 
-    /* Main Area */
-    .main-wrap { margin-left: var(--sidebar-w); flex: 1; min-width: 0; }
-    
+    /* Main Content Area */
+    .main-wrap { margin-left: var(--sidebar-w); flex: 1; min-width: 0; background: var(--bg-base); }
+
     /* Topbar */
     .topbar {
       height: var(--topbar-h);
@@ -211,35 +234,40 @@
       border-bottom: 1px solid var(--border-subtle);
       display: flex; align-items: center; justify-content: space-between;
       position: sticky; top: 0; z-index: 90;
+      box-shadow: 0 1px 4px rgba(23, 59, 80, 0.02);
     }
     .topbar-title {
       font-family: var(--font-heading);
       font-size: 1.25rem; font-weight: 700;
+      color: var(--text-main);
       display: flex; align-items: center; gap: 0.6rem;
     }
     .topbar-tools { display: flex; align-items: center; gap: 0.85rem; }
 
-    /* Glass Cards */
+    /* Cards */
     .card-glass {
       background: var(--bg-card);
-      backdrop-filter: var(--glass-blur);
-      -webkit-backdrop-filter: var(--glass-blur);
       border: 1px solid var(--border-subtle);
       border-radius: 20px;
       box-shadow: var(--card-shadow);
-      transition: border-color 0.25s ease, transform 0.2s ease;
+      transition: border-color 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
       overflow: hidden;
     }
-    .card-glass:hover { border-color: var(--border-accent); }
+    .card-glass:hover {
+      border-color: rgba(41, 152, 216, 0.4);
+      box-shadow: 0 8px 30px -4px rgba(23, 59, 80, 0.08), 0 0 0 1px rgba(41, 152, 216, 0.3);
+    }
     .card-glass-header {
       padding: 1.25rem 1.6rem;
       border-bottom: 1px solid var(--border-subtle);
       display: flex; align-items: center; justify-content: space-between;
       font-family: var(--font-heading); font-weight: 700; font-size: 1.05rem;
+      color: var(--text-main);
+      background: #FFFFFF;
     }
     .card-glass-body { padding: 1.6rem; }
 
-    /* Stat Cards */
+    /* Stat & Metric Cards */
     .metric-card {
       padding: 1.4rem 1.5rem;
       border-radius: 18px;
@@ -247,67 +275,81 @@
       overflow: hidden;
       border: 1px solid var(--border-subtle);
       background: var(--bg-card);
-      backdrop-filter: var(--glass-blur);
+      box-shadow: var(--card-shadow);
       transition: transform 0.25s ease, box-shadow 0.25s ease;
     }
-    .metric-card:hover { transform: translateY(-3px); }
+    .metric-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 28px -4px rgba(23, 59, 80, 0.1), 0 0 0 1px var(--border-subtle);
+    }
     .metric-card::before {
       content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
       background: var(--metric-color, var(--primary));
     }
     .metric-val {
-      font-family: var(--font-heading);
+      font-family: var(--font-numeric);
+      font-variant-numeric: tabular-nums;
       font-size: 2.1rem; font-weight: 800; line-height: 1.1; margin-top: 0.4rem;
+      color: var(--text-main);
+      letter-spacing: -0.02em;
     }
     .metric-label {
       font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.08em;
-      color: var(--text-muted); font-weight: 700;
+      color: var(--text-secondary); font-weight: 700;
     }
     .metric-badge {
       display: inline-flex; align-items: center; gap: 0.35rem;
-      font-size: 0.72rem; padding: 0.2rem 0.55rem; border-radius: 20px;
+      font-size: 0.72rem; padding: 0.22rem 0.65rem; border-radius: 20px;
       font-weight: 700; margin-top: 0.6rem;
     }
 
     /* Buttons */
     .btn-glow {
-      background: linear-gradient(135deg, #6366f1, #4f46e5);
+      background: linear-gradient(135deg, #2998D8 0%, #4CAF50 100%);
       color: #fff; font-weight: 700; font-size: 0.9rem;
       padding: 0.65rem 1.5rem; border-radius: 14px;
-      border: 1px solid rgba(255,255,255,0.15);
-      box-shadow: 0 6px 22px var(--primary-glow);
+      border: none;
+      box-shadow: 0 6px 20px rgba(41, 152, 216, 0.25);
       cursor: pointer; transition: all 0.2s ease;
       display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
     }
     .btn-glow:hover {
-      background: linear-gradient(135deg, #4f46e5, #4338ca);
-      transform: translateY(-2px); box-shadow: 0 8px 26px var(--primary-glow);
+      background: linear-gradient(135deg, #1A7BB7 0%, #388E3C 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(41, 152, 216, 0.35);
       color: #fff;
     }
     .btn-glow:active { transform: translateY(0); }
 
     .btn-glass {
-      background: var(--bg-surface-elevated);
+      background: #FFFFFF;
       color: var(--text-main); font-weight: 600; font-size: 0.86rem;
       padding: 0.55rem 1.1rem; border-radius: 12px;
       border: 1px solid var(--border-subtle);
       cursor: pointer; transition: all 0.2s ease;
       display: inline-flex; align-items: center; gap: 0.45rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
     }
     .btn-glass:hover {
-      border-color: var(--border-accent); background: var(--bg-card-hover);
+      border-color: var(--primary); background: #F5FAFC;
       transform: translateY(-1px);
+      color: var(--primary);
     }
 
     .btn-icon {
       width: 40px; height: 40px; border-radius: 12px;
-      background: var(--bg-surface-elevated);
+      background: #FFFFFF;
       border: 1px solid var(--border-subtle);
       color: var(--text-secondary); display: flex;
       align-items: center; justify-content: center;
       cursor: pointer; transition: all 0.2s ease;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
     }
-    .btn-icon:hover { border-color: var(--border-accent); color: var(--text-main); }
+    .btn-icon:hover {
+      border-color: var(--primary);
+      color: var(--text-main);
+      background: var(--light-sky);
+    }
 
     /* Category Pill Selector */
     .category-tabs {
@@ -315,46 +357,49 @@
     }
     .cat-tab {
       padding: 0.55rem 1.15rem; border-radius: 14px;
-      background: var(--bg-surface-elevated);
+      background: #FFFFFF;
       border: 1px solid var(--border-subtle);
       color: var(--text-secondary); font-size: 0.86rem; font-weight: 600;
       cursor: pointer; transition: all 0.2s ease;
       display: inline-flex; align-items: center; gap: 0.5rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.02);
     }
-    .cat-tab:hover { color: var(--text-main); border-color: var(--border-accent); }
+    .cat-tab:hover { color: var(--text-main); border-color: var(--primary); background: #F8FCFD; }
     .cat-tab.active {
-      background: linear-gradient(135deg, rgba(99, 102, 241, 0.25), rgba(6, 182, 212, 0.2));
-      border-color: var(--primary-light); color: var(--text-main);
-      box-shadow: 0 4px 16px var(--primary-glow);
+      background: linear-gradient(135deg, #EAF7FF 0%, #EFF9EE 100%);
+      border-color: var(--secondary-soft); color: var(--text-main); font-weight: 700;
+      box-shadow: 0 3px 12px rgba(41, 152, 216, 0.12);
     }
 
     /* Sliders & Direct Numeric Inputs */
     .slider-card, .biomarker-card {
-      background: var(--bg-surface-elevated);
+      background: #FFFFFF;
       border: 1px solid var(--border-subtle);
-      border-radius: 14px; padding: 1.1rem 1.25rem;
+      border-radius: 16px; padding: 1.15rem 1.3rem;
       transition: all 0.2s ease;
       position: relative;
+      box-shadow: 0 1px 4px rgba(23, 59, 80, 0.03);
     }
-    .slider-card:hover, .biomarker-card:hover { border-color: var(--border-accent); }
+    .slider-card:hover, .biomarker-card:hover {
+      border-color: var(--primary-sky);
+      box-shadow: 0 4px 16px rgba(41, 152, 216, 0.08);
+    }
     .biomarker-card.has-error {
       border-color: #ef4444 !important;
-      background: rgba(239, 68, 68, 0.05);
-      box-shadow: 0 0 12px rgba(239, 68, 68, 0.15);
+      background: rgba(239, 68, 68, 0.03);
+      box-shadow: 0 0 12px rgba(239, 68, 68, 0.12);
     }
     .slider-header, .biomarker-header {
       display: flex; justify-content: space-between; align-items: flex-start;
       margin-bottom: 0.75rem; gap: 0.75rem;
     }
-    .biomarker-title-wrap {
-      flex: 1; min-width: 0;
-    }
+    .biomarker-title-wrap { flex: 1; min-width: 0; }
     .slider-title, .biomarker-title {
-      font-weight: 600; font-size: 0.9rem; color: var(--text-main);
+      font-weight: 700; font-size: 0.92rem; color: var(--text-main);
       display: flex; align-items: center; gap: 0.4rem; line-height: 1.35;
     }
     .slider-hint, .biomarker-hint {
-      font-size: 0.74rem; color: var(--text-muted); margin-top: 0.2rem; line-height: 1.35;
+      font-size: 0.76rem; color: var(--text-secondary); margin-top: 0.2rem; line-height: 1.35;
     }
     .biomarker-input-wrap {
       display: flex; align-items: center; gap: 0.45rem; flex-shrink: 0;
@@ -363,30 +408,31 @@
       font-size: 0.76rem; color: var(--text-secondary); font-weight: 600;
     }
     .biomarker-num-input {
-      font-family: var(--font-heading);
+      font-family: var(--font-numeric);
+      font-variant-numeric: tabular-nums;
       font-weight: 700; font-size: 1rem; width: 68px; height: 38px;
-      text-align: center; border-radius: 9px;
-      background: rgba(15, 23, 42, 0.85); color: var(--primary-light);
-      border: 1px solid var(--border-accent);
+      text-align: center; border-radius: 10px;
+      background: #FFFFFF; color: var(--text-main);
+      border: 1.5px solid var(--border-subtle);
       outline: none; transition: all 0.2s ease;
       -moz-appearance: textfield; padding: 0 0.3rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
     }
     .biomarker-num-input::-webkit-outer-spin-button,
     .biomarker-num-input::-webkit-inner-spin-button {
-      -webkit-appearance: inner-spin-button;
-      opacity: 0.7;
+      -webkit-appearance: inner-spin-button; opacity: 0.7;
     }
     .biomarker-num-input:focus {
-      border-color: var(--primary-light);
-      box-shadow: 0 0 0 3px var(--primary-glow);
-      background: rgba(30, 41, 59, 0.95);
-      color: #ffffff;
+      border-color: var(--secondary);
+      box-shadow: 0 0 0 3px var(--secondary-glow);
+      background: #FFFFFF;
+      color: var(--text-main);
     }
     .biomarker-num-input.is-invalid {
       border-color: #ef4444 !important;
-      color: #f87171 !important;
-      background: rgba(239, 68, 68, 0.12) !important;
-      box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.3) !important;
+      color: #b91c1c !important;
+      background: #fef2f2 !important;
+      box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.25) !important;
     }
     .biomarker-track-container {
       position: relative; margin: 0.6rem 0 0.25rem;
@@ -394,31 +440,28 @@
     .biomarker-slider, input[type="range"] {
       -webkit-appearance: none; appearance: none;
       width: 100%; height: 8px; border-radius: 6px;
-      background: linear-gradient(90deg, rgba(99, 102, 241, 0.3) 0%, rgba(6, 182, 212, 0.3) 100%);
+      background: linear-gradient(90deg, #87CEEB 0%, #A8DFA5 100%);
       outline: none; margin: 0.4rem 0; cursor: pointer;
       transition: background 0.2s ease;
     }
     .biomarker-slider:focus-visible, input[type="range"]:focus-visible {
-      outline: 2px solid var(--primary-light);
+      outline: 2px solid var(--secondary);
       outline-offset: 3px;
     }
     .biomarker-slider::-webkit-slider-thumb, input[type="range"]::-webkit-slider-thumb {
       -webkit-appearance: none; appearance: none;
       width: 20px; height: 20px; border-radius: 50%;
-      background: linear-gradient(135deg, #6366f1, #06b6d4);
-      cursor: grab; box-shadow: 0 0 12px var(--primary), 0 2px 5px rgba(0,0,0,0.4);
+      background: linear-gradient(135deg, #2998D8, #4CAF50);
+      cursor: grab; box-shadow: 0 2px 8px rgba(41, 152, 216, 0.35);
       border: 2px solid #ffffff; transition: transform 0.15s ease, box-shadow 0.15s ease;
     }
     .biomarker-slider::-webkit-slider-thumb:hover, input[type="range"]::-webkit-slider-thumb:hover {
-      transform: scale(1.2); box-shadow: 0 0 16px var(--primary-light);
-    }
-    .biomarker-slider::-webkit-slider-thumb:active, input[type="range"]::-webkit-slider-thumb:active {
-      cursor: grabbing; transform: scale(1.1);
+      transform: scale(1.2); box-shadow: 0 3px 12px rgba(76, 175, 80, 0.4);
     }
     .biomarker-slider::-moz-range-thumb, input[type="range"]::-moz-range-thumb {
       width: 20px; height: 20px; border-radius: 50%;
-      background: linear-gradient(135deg, #6366f1, #06b6d4);
-      cursor: grab; border: 2px solid #ffffff; box-shadow: 0 0 12px var(--primary);
+      background: linear-gradient(135deg, #2998D8, #4CAF50);
+      cursor: grab; border: 2px solid #ffffff; box-shadow: 0 2px 8px rgba(41, 152, 216, 0.35);
     }
     .biomarker-scale-labels {
       display: flex; justify-content: space-between; align-items: center;
@@ -426,13 +469,13 @@
     }
     .biomarker-scale-labels .min-tag,
     .biomarker-scale-labels .max-tag {
-      font-family: var(--font-heading); font-weight: 600; color: var(--text-secondary);
+      font-family: var(--font-body); font-weight: 600; color: var(--text-secondary);
     }
     .biomarker-scale-labels .unit-tag {
       font-size: 0.7rem; color: var(--text-muted);
     }
     .biomarker-error-msg {
-      font-size: 0.78rem; color: #f87171; margin-top: 0.5rem;
+      font-size: 0.78rem; color: #b91c1c; margin-top: 0.5rem;
       display: flex; align-items: center; gap: 0.35rem; font-weight: 500;
       animation: fadeIn 0.18s ease-in-out;
     }
@@ -443,50 +486,55 @@
       padding: 0 0.3rem; margin-left: 0.35rem;
     }
     .slider-val-badge {
-      font-family: var(--font-heading);
+      font-family: var(--font-numeric);
+      font-variant-numeric: tabular-nums;
       font-weight: 700; font-size: 0.95rem; min-width: 38px; text-align: center;
       padding: 0.15rem 0.55rem; border-radius: 8px;
-      background: var(--primary-glow); color: var(--primary-light);
-      border: 1px solid var(--border-accent);
+      background: var(--light-sky); color: var(--primary);
+      border: 1px solid var(--border-subtle);
     }
 
     /* Presets Strip */
     .preset-pill {
       padding: 0.4rem 0.9rem; border-radius: 20px; font-size: 0.8rem;
       font-weight: 600; border: 1px solid var(--border-subtle);
-      background: var(--bg-surface-elevated); color: var(--text-secondary);
+      background: #FFFFFF; color: var(--text-secondary);
       cursor: pointer; transition: all 0.2s ease;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.02);
     }
-    .preset-pill:hover { border-color: var(--border-accent); color: var(--text-main); background: var(--bg-card-hover); }
+    .preset-pill:hover {
+      border-color: var(--primary); color: var(--text-main); background: #F8FCFD;
+    }
 
     /* Results Showcase Card */
     .result-hero {
       border-radius: 24px; padding: 2.2rem; text-align: center;
       position: relative; overflow: hidden;
-      border: 1px solid var(--border-subtle);
-      box-shadow: 0 20px 40px -10px rgba(0,0,0,0.4);
+      border: 1.5px solid var(--border-subtle);
+      box-shadow: 0 10px 30px -5px rgba(23, 59, 80, 0.08);
+      background: #FFFFFF;
     }
     .result-hero.low {
-      background: radial-gradient(circle at center, rgba(16, 185, 129, 0.25), rgba(16, 185, 129, 0.05)), var(--bg-card);
-      border-color: rgba(16, 185, 129, 0.4);
+      background: radial-gradient(circle at center, #EFF9EE, #FFFFFF);
+      border-color: #A8DFA5;
     }
     .result-hero.medium {
-      background: radial-gradient(circle at center, rgba(245, 158, 11, 0.25), rgba(245, 158, 11, 0.05)), var(--bg-card);
-      border-color: rgba(245, 158, 11, 0.4);
+      background: radial-gradient(circle at center, #FFFBEB, #FFFFFF);
+      border-color: #FCD34D;
     }
     .result-hero.high {
-      background: radial-gradient(circle at center, rgba(239, 68, 68, 0.3), rgba(239, 68, 68, 0.08)), var(--bg-card);
-      border-color: rgba(239, 68, 68, 0.45);
+      background: radial-gradient(circle at center, #FEF2F2, #FFFFFF);
+      border-color: #FCA5A5;
     }
     .result-level-title {
       font-family: var(--font-heading);
-      font-size: 3.5rem; font-weight: 900; line-height: 1; letter-spacing: -0.02em;
+      font-size: 3.5rem; font-weight: 800; line-height: 1; letter-spacing: -0.025em;
     }
-    .result-hero.low .result-level-title { color: #34d399; }
-    .result-hero.medium .result-level-title { color: #fbbf24; }
-    .result-hero.high .result-level-title { color: #f87171; }
+    .result-hero.low .result-level-title { color: #2E7D32; }
+    .result-hero.medium .result-level-title { color: #D97706; }
+    .result-hero.high .result-level-title { color: #DC2626; }
 
-    /* 4-7-8 Breathing Circle Widget */
+    /* Breathing Widget */
     .breath-box {
       display: flex; flex-direction: column; align-items: center; justify-content: center;
       padding: 2.2rem 1.5rem; text-align: center;
@@ -498,30 +546,33 @@
     }
     .breath-circle {
       width: 140px; height: 140px; border-radius: 50%;
-      background: radial-gradient(circle, rgba(99, 102, 241, 0.5), rgba(6, 182, 212, 0.25));
-      border: 2px solid var(--border-accent);
+      background: radial-gradient(circle, #EAF7FF 0%, #EFF9EE 100%);
+      border: 2px solid #A8DFA5;
       display: flex; align-items: center; justify-content: center;
       flex-direction: column;
-      box-shadow: 0 0 30px var(--primary-glow);
+      box-shadow: 0 0 25px rgba(76, 175, 80, 0.18);
       transition: transform 1s ease-in-out;
     }
-    .breath-circle.inhale { transform: scale(1.25); box-shadow: 0 0 45px rgba(6, 182, 212, 0.7); }
-    .breath-circle.hold { transform: scale(1.25); border-color: #f59e0b; box-shadow: 0 0 45px rgba(245, 158, 11, 0.7); }
-    .breath-circle.exhale { transform: scale(0.9); box-shadow: 0 0 20px rgba(99, 102, 241, 0.4); }
+    .breath-circle.inhale { transform: scale(1.25); border-color: #2998D8; box-shadow: 0 0 35px rgba(41, 152, 216, 0.35); }
+    .breath-circle.hold { transform: scale(1.25); border-color: #F59E0B; box-shadow: 0 0 35px rgba(245, 158, 11, 0.35); }
+    .breath-circle.exhale { transform: scale(0.9); border-color: #4CAF50; box-shadow: 0 0 20px rgba(76, 175, 80, 0.25); }
 
     /* Tables */
-    .table-modern { width: 100%; border-collapse: separate; border-spacing: 0; }
+    .table-modern { width: 100%; border-collapse: separate; border-spacing: 0; font-family: var(--font-body); }
     .table-modern th {
-      padding: 0.85rem 1.2rem; font-size: 0.72rem; text-transform: uppercase;
-      letter-spacing: 0.1em; color: var(--text-muted); font-weight: 700;
-      border-bottom: 1px solid var(--border-subtle); background: rgba(0,0,0,0.06);
+      padding: 0.85rem 1.2rem; font-size: 0.74rem; text-transform: uppercase;
+      letter-spacing: 0.08em; color: var(--text-secondary); font-weight: 700;
+      border-bottom: 1px solid var(--border-subtle); background: #F5FAFC;
+      font-family: var(--font-body);
     }
     .table-modern td {
       padding: 1rem 1.2rem; font-size: 0.88rem;
       border-bottom: 1px solid var(--border-subtle);
-      color: var(--text-secondary); vertical-align: middle;
+      color: var(--text-main); vertical-align: middle;
+      background: #FFFFFF;
+      font-family: var(--font-body);
     }
-    .table-modern tr:hover td { background: var(--bg-surface-elevated); color: var(--text-main); }
+    .table-modern tr:hover td { background: #F8FCFD !important; color: var(--text-main); }
 
     /* Badges */
     .badge-stress {
@@ -529,42 +580,40 @@
       padding: 0.3rem 0.8rem; border-radius: 20px;
       font-size: 0.75rem; font-weight: 700; letter-spacing: 0.03em;
     }
-    .badge-stress.low { background: var(--success-bg); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3); }
-    .badge-stress.medium { background: var(--warning-bg); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); }
-    .badge-stress.high { background: var(--danger-bg); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3); }
+    .badge-stress.low { background: #EFF9EE; color: #2E7D32; border: 1px solid #A8DFA5; }
+    .badge-stress.medium { background: #FFFBEB; color: #B45309; border: 1px solid #FCD34D; }
+    .badge-stress.high { background: #FEF2F2; color: #B91C1C; border: 1px solid #FCA5A5; }
 
     /* Form Inputs */
     .form-control-modern {
       width: 100%; padding: 0.7rem 1rem; border-radius: 12px;
-      background: var(--bg-surface-elevated); border: 1px solid var(--border-subtle);
+      background: #FFFFFF; border: 1.5px solid var(--border-subtle);
       color: var(--text-main); font-size: 0.9rem; outline: none;
       transition: all 0.2s ease;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.02);
     }
     .form-control-modern:focus {
-      border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-glow);
+      border-color: var(--secondary); box-shadow: 0 0 0 3px var(--secondary-glow);
+      background: #FFFFFF;
     }
     .form-control-modern::placeholder { color: var(--text-muted); }
 
     /* Toast Notification */
     .toast-popup {
       position: fixed; bottom: 2rem; right: 2rem; z-index: 999;
-      background: var(--bg-surface-elevated);
-      border: 1px solid var(--border-accent);
+      background: #FFFFFF;
+      border: 1px solid var(--border-subtle);
       border-radius: 16px; padding: 1rem 1.5rem;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      box-shadow: 0 10px 30px rgba(23, 59, 80, 0.12);
       backdrop-filter: var(--glass-blur);
       display: flex; align-items: center; gap: 0.8rem;
-      animation: slideInToast 0.3s ease;
+      animation: slideInToast 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      color: var(--text-main);
+      font-weight: 600;
     }
     @keyframes slideInToast {
       from { transform: translateY(30px); opacity: 0; }
       to { transform: translateY(0); opacity: 1; }
-    }
-
-    @keyframes spinPulse {
-      0% { transform: scale(1) rotate(0deg); opacity: 0.85; }
-      50% { transform: scale(1.15) rotate(180deg); opacity: 1; filter: drop-shadow(0 0 16px rgba(99,102,241,0.6)); }
-      100% { transform: scale(1) rotate(360deg); opacity: 0.85; }
     }
 
     /* Mobile Navigation & Off-Canvas Drawer */
@@ -572,7 +621,7 @@
       display: none;
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.65);
+      background: rgba(23, 59, 80, 0.45);
       backdrop-filter: blur(4px);
       -webkit-backdrop-filter: blur(4px);
       z-index: 99;
@@ -586,14 +635,50 @@
       pointer-events: auto;
     }
 
-    .hamburger-btn {
-      display: none;
-      margin-right: 0.6rem;
+    .hamburger-btn { display: none; margin-right: 0.6rem; }
+    .sidebar-close-btn { display: none; margin-left: auto; }
+
+    @media (max-width: 992px) {
+      .main-wrap {
+        margin-left: 0 !important;
+        width: 100% !important;
+      }
+      .sidebar {
+        transform: translateX(-100%);
+        box-shadow: none;
+      }
+      .sidebar.open {
+        transform: translateX(0);
+        box-shadow: 12px 0 35px rgba(23, 59, 80, 0.18);
+      }
+      .hamburger-btn {
+        display: flex !important;
+      }
+      .sidebar-close-btn {
+        display: flex !important;
+      }
+      .topbar {
+        padding: 0 1rem;
+      }
+      .ambient-btn-text {
+        display: none;
+      }
     }
 
-    .sidebar-close-btn {
-      display: none;
-      margin-left: auto;
+    @media (max-width: 576px) {
+      .topbar-title-text {
+        font-size: 0.98rem;
+        max-width: 160px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .metric-card {
+        padding: 1.1rem;
+      }
+      .metric-val {
+        font-size: 1.7rem;
+      }
     }
 
     /* Accessibility Focus Indicators */
@@ -602,15 +687,15 @@
     .btn-glass:focus-visible,
     .btn-glow:focus-visible,
     .form-control-modern:focus-visible {
-      outline: 2px solid var(--primary-light);
+      outline: 2px solid var(--secondary);
       outline-offset: 2px;
     }
 
-    /* Telemetry Inspection Modal & History Styles */
+    /* Telemetry Inspection Modal */
     .telemetry-modal-backdrop {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.78);
+      background: rgba(23, 59, 80, 0.45);
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
       z-index: 9999;
@@ -621,10 +706,10 @@
       animation: fadeIn 0.2s ease-out;
     }
     .telemetry-modal {
-      background: var(--bg-surface);
+      background: #FFFFFF;
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-lg);
-      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.75);
+      box-shadow: 0 25px 60px -15px rgba(23, 59, 80, 0.18);
       width: 100%;
       max-width: 920px;
       max-height: 90vh;
@@ -637,160 +722,593 @@
       padding: 1.25rem 1.5rem;
       border-bottom: 1px solid var(--border-subtle);
       display: flex;
-      align-items: center;
       justify-content: space-between;
+      align-items: center;
       position: sticky;
       top: 0;
-      background: var(--bg-surface);
+      background: #F5FAFC;
+      z-index: 2;
+    }
+    .telemetry-domain-card {
+      background: #F8FCFD;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1rem 1.15rem;
+    }
+
+
+    /* =========================================================================
+       STRESSGUARD AI 2.0 – NATURE-INSPIRED AUTH THEME (SOFT GREEN & SKY BLUE)
+       ========================================================================= */
+    :root {
+      --sg-sky-blue: #87CEEB;
+      --sg-light-sky: #EAF7FF;
+      --sg-soft-green: #A8DFA5;
+      --sg-fresh-green: #4CAF50;
+      --sg-deep-blue: #123B5D;
+      --sg-slate-text: #1E3A5F;
+      --sg-subtle-text: #5A7184;
+      --sg-soft-border: #D7EAE8;
+      --sg-focus-glow: rgba(76, 175, 80, 0.2);
+      --sg-card-glass: rgba(255, 255, 255, 0.84);
+      --sg-btn-gradient: linear-gradient(90deg, #1E88E5 0%, #29B6F6 40%, #4CAF50 100%);
+      --sg-btn-gradient-hover: linear-gradient(90deg, #1976D2 0%, #03A9F4 40%, #43A047 100%);
+    }
+
+    /* =========================================================================
+       NATURE WELLNESS AUTHENTICATION (Soft Green & Sky Blue Theme)
+       Pixel-accurate reproduction of Reference Image 1
+       ========================================================================= */
+    .nature-auth-page {
+      position: relative;
+      min-height: 100vh;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background-color: #EAF7FF;
+      background-image: url('nature_bg.jpg');
+      background-repeat: no-repeat;
+      background-position: center bottom;
+      background-size: cover;
+      color: var(--sg-deep-blue);
+      font-family: var(--font-body);
+      overflow-x: hidden;
       z-index: 10;
     }
-    .telemetry-modal-body {
-      padding: 1.5rem;
-      flex: 1;
-    }
-    .telemetry-modal-footer {
-      padding: 1rem 1.5rem;
-      border-top: 1px solid var(--border-subtle);
+
+    /* Top Header Bar */
+    .nature-auth-header {
+      position: relative;
+      z-index: 2;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      position: sticky;
-      bottom: 0;
-      background: var(--bg-surface);
-      z-index: 10;
-      flex-wrap: wrap;
-      gap: 0.75rem;
+      padding: 2.2rem 4.5rem 1rem;
+      width: 100%;
+      max-width: 1720px;
+      margin: 0 auto;
     }
-    .biomarker-chip {
-      background: var(--bg-surface-elevated);
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-sm);
-      padding: 0.65rem 0.85rem;
+    .nature-brand-group {
+      display: flex;
+      align-items: center;
+      gap: 1.15rem;
+      text-decoration: none;
+    }
+    .nature-brand-logo-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      filter: drop-shadow(0 4px 12px rgba(41, 152, 216, 0.25));
+      transition: transform 0.25s ease;
+    }
+    .nature-brand-logo-wrap:hover {
+      transform: scale(1.05);
+    }
+    .nature-brand-titles {
       display: flex;
       flex-direction: column;
-      gap: 0.2rem;
     }
-    .biomarker-chip-label {
-      font-size: 0.75rem;
-      color: var(--text-muted);
+    .nature-brand-name {
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: 1.85rem;
+      color: var(--sg-deep-blue);
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      margin: 0;
+    }
+    .nature-brand-tagline {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #637D8B;
+      letter-spacing: 0.04em;
+      margin-top: 2px;
+      opacity: 0.95;
+    }
+    .nature-priority-pill {
       display: flex;
-      justify-content: space-between;
+      align-items: center;
+      gap: 0.65rem;
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 255, 255, 0.95);
+      border-radius: 9999px;
+      padding: 0.55rem 1.4rem;
+      box-shadow: 0 4px 16px rgba(18, 59, 93, 0.06);
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--sg-deep-blue);
     }
-    .biomarker-chip-val {
-      font-weight: 700;
-      font-size: 1.05rem;
-      color: var(--text-primary);
+    .nature-priority-pill svg.pulse {
+      color: var(--sg-fresh-green);
     }
-    .biomarker-chip-bar {
-      height: 4px;
-      border-radius: 2px;
-      background: rgba(255, 255, 255, 0.08);
-      overflow: hidden;
-      margin-top: 0.2rem;
-    }
-    .biomarker-chip-fill {
-      height: 100%;
-      border-radius: 2px;
-      background: var(--primary);
-    }
-    .history-row {
-      cursor: pointer;
-      transition: background-color 0.15s ease;
-    }
-    .history-row:hover {
-      background-color: rgba(99, 102, 241, 0.08) !important;
+    .nature-priority-pill svg.heart {
+      color: #0284C7;
     }
 
-    /* Print Styles */
-    @media print {
-      .sidebar, .topbar, .ambient-bg, .btn-glow, .btn-glass, .btn-icon, .preset-pill, .sidebar-backdrop { display: none !important; }
-      .main-wrap { margin-left: 0 !important; }
-      body { background: white !important; color: black !important; }
-      .card-glass { border: 1px solid #ccc !important; box-shadow: none !important; }
+    /* Main Container (Two-column layout: Left ~55%, Right ~40%) */
+    .nature-auth-main {
+      position: relative;
+      z-index: 2;
+      flex: 1;
+      display: grid;
+      grid-template-columns: 55% 40%;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      max-width: 1720px;
+      margin: 0 auto;
+      padding: 1rem 4.5rem 3rem;
+      gap: 3rem;
+    }
+
+    /* Left Hero Column */
+    .nature-hero-column {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding-right: 2rem;
+    }
+    .nature-hero-headline {
+      font-family: var(--font-heading);
+      font-size: clamp(2.8rem, 3.8vw, 3.75rem);
+      font-weight: 800;
+      color: var(--sg-deep-blue);
+      line-height: 1.12;
+      letter-spacing: -0.025em;
+      margin-bottom: 1.25rem;
+    }
+    .nature-hero-headline .highlight-green {
+      color: #2E7D32;
+      position: relative;
+      display: inline-block;
+    }
+    .nature-brush-underline {
+      display: block;
+      margin-top: -6px;
+      margin-bottom: 0.5rem;
+    }
+    .nature-hero-desc {
+      font-size: 1.15rem;
+      font-weight: 500;
+      color: #4A6372;
+      line-height: 1.6;
+      max-width: 520px;
+      margin-bottom: 2.2rem;
+      opacity: 0.95;
+    }
+
+    /* 3 Feature Highlights */
+    .nature-features-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      margin-bottom: 2.5rem;
+    }
+    .nature-feature-item {
+      display: flex;
+      align-items: center;
+      gap: 1.1rem;
+      transition: transform 0.2s ease;
+    }
+    .nature-feature-item:hover {
+      transform: translateX(4px);
+    }
+    .nature-feature-icon-badge {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 4px 14px rgba(18, 59, 93, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.95);
+    }
+    .badge-brain {
+      background: #E0F2FE;
+      color: #0284C7;
+    }
+    .badge-chart {
+      background: #DCFCE7;
+      color: #16A34A;
+    }
+    .badge-heart {
+      background: #E8F8F0;
+      color: #10B981;
+    }
+    .nature-feature-label {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--sg-deep-blue);
+    }
+
+    /* Handwritten message */
+    .nature-handwritten-box {
+      margin-top: 1rem;
+      display: inline-flex;
+      flex-direction: column;
+      align-items: flex-start;
+      transform: rotate(-3deg);
+    }
+    .nature-handwritten-text {
+      font-family: var(--font-script);
+      font-size: 2.8rem;
+      font-weight: 700;
+      color: var(--sg-deep-blue);
+      line-height: 1;
+      letter-spacing: 0.01em;
+      filter: drop-shadow(0 2px 4px rgba(18, 59, 93, 0.12));
+    }
+    .nature-handwritten-heart {
+      margin-left: 5.5rem;
+      margin-top: -0.2rem;
+    }
+
+    /* Right Card Column (approx 40% width, generous 590px max-width) */
+    .nature-card-column {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+    }
+    .nature-glass-card {
+      position: relative;
+      width: 100%;
+      max-width: 580px;
+      min-height: 620px;
+      background: rgba(255, 255, 255, 0.82);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border: 1.5px solid rgba(255, 255, 255, 0.95);
+      border-radius: 28px;
+      padding: 3.2rem 3.2rem 2.8rem;
+      box-shadow: 0 20px 60px rgba(18, 59, 93, 0.1), 0 4px 16px rgba(0, 0, 0, 0.03), inset 0 1px 0 rgba(255, 255, 255, 0.95);
+      animation: cardEntrance 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .nature-card-waves {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      pointer-events: none;
+      opacity: 0.45;
+      z-index: 0;
+    }
+
+    .nature-card-header {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      margin-bottom: 1.75rem;
+    }
+    .nature-card-logo {
+      margin: 0 auto 0.75rem;
+      display: flex;
+      justify-content: center;
+    }
+    .nature-card-title {
+      font-family: var(--font-heading);
+      font-size: 1.85rem;
+      font-weight: 800;
+      color: var(--sg-deep-blue);
+      margin: 0 0 0.35rem;
+      letter-spacing: -0.015em;
+    }
+    .nature-card-subtitle {
+      font-size: 0.92rem;
+      font-weight: 500;
+      color: #637D8B;
+      line-height: 1.4;
+      margin: 0;
+    }
+
+    /* Form & Inputs (comfortable 60px height) */
+    .nature-auth-form {
+      position: relative;
+      z-index: 1;
+    }
+    .nature-input-group {
+      margin-bottom: 1.35rem;
+    }
+    .nature-input-label {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--sg-deep-blue);
+      margin-bottom: 0.45rem;
+    }
+    .nature-input-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+      height: 60px;
+      background: rgba(255, 255, 255, 0.92);
+      border: 1.5px solid var(--sg-soft-border);
+      border-radius: 16px;
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 6px rgba(18, 59, 93, 0.03);
+    }
+    .nature-input-wrapper:focus-within {
+      border-color: var(--sg-fresh-green);
+      background: #FFFFFF;
+      box-shadow: 0 0 0 3.5px var(--sg-focus-glow), 0 4px 14px rgba(76, 175, 80, 0.1);
+    }
+    .nature-input-icon {
+      padding-left: 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #64748B;
+      flex-shrink: 0;
+    }
+    .nature-form-control {
+      width: 100%;
+      height: 100%;
+      border: none;
+      background: transparent;
+      padding: 0 1.1rem;
+      font-size: 1.05rem;
+      font-family: var(--font-body);
+      color: #173B50;
+      font-weight: 500;
+      outline: none;
+    }
+    .nature-form-control::placeholder {
+      color: #94A3B8;
+      font-weight: 400;
+    }
+    .nature-password-toggle {
+      border: none;
+      background: transparent;
+      padding: 0 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #64748B;
+      cursor: pointer;
+      transition: color 0.2s ease, transform 0.15s ease;
+    }
+    .nature-password-toggle:hover {
+      color: var(--sg-deep-blue);
+      transform: scale(1.1);
+    }
+
+    /* Submit Button (prominent 64px height with Blue -> Sky Blue -> Fresh Green gradient) */
+    .nature-btn-submit {
+      width: 100%;
+      height: 64px;
+      border: none;
+      border-radius: 16px;
+      padding: 0 1.5rem;
+      background: linear-gradient(90deg, #2196F3 0%, #29B6F6 45%, #4CAF50 100%);
+      color: #FFFFFF;
+      font-family: var(--font-body);
+      font-size: 1.12rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.65rem;
+      cursor: pointer;
+      box-shadow: 0 8px 25px rgba(33, 150, 243, 0.35), 0 2px 6px rgba(76, 175, 80, 0.2);
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      margin-top: 1.4rem;
+    }
+    .nature-btn-submit:hover:not(:disabled) {
+      background: linear-gradient(90deg, #1976D2 0%, #03A9F4 45%, #388E3C 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(33, 150, 243, 0.45), 0 4px 12px rgba(76, 175, 80, 0.3);
+    }
+    .nature-btn-submit:active:not(:disabled) {
+      transform: translateY(0);
+      box-shadow: 0 4px 12px rgba(33, 150, 243, 0.3);
+    }
+    .nature-btn-submit:disabled {
+      opacity: 0.75;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* Switch link */
+    .nature-auth-switch {
+      text-align: center;
+      margin-top: 1.5rem;
+      font-size: 0.94rem;
+      color: var(--sg-subtle-text);
+      font-weight: 500;
+    }
+    .nature-link-btn {
+      border: none;
+      background: transparent;
+      color: #2E7D32;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      padding: 0;
+      transition: color 0.15s ease, text-decoration 0.15s ease;
+      font-family: inherit;
+      font-size: inherit;
+    }
+    .nature-link-btn:hover {
+      color: #1B5E20;
+      text-decoration: underline;
+    }
+
+    /* Alert Banner */
+    .nature-alert-error {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      padding: 0.85rem 1.15rem;
+      border-radius: 14px;
+      background: rgba(254, 242, 242, 0.95);
+      border: 1px solid #FECACA;
+      color: #991B1B;
+      font-size: 0.88rem;
+      font-weight: 500;
+      margin-bottom: 1.25rem;
+      animation: cardEntrance 0.3s ease;
+    }
+
+    /* Register Grid Layouts */
+    .nature-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.85rem;
+    }
+    .nature-grid-3 {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 0.85rem;
+    }
+
+    /* Reduced Motion */
+    @media (prefers-reduced-motion: reduce) {
+      .nature-glass-card,
+      .nature-btn-submit,
+      .nature-brand-logo-wrap,
+      .nature-feature-item {
+        animation: none !important;
+        transition: none !important;
+      }
     }
 
     /* Responsive Breakpoints */
-    @media (max-width: 992px) {
-      .sidebar {
-        transform: translateX(-100%);
-        z-index: 1000;
-        box-shadow: 0 0 35px rgba(0, 0, 0, 0.6);
+    @media (max-width: 1400px) {
+      .nature-auth-header {
+        padding: 1.8rem 3rem 0.75rem;
       }
-      .sidebar.open {
-        transform: translateX(0);
+      .nature-auth-main {
+        padding: 1rem 3rem 2.5rem;
+        gap: 2.5rem;
       }
-      .main-wrap {
-        margin-left: 0;
-      }
-      .hamburger-btn {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-      }
-      .sidebar-close-btn {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-      }
-      .topbar {
-        padding: 0 1.2rem;
+      .nature-glass-card {
+        max-width: 540px;
+        padding: 2.4rem 2.4rem 2rem;
       }
     }
 
-    @media (max-width: 640px) {
-      .topbar {
-        padding: 0 0.85rem;
+    @media (max-width: 1100px) {
+      .nature-auth-main {
+        grid-template-columns: 52% 45%;
+        gap: 2rem;
       }
-      .topbar-title {
+      .nature-hero-headline {
+        font-size: 2.6rem;
+      }
+      .nature-glass-card {
+        max-width: 500px;
+        padding: 2rem 2rem 1.8rem;
+      }
+    }
+
+    @media (max-width: 992px) {
+      .nature-auth-main {
+        grid-template-columns: 1fr;
+        padding: 1rem 2rem 3rem;
+        gap: 2rem;
+      }
+      .nature-hero-column {
+        padding-right: 0;
+        text-align: center;
+        align-items: center;
+      }
+      .nature-hero-headline {
+        font-size: 2.4rem;
+      }
+      .nature-hero-desc {
+        margin: 0 auto 1.5rem;
+      }
+      .nature-features-list {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1.25rem;
+      }
+      .nature-handwritten-box {
+        display: none;
+      }
+      .nature-card-column {
+        justify-content: center;
+      }
+      .nature-glass-card {
+        max-width: 520px;
+        margin: 0 auto;
+        min-height: auto;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .nature-auth-header {
+        padding: 1.25rem 1.25rem 0.25rem;
+      }
+      .nature-brand-name {
+        font-size: 1.35rem;
+      }
+      .nature-priority-pill {
+        display: none;
+      }
+      .nature-auth-main {
+        padding: 0.5rem 1rem 2.5rem;
+        gap: 1.25rem;
+      }
+      .nature-hero-headline {
+        font-size: 1.75rem;
+        margin-bottom: 0.6rem;
+      }
+      .nature-hero-desc {
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+      }
+      .nature-features-list {
+        display: none;
+      }
+      .nature-glass-card {
+        padding: 2rem 1.4rem;
+        border-radius: 22px;
+      }
+      .nature-input-wrapper {
+        height: 56px;
+      }
+      .nature-btn-submit {
+        height: 58px;
         font-size: 1.05rem;
       }
-      .topbar-tools {
-        gap: 0.45rem;
+      .nature-card-title {
+        font-size: 1.5rem;
       }
-      .model-badge-text {
-        display: none;
-      }
-      .ambient-btn-text {
-        display: none;
-      }
-      .biomarker-header {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 0.5rem;
-      }
-      .biomarker-input-wrap {
-        justify-content: space-between;
-        width: 100%;
-        background: rgba(15, 23, 42, 0.45);
-        padding: 0.35rem 0.6rem;
-        border-radius: 8px;
-      }
-      .biomarker-num-input {
-        width: 76px; height: 40px; font-size: 1.05rem;
-      }
-      .biomarker-card, .slider-card {
-        padding: 0.95rem 1rem;
+      .nature-grid-2,
+      .nature-grid-3 {
+        grid-template-columns: 1fr;
+        gap: 0;
       }
     }
 
-    @media (max-width: 400px) {
-      .topbar-title-text {
-        font-size: 0.95rem;
-        max-width: 140px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
-      .api-pill-text {
-        display: none;
-      }
-      .biomarker-scale-labels {
-        font-size: 0.68rem;
-      }
-      .biomarker-scale-labels .unit-tag {
-        display: none;
-      }
-    }
   </style>
 </head>
 <body>
@@ -1367,12 +1885,68 @@ function BreathingExerciseWidget() {
 }
 
 // ─── Login & Register Page ──────────────────────────────────────────────────
+// ─── StressGuard Brand Logo Component (Shield + Mind + Leaf) ─────────────────
+function StressGuardShieldLogo({ size = 52, className = '' }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 100 100"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+      style={{ display: 'inline-block', verticalAlign: 'middle', filter: 'drop-shadow(0 3px 6px rgba(2,132,199,0.22))' }}
+    >
+      <defs>
+        <linearGradient id="shieldGrad" x1="15" y1="10" x2="85" y2="90" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stopColor="#38BDF8" />
+          <stop offset="100%" stopColor="#0284C7" />
+        </linearGradient>
+        <linearGradient id="leafGrad" x1="65" y1="20" x2="98" y2="70" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stopColor="#86EFAC" />
+          <stop offset="100%" stopColor="#22C55E" />
+        </linearGradient>
+      </defs>
+      {/* Outer Shield Outline */}
+      <path
+        d="M50 8 L82 22 C82 54 68 78 50 92 C32 78 18 54 18 22 Z"
+        stroke="url(#shieldGrad)"
+        strokeWidth="5"
+        strokeLinejoin="round"
+        fill="rgba(240, 249, 255, 0.88)"
+      />
+      {/* Mind / Brain Convolutions */}
+      <g transform="translate(28, 22) scale(0.44)">
+        <path
+          d="M24 8 C14 8 6 16 6 26 C6 30 8 34 11 37 C8 41 8 47 11 52 C9 57 11 63 15 67 C18 70 23 71 27 70 C31 77 39 82 48 82 C55 82 62 79 67 74 L78 74 C82 74 85 71 85 67 L85 60 C87 56 86 52 83 49 C86 44 85 38 81 35 C83 29 80 23 74 19 C70 12 62 8 54 8 Z"
+          fill="#0284C7"
+          opacity="0.16"
+        />
+        <path d="M32 20 C28 20 25 23 25 27 C25 31 29 33 33 33 C38 33 42 29 42 25 C42 20 38 20 32 20 Z" stroke="#0284C7" strokeWidth="4" strokeLinecap="round" />
+        <path d="M48 18 C44 18 41 21 41 25 C41 30 46 32 50 32 C55 32 59 28 59 24 C59 19 54 18 48 18 Z" stroke="#0284C7" strokeWidth="4" strokeLinecap="round" />
+        <path d="M26 40 C22 40 18 43 18 47 C18 52 23 54 27 54 C32 54 35 50 35 46" stroke="#0284C7" strokeWidth="4" strokeLinecap="round" />
+        <path d="M42 38 C38 38 34 41 34 46 C34 51 39 53 43 53 C48 53 52 49 52 44 C52 39 48 38 42 38 Z" stroke="#0284C7" strokeWidth="4" strokeLinecap="round" />
+        <path d="M60 36 C56 36 53 39 53 43 C53 48 57 51 62 51 C67 51 71 47 71 42" stroke="#0284C7" strokeWidth="4" strokeLinecap="round" />
+        <path d="M30 62 C26 62 23 65 23 69 C23 73 27 75 31 75 C36 75 39 71 39 67" stroke="#0284C7" strokeWidth="4" strokeLinecap="round" />
+        <path d="M46 60 C42 60 39 63 39 67 C39 71 43 74 47 74 C52 74 55 70 55 66" stroke="#0284C7" strokeWidth="4" strokeLinecap="round" />
+      </g>
+      {/* Sprouting Green Leaves on Right */}
+      <path d="M74 38 C80 32 89 30 94 32 C95 40 92 48 85 53 C81 48 77 43 74 38 Z" fill="url(#leafGrad)" />
+      <path d="M74 38 C79 38 88 42 90 47" stroke="#16A34A" strokeWidth="2" strokeLinecap="round" />
+      <path d="M80 50 C86 48 92 50 95 55 C93 61 88 65 82 66 C81 61 80 55 80 50 Z" fill="url(#leafGrad)" />
+    </svg>
+  );
+}
+
+// ─── Login & Register Page (Nature-Inspired Soft Green & Sky Blue) ───────────
 function AuthView({ onLogin }) {
   const [isRegister, setIsRegister] = useState(() => window.location.hash === '#/register');
   const [form, setForm] = useState({ username: '', password: '' });
   const [regForm, setRegForm] = useState({ username: '', email: '', password: '', fullName: '', age: '', gender: '' });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [showRegPassword, setShowRegPassword] = useState(false);
 
   // Synchronize URL hash with authentication view
   useEffect(() => {
@@ -1432,109 +2006,404 @@ function AuthView({ onLogin }) {
   };
 
   return (
-    <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '2rem' }}>
-      <div className="card-glass" style={{ width: '100%', maxWidth: 480, padding: '2.5rem' }}>
-        <div style={{ textAlign: 'center', marginBottom: '1.8rem' }}>
-          <div className="brand-icon" style={{ margin: '0 auto 1rem', width: 56, height: 56, fontSize: '1.8rem' }}>
-            🧠
+    <div className="nature-auth-page">
+      {/* Top Header Bar */}
+      <header className="nature-auth-header">
+        <div className="nature-brand-group">
+          <div className="nature-brand-logo-wrap">
+            <StressGuardShieldLogo size={56} />
           </div>
-          <h2 style={{ fontFamily: 'var(--font-heading)', fontWeight: 800, fontSize: '1.75rem', marginBottom: '0.3rem' }}>
-            StressGuard AI 2.0
-          </h2>
-          <p style={{ color: 'var(--text-secondary)', fontSize: '0.88rem' }}>
-            Advanced Machine Learning Mental Health Intelligence
-          </p>
+          <div className="nature-brand-titles">
+            <h1 className="nature-brand-name">StressGuard AI 2.0</h1>
+            <span className="nature-brand-tagline">Predict • Understand • Thrive</span>
+          </div>
         </div>
 
-        {error && (
-          <div style={{ padding: '0.8rem 1rem', borderRadius: 12, background: 'var(--danger-bg)', border: '1px solid var(--danger)', color: '#f87171', fontSize: '0.85rem', marginBottom: '1.2rem' }}>
-            ⚠️ {error}
-          </div>
-        )}
+        <div className="nature-priority-pill">
+          <svg className="pulse" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+          </svg>
+          <span>Your Mental Health, Our Priority</span>
+          <svg className="heart" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+          </svg>
+        </div>
+      </header>
 
-        {!isRegister ? (
-          <form onSubmit={submitLogin}>
-            <div className="mb-3">
-              <label style={{ fontSize: '0.82rem', fontWeight: 600, color: 'var(--text-secondary)', marginBottom: '0.4rem', display: 'block' }}>Username</label>
-              <input
-                className="form-control-modern"
-                placeholder="e.g. admin or testuser"
-                value={form.username}
-                onChange={e => setForm({ ...form, username: e.target.value })}
-                required
-              />
-            </div>
-            <div className="mb-4">
-              <label style={{ fontSize: '0.82rem', fontWeight: 600, color: 'var(--text-secondary)', marginBottom: '0.4rem', display: 'block' }}>Password</label>
-              <input
-                type="password"
-                className="form-control-modern"
-                placeholder="Enter your password"
-                value={form.password}
-                onChange={e => setForm({ ...form, password: e.target.value })}
-                required
-              />
-            </div>
-            <button type="submit" className="btn-glow w-100" style={{ padding: '0.8rem' }} disabled={loading}>
-              {loading ? '⏳ Verifying Credentials (wake-up ~45s if idle)...' : '🔐 Sign In to Platform'}
-            </button>
-            <div className="text-center mt-3" style={{ fontSize: '0.86rem', color: 'var(--text-secondary)' }}>
-              Need an account?{' '}
-              <span style={{ color: 'var(--primary-light)', cursor: 'pointer', fontWeight: 700 }} onClick={() => switchAuthMode(true)}>
-                Register here
-              </span>
-            </div>
-            <div style={{ marginTop: '1.5rem', padding: '0.9rem', borderRadius: 12, background: 'rgba(99,102,241,0.08)', border: '1px solid var(--border-subtle)', fontSize: '0.78rem', color: 'var(--text-secondary)' }}>
-              <strong>First time here?</strong> Please click <span style={{ color: 'var(--primary-light)', cursor: 'pointer', fontWeight: 600 }} onClick={() => switchAuthMode(true)}>Register here</span> above to create your secure account.<br />
-              <span style={{ fontSize: '0.74rem', color: 'var(--text-muted)' }}>Demo seed accounts are available only in local development when initialized via seed-dev.sql.</span>
-            </div>
-          </form>
-        ) : (
-          <form onSubmit={submitRegister}>
-            <div className="row g-2 mb-3">
-              <div className="col-6">
-                <label style={{ fontSize: '0.8rem', fontWeight: 600 }}>Username *</label>
-                <input className="form-control-modern" value={regForm.username} onChange={e=>setRegForm({...regForm,username:e.target.value})} required />
+      {/* Main Content Area */}
+      <main className="nature-auth-main">
+        {/* Left Section – Nature & Branding */}
+        <section className="nature-hero-column">
+          <h2 className="nature-hero-headline">
+            Take Control of<br />
+            Your <span className="highlight-green">Mental Health</span>
+            <svg className="nature-brush-underline" width="260" height="16" viewBox="0 0 260 16" fill="none">
+              <path d="M4 12C70 4 180 3 256 11" stroke="#4CAF50" strokeWidth="5.5" strokeLinecap="round" />
+            </svg>
+          </h2>
+
+          <p className="nature-hero-desc">
+            AI-powered stress prediction and personalized wellness insights for a healthier, happier you.
+          </p>
+
+          {/* Three Feature Highlights */}
+          <div className="nature-features-list">
+            <div className="nature-feature-item">
+              <div className="nature-feature-icon-badge badge-brain">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z" />
+                  <path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z" />
+                  <path d="M12 5v13" />
+                </svg>
               </div>
-              <div className="col-6">
-                <label style={{ fontSize: '0.8rem', fontWeight: 600 }}>Full Name</label>
-                <input className="form-control-modern" value={regForm.fullName} onChange={e=>setRegForm({...regForm,fullName:e.target.value})} />
-              </div>
-              <div className="col-12 mt-2">
-                <label style={{ fontSize: '0.8rem', fontWeight: 600 }}>Email Address *</label>
-                <input type="email" className="form-control-modern" value={regForm.email} onChange={e=>setRegForm({...regForm,email:e.target.value})} required />
-              </div>
-              <div className="col-6 mt-2">
-                <label style={{ fontSize: '0.8rem', fontWeight: 600 }}>Password *</label>
-                <input type="password" className="form-control-modern" value={regForm.password} onChange={e=>setRegForm({...regForm,password:e.target.value})} required />
-              </div>
-              <div className="col-3 mt-2">
-                <label style={{ fontSize: '0.8rem', fontWeight: 600 }}>Age</label>
-                <input type="number" className="form-control-modern" value={regForm.age} onChange={e=>setRegForm({...regForm,age:e.target.value})} />
-              </div>
-              <div className="col-3 mt-2">
-                <label style={{ fontSize: '0.8rem', fontWeight: 600 }}>Gender</label>
-                <select className="form-control-modern" value={regForm.gender} onChange={e=>setRegForm({...regForm,gender:e.target.value})}>
-                  <option value="">—</option>
-                  <option>Male</option><option>Female</option><option>Other</option>
-                </select>
-              </div>
+              <span className="nature-feature-label">Predict Stress Early</span>
             </div>
-            <button type="submit" className="btn-glow w-100" style={{ padding: '0.8rem' }} disabled={loading}>
-              {loading ? '⏳ Creating Account on Server...' : '✅ Complete Registration'}
-            </button>
-            <div className="text-center mt-3" style={{ fontSize: '0.86rem', color: 'var(--text-secondary)' }}>
-              Already registered?{' '}
-              <span style={{ color: 'var(--primary-light)', cursor: 'pointer', fontWeight: 700 }} onClick={() => switchAuthMode(false)}>
-                Sign In
-              </span>
+
+            <div className="nature-feature-item">
+              <div className="nature-feature-icon-badge badge-chart">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M3 3v18h18" />
+                  <path d="m19 9-5 5-4-4-3 3" />
+                  <circle cx="19" cy="9" r="1.5" fill="currentColor" />
+                </svg>
+              </div>
+              <span className="nature-feature-label">Get Personalized Insights</span>
             </div>
-          </form>
-        )}
-      </div>
+
+            <div className="nature-feature-item">
+              <div className="nature-feature-icon-badge badge-heart">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+                </svg>
+              </div>
+              <span className="nature-feature-label">Build a Healthier Future</span>
+            </div>
+          </div>
+
+          {/* Handwritten Style Message */}
+          <div className="nature-handwritten-box">
+            <span className="nature-handwritten-text">You're not alone...</span>
+            <svg className="nature-handwritten-heart" width="28" height="26" viewBox="0 0 24 24" fill="none" stroke="#123B5D" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+            </svg>
+          </div>
+        </section>
+
+        {/* Right Section – Login Card */}
+        <section className="nature-card-column">
+          <div className="nature-glass-card">
+            {/* Soft decorative bottom-right translucent waves */}
+            <div className="nature-card-waves" aria-hidden="true">
+              <svg width="240" height="140" viewBox="0 0 240 140" fill="none">
+                <defs>
+                  <linearGradient id="waveGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#A8DFA5" stopOpacity="0.45" />
+                    <stop offset="100%" stopColor="#4CAF50" stopOpacity="0.25" />
+                  </linearGradient>
+                  <linearGradient id="waveGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#EAF7FF" stopOpacity="0.75" />
+                    <stop offset="100%" stopColor="#87CEEB" stopOpacity="0.4" />
+                  </linearGradient>
+                </defs>
+                <path d="M0 140 C80 95 150 120 240 65 L240 140 Z" fill="url(#waveGrad1)" />
+                <path d="M50 140 C110 90 170 105 240 40 L240 140 Z" fill="url(#waveGrad2)" />
+              </svg>
+            </div>
+
+            {/* Card Header */}
+            <div className="nature-card-header">
+              <div className="nature-card-logo">
+                <StressGuardShieldLogo size={68} />
+              </div>
+              <h2 className="nature-card-title">StressGuard AI 2.0</h2>
+              <p className="nature-card-subtitle">
+                {isRegister
+                  ? 'Advanced Machine Learning Mental Health Intelligence'
+                  : 'Advanced Machine Learning Mental Health Intelligence'}
+              </p>
+            </div>
+
+            {/* Error Message */}
+            {error && (
+              <div className="nature-alert-error" role="alert">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#DC2626" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
+                  <circle cx="12" cy="12" r="10"/>
+                  <line x1="12" y1="8" x2="12" y2="12"/>
+                  <line x1="12" y1="16" x2="12.01" y2="16"/>
+                </svg>
+                <span>{error}</span>
+              </div>
+            )}
+
+            {!isRegister ? (
+              /* Login Form */
+              <form onSubmit={submitLogin} className="nature-auth-form">
+                <div className="nature-input-group">
+                  <label htmlFor="login-username" className="nature-input-label">Username</label>
+                  <div className="nature-input-wrapper">
+                    <span className="nature-input-icon">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                        <circle cx="12" cy="7" r="4" />
+                      </svg>
+                    </span>
+                    <input
+                      id="login-username"
+                      className="nature-form-control"
+                      placeholder="Enter your username"
+                      value={form.username}
+                      onChange={e => setForm({ ...form, username: e.target.value })}
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div className="nature-input-group">
+                  <label htmlFor="login-password" className="nature-input-label">Password</label>
+                  <div className="nature-input-wrapper">
+                    <span className="nature-input-icon">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                      </svg>
+                    </span>
+                    <input
+                      id="login-password"
+                      type={showPassword ? 'text' : 'password'}
+                      className="nature-form-control"
+                      placeholder="Enter your password"
+                      value={form.password}
+                      onChange={e => setForm({ ...form, password: e.target.value })}
+                      required
+                    />
+                    <button
+                      type="button"
+                      className="nature-password-toggle"
+                      onClick={() => setShowPassword(!showPassword)}
+                      aria-label={showPassword ? 'Hide password' : 'Show password'}
+                      title={showPassword ? 'Hide password' : 'Show password'}
+                    >
+                      {showPassword ? (
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/>
+                          <line x1="1" y1="1" x2="23" y2="23"/>
+                        </svg>
+                      ) : (
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                          <circle cx="12" cy="12" r="3"/>
+                        </svg>
+                      )}
+                    </button>
+                  </div>
+                </div>
+
+                <button
+                  type="submit"
+                  className="nature-btn-submit"
+                  disabled={loading}
+                >
+                  <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}>
+                    {loading ? (
+                      '⏳ Verifying Credentials (wake-up ~45s if idle)...'
+                    ) : (
+                      <>
+                        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
+                          <rect x="3" y="11" width="18" height="11" rx="2.5" ry="2.5" fill="#FDE047" stroke="#EAB308" strokeWidth="1.5" />
+                          <path d="M7 11V7a5 5 0 0 1 10 0v4" stroke="#FEF08A" strokeWidth="2.5" strokeLinecap="round" />
+                          <circle cx="12" cy="16" r="1.5" fill="#854D0E" />
+                        </svg>
+                        Sign In to Platform
+                      </>
+                    )}
+                  </span>
+                </button>
+
+                <div className="nature-auth-switch">
+                  Need an account?{' '}
+                  <button
+                    type="button"
+                    className="nature-link-btn"
+                    onClick={() => switchAuthMode(true)}
+                  >
+                    Register here
+                  </button>
+                </div>
+              </form>
+            ) : (
+              /* Register Form */
+              <form onSubmit={submitRegister} className="nature-auth-form">
+                <div className="nature-grid-2">
+                  <div className="nature-input-group">
+                    <label className="nature-input-label">Username *</label>
+                    <div className="nature-input-wrapper">
+                      <span className="nature-input-icon">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                          <circle cx="12" cy="7" r="4" />
+                        </svg>
+                      </span>
+                      <input
+                        className="nature-form-control"
+                        placeholder="e.g. jdoe"
+                        value={regForm.username}
+                        onChange={e => setRegForm({ ...regForm, username: e.target.value })}
+                        required
+                      />
+                    </div>
+                  </div>
+                  <div className="nature-input-group">
+                    <label className="nature-input-label">Full Name</label>
+                    <div className="nature-input-wrapper">
+                      <span className="nature-input-icon">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                          <circle cx="9" cy="7" r="4" />
+                          <line x1="19" y1="8" x2="19" y2="14" />
+                          <line x1="22" y1="11" x2="16" y2="11" />
+                        </svg>
+                      </span>
+                      <input
+                        className="nature-form-control"
+                        placeholder="e.g. John Doe"
+                        value={regForm.fullName}
+                        onChange={e => setRegForm({ ...regForm, fullName: e.target.value })}
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="nature-input-group">
+                  <label className="nature-input-label">Email Address *</label>
+                  <div className="nature-input-wrapper">
+                    <span className="nature-input-icon">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <rect width="20" height="16" x="2" y="4" rx="2" />
+                        <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+                      </svg>
+                    </span>
+                    <input
+                      type="email"
+                      className="nature-form-control"
+                      placeholder="e.g. john@example.com"
+                      value={regForm.email}
+                      onChange={e => setRegForm({ ...regForm, email: e.target.value })}
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div className="nature-grid-3">
+                  <div className="nature-input-group">
+                    <label className="nature-input-label">Password *</label>
+                    <div className="nature-input-wrapper">
+                      <span className="nature-input-icon">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                          <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                        </svg>
+                      </span>
+                      <input
+                        type={showRegPassword ? 'text' : 'password'}
+                        className="nature-form-control"
+                        placeholder="Min 6 characters"
+                        value={regForm.password}
+                        onChange={e => setRegForm({ ...regForm, password: e.target.value })}
+                        required
+                      />
+                      <button
+                        type="button"
+                        className="nature-password-toggle"
+                        onClick={() => setShowRegPassword(!showRegPassword)}
+                        aria-label={showRegPassword ? 'Hide password' : 'Show password'}
+                      >
+                        {showRegPassword ? (
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/>
+                            <line x1="1" y1="1" x2="23" y2="23"/>
+                          </svg>
+                        ) : (
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                            <circle cx="12" cy="12" r="3"/>
+                          </svg>
+                        )}
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className="nature-input-group">
+                    <label className="nature-input-label">Age</label>
+                    <div className="nature-input-wrapper">
+                      <input
+                        type="number"
+                        min="1"
+                        max="120"
+                        className="nature-form-control"
+                        style={{ paddingLeft: '1rem' }}
+                        placeholder="Age"
+                        value={regForm.age}
+                        onChange={e => setRegForm({ ...regForm, age: e.target.value })}
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="nature-input-group">
+                  <label className="nature-input-label">Gender</label>
+                  <div className="nature-input-wrapper">
+                    <select
+                      className="nature-form-control"
+                      style={{ paddingLeft: '1rem', cursor: 'pointer' }}
+                      value={regForm.gender}
+                      onChange={e => setRegForm({ ...regForm, gender: e.target.value })}
+                    >
+                      <option value="">— Select Gender —</option>
+                      <option value="Male">Male</option>
+                      <option value="Female">Female</option>
+                      <option value="Other">Other</option>
+                    </select>
+                  </div>
+                </div>
+
+                <button
+                  type="submit"
+                  className="nature-btn-submit"
+                  disabled={loading}
+                >
+                  <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}>
+                    {loading ? (
+                      '⏳ Creating Account on Server...'
+                    ) : (
+                      <>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                          <polyline points="20 6 9 17 4 12" />
+                        </svg>
+                        Complete Registration
+                      </>
+                    )}
+                  </span>
+                </button>
+
+                <div className="nature-auth-switch">
+                  Already registered?{' '}
+                  <button
+                    type="button"
+                    className="nature-link-btn"
+                    onClick={() => switchAuthMode(false)}
+                  >
+                    Sign In
+                  </button>
+                </div>
+              </form>
+            )}
+          </div>
+        </section>
+      </main>
     </div>
   );
 }
+
 
 // ─── Dashboard View ──────────────────────────────────────────────────────────
 function DashboardView({ user, setPage }) {
@@ -1577,7 +2446,7 @@ function DashboardView({ user, setPage }) {
         labels: ['Low Stress', 'Medium Stress', 'High Stress'],
         datasets: [{
           data: [data.myLowCount || 0, data.myMediumCount || 0, data.myHighCount || 0],
-          backgroundColor: ['#10b981', '#f59e0b', '#ef4444'],
+          backgroundColor: ['#4CAF50', '#2998D8', '#F59E0B'],
           borderWidth: 0,
           hoverOffset: 6
         }]
@@ -1609,12 +2478,12 @@ function DashboardView({ user, setPage }) {
         datasets: [{
           label: 'Stress Tier',
           data: scores,
-          borderColor: '#6366f1',
-          backgroundColor: 'rgba(99, 102, 241, 0.15)',
+          borderColor: '#2998D8',
+          backgroundColor: 'rgba(41, 152, 216, 0.12)',
           fill: true,
           tension: 0.4,
           pointRadius: 5,
-          pointBackgroundColor: sorted.map(h => h.stressLabel === 'Low' ? '#10b981' : h.stressLabel === 'Medium' ? '#f59e0b' : '#ef4444')
+          pointBackgroundColor: sorted.map(h => h.stressLabel === 'Low' ? '#4CAF50' : h.stressLabel === 'Medium' ? '#2998D8' : '#F59E0B')
         }]
       },
       options: {
@@ -1625,9 +2494,9 @@ function DashboardView({ user, setPage }) {
               stepSize: 1,
               callback: v => v === 1 ? 'Low' : v === 2 ? 'Medium' : v === 3 ? 'High' : ''
             },
-            grid: { color: 'rgba(255,255,255,0.06)' }
+            grid: { color: 'rgba(215, 234, 232, 0.65)' }
           },
-          x: { grid: { color: 'rgba(255,255,255,0.06)' } }
+          x: { grid: { color: 'rgba(215, 234, 232, 0.65)' } }
         },
         plugins: { legend: { display: false } },
         responsive: true,
@@ -1641,7 +2510,7 @@ function DashboardView({ user, setPage }) {
   return (
     <div style={{ padding: '2rem' }}>
       {/* Welcome Banner */}
-      <div className="card-glass mb-4" style={{ padding: '1.8rem 2rem', background: 'linear-gradient(135deg, rgba(99,102,241,0.18), rgba(6,182,212,0.12))' }}>
+      <div className="card-glass mb-4" style={{ padding: '1.8rem 2rem', background: 'linear-gradient(135deg, #EAF7FF 0%, #EFF9EE 100%)', border: '1px solid #D7EAE8' }}>
         <div className="d-flex justify-content-between align-items-center flex-wrap gap-3">
           <div>
             <div style={{ fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--secondary)', fontWeight: 700 }}>
@@ -1668,12 +2537,12 @@ function DashboardView({ user, setPage }) {
       {/* Metric Cards Grid */}
       <div className="row g-3 mb-4">
         <div className="col-md-3">
-          <div className="metric-card" style={{ '--metric-color': '#6366f1' }}>
+          <div className="metric-card" style={{ '--metric-color': '#2998D8' }}>
             <div className="metric-label">Wellness Index</div>
             <div className="metric-val" style={{ color: wellnessIndex > 70 ? '#34d399' : wellnessIndex > 45 ? '#fbbf24' : '#f87171' }}>
               {wellnessIndex}<span style={{ fontSize: '1.1rem', opacity: 0.6 }}>/100</span>
             </div>
-            <div className="metric-badge" style={{ background: 'rgba(99, 102, 241, 0.15)', color: '#818cf8' }}>
+            <div className="metric-badge" style={{ background: '#EAF7FF', color: '#2998D8', fontWeight: 700 }}>
               {wellnessIndex > 70 ? '🟢 Optimal Balance' : wellnessIndex > 45 ? '🟡 Moderate Strain' : '🔴 Critical Watch'}
             </div>
           </div>
@@ -1690,10 +2559,10 @@ function DashboardView({ user, setPage }) {
           </div>
         </div>
         <div className="col-md-3">
-          <div className="metric-card" style={{ '--metric-color': '#06b6d4' }}>
+          <div className="metric-card" style={{ '--metric-color': '#4CAF50' }}>
             <div className="metric-label">Assessments Logged</div>
             <div className="metric-val">{data.totalMyPredictions}</div>
-            <div className="metric-badge" style={{ background: 'rgba(6, 182, 212, 0.15)', color: '#22d3ee' }}>
+            <div className="metric-badge" style={{ background: '#EFF9EE', color: '#2E7D32', fontWeight: 700 }}>
               Historical Data Points
             </div>
           </div>
@@ -1976,13 +2845,13 @@ function PredictionView() {
         labels: ['Low Stress', 'Medium Stress', 'High Risk'],
         datasets: [{
           data: [p.Low, p.Medium, p.High],
-          backgroundColor: ['#10b981', '#f59e0b', '#ef4444'],
+          backgroundColor: ['#4CAF50', '#2998D8', '#F59E0B'],
           borderRadius: 8
         }]
       },
       options: {
         scales: {
-          y: { beginAtZero: true, max: 100, ticks: { callback: v => v + '%' }, grid: { color: 'rgba(255,255,255,0.06)' } },
+          y: { beginAtZero: true, max: 100, ticks: { callback: v => v + '%' }, grid: { color: 'rgba(215, 234, 232, 0.65)' } },
           x: { grid: { display: false } }
         },
         plugins: { legend: { display: false } },
@@ -2478,7 +3347,7 @@ function PredictionDetailModal({ record, onClose, onExportSingle }) {
         {/* Modal Header */}
         <div className="telemetry-modal-header">
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
-            <span id="modal-title" style={{ fontFamily: 'monospace', fontWeight: 700, fontSize: '1.1rem', color: 'var(--text-muted)' }}>
+            <span id="modal-title" style={{ fontFamily: 'var(--font-mono)', fontWeight: 600, fontSize: '0.92rem', color: 'var(--text-secondary)', background: 'var(--light-sky)', padding: '0.2rem 0.55rem', borderRadius: 6, border: '1px solid var(--border-subtle)' }}>
               #{current.id}
             </span>
             <span className={`badge-stress ${badgeClass}`}>
@@ -2578,7 +3447,7 @@ function PredictionDetailModal({ record, onClose, onExportSingle }) {
                         <div key={f.key} className="biomarker-chip">
                           <div className="biomarker-chip-label">
                             <span>{f.label}</span>
-                            <span style={{ fontFamily: 'monospace' }}>[{f.min}–{f.max}]</span>
+                            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: 'var(--text-secondary)' }}>[{f.min}–{f.max}]</span>
                           </div>
                           <div className="biomarker-chip-val">
                             {val != null ? val : <span style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>N/A</span>}
@@ -2587,7 +3456,7 @@ function PredictionDetailModal({ record, onClose, onExportSingle }) {
                             </span>
                           </div>
                           <div className="biomarker-chip-bar">
-                            <div className="biomarker-chip-fill" style={{ width: `${pct}%`, background: pct > 70 ? '#ef4444' : pct > 40 ? '#f59e0b' : '#6366f1' }} />
+                            <div className="biomarker-chip-fill" style={{ width: `${pct}%`, background: pct > 70 ? '#ef4444' : pct > 40 ? '#f59e0b' : '#4CAF50' }} />
                           </div>
                         </div>
                       );
@@ -2998,7 +3867,7 @@ function HistoryView({ setPage }) {
                       onClick={() => setSelectedRecord(h)}
                       title={`Click to inspect complete 20 biomarkers for prediction #${h.id}`}
                     >
-                      <td style={{ fontFamily: 'monospace', fontWeight: 700, color: 'var(--text-muted)' }}>
+                      <td style={{ fontFamily: 'var(--font-mono)', fontWeight: 600, fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
                         #{h.id}
                       </td>
                       <td style={{ fontWeight: 600, fontSize: '0.88rem' }}>
@@ -3028,17 +3897,17 @@ function HistoryView({ setPage }) {
                       <td>
                         <div style={{ display: 'flex', gap: '0.35rem', flexWrap: 'wrap', alignItems: 'center' }}>
                           {h.anxietyLevel != null && (
-                            <span style={{ fontSize: '0.72rem', padding: '0.15rem 0.45rem', borderRadius: 4, background: 'rgba(99, 102, 241, 0.15)', color: '#a5b4fc', fontFamily: 'monospace' }}>
+                            <span style={{ fontSize: '0.74rem', padding: '0.18rem 0.5rem', borderRadius: 6, background: 'rgba(41, 152, 216, 0.12)', color: '#1e75a6', fontWeight: 600, fontVariantNumeric: 'tabular-nums' }}>
                               Anx: {h.anxietyLevel}
                             </span>
                           )}
                           {h.sleepQuality != null && (
-                            <span style={{ fontSize: '0.72rem', padding: '0.15rem 0.45rem', borderRadius: 4, background: 'rgba(16, 185, 129, 0.15)', color: '#6ee7b7', fontFamily: 'monospace' }}>
+                            <span style={{ fontSize: '0.74rem', padding: '0.18rem 0.5rem', borderRadius: 6, background: 'rgba(76, 175, 80, 0.12)', color: '#2e7d32', fontWeight: 600, fontVariantNumeric: 'tabular-nums' }}>
                               Sleep: {h.sleepQuality}
                             </span>
                           )}
                           {h.depression != null && (
-                            <span style={{ fontSize: '0.72rem', padding: '0.15rem 0.45rem', borderRadius: 4, background: 'rgba(239, 68, 68, 0.15)', color: '#fca5a5', fontFamily: 'monospace' }}>
+                            <span style={{ fontSize: '0.74rem', padding: '0.18rem 0.5rem', borderRadius: 6, background: 'rgba(239, 68, 68, 0.1)', color: '#c62828', fontWeight: 600, fontVariantNumeric: 'tabular-nums' }}>
                               Dep: {h.depression}
                             </span>
                           )}
@@ -3291,7 +4160,7 @@ function AdminDashboardView() {
         labels: Object.keys(dist),
         datasets: [{
           data: Object.values(dist),
-          backgroundColor: ['#10b981', '#f59e0b', '#ef4444'],
+          backgroundColor: ['#4CAF50', '#2998D8', '#F59E0B'],
           borderWidth: 0
         }]
       },
@@ -3319,13 +4188,13 @@ function AdminDashboardView() {
       {/* Top 5 Stat Metrics */}
       <div className="row g-3 mb-4">
         <div className="col">
-          <div className="metric-card" style={{ '--metric-color': '#6366f1' }}>
+          <div className="metric-card" style={{ '--metric-color': '#2998D8' }}>
             <div className="metric-label">Total Users</div>
             <div className="metric-val">{stats.totalUsers}</div>
           </div>
         </div>
         <div className="col">
-          <div className="metric-card" style={{ '--metric-color': '#06b6d4' }}>
+          <div className="metric-card" style={{ '--metric-color': '#4CAF50' }}>
             <div className="metric-label">Inferences</div>
             <div className="metric-val">{stats.totalPredictions}</div>
           </div>
@@ -3367,9 +4236,9 @@ function AdminDashboardView() {
             </div>
             <div className="card-glass-body">
               {[
-                { label: 'Algorithm', val: 'Random Forest Ensemble', color: '#6366f1' },
+                { label: 'Algorithm', val: 'Random Forest Ensemble', color: '#2998D8' },
                 { label: 'Validation Accuracy', val: '88.64%', color: '#10b981' },
-                { label: '5-Fold CV Score', val: '87.36%', color: '#06b6d4' },
+                { label: '5-Fold CV Score', val: '87.36%', color: '#4CAF50' },
                 { label: 'Average Confidence', val: (stats.averageConfidence || 0).toFixed(1) + '%', color: '#f59e0b' },
               ].map(m => (
                 <div key={m.label} className="d-flex justify-content-between py-2" style={{ borderBottom: '1px solid var(--border-subtle)', fontSize: '0.88rem' }}>
@@ -3547,7 +4416,7 @@ function App() {
   });
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [theme, setTheme] = useState(() => localStorage.getItem('app_theme') || 'dark');
+  const [theme, setTheme] = useState(() => localStorage.getItem('app_theme') || 'wellness');
   const [ambientPlaying, setAmbientPlaying] = useState(false);
   const [toast, setToast] = useState('');
 
@@ -3712,10 +4581,16 @@ function App() {
         aria-label="Sidebar Navigation"
       >
         <div className="sidebar-brand">
-          <div className="brand-icon">🧠</div>
-          <div className="brand-text">
-            <h1>StressGuard</h1>
-            <span>AI Platform 2.0</span>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', cursor: 'pointer' }} onClick={() => navigateTo('dashboard')}>
+            <StressGuardShieldLogo size={42} />
+            <div className="brand-text">
+              <h1 style={{ fontFamily: 'var(--font-heading)', fontWeight: 800, fontSize: '1.25rem', color: 'var(--text-main)', margin: 0, letterSpacing: '-0.01em' }}>
+                StressGuard <span style={{ color: 'var(--secondary)' }}>2.0</span>
+              </h1>
+              <span style={{ fontSize: '0.72rem', letterSpacing: '0.04em', color: 'var(--primary)', fontWeight: 700 }}>
+                Mental Wellness AI
+              </span>
+            </div>
           </div>
           <button
             className="btn-icon sidebar-close-btn"
@@ -3840,7 +4715,7 @@ function App() {
               style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', padding: '0.35rem 0.85rem', borderRadius: 20, background: 'var(--bg-surface-elevated)', border: '1px solid var(--border-subtle)', fontSize: '0.78rem', cursor: 'pointer' }}
               title="Click to configure backend API endpoint"
             >
-              <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#6366f1', display: 'inline-block' }} />
+              <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#4CAF50', display: 'inline-block' }} />
               <span className="api-pill-text" style={{ fontWeight: 600 }}>API: Cloud</span>
             </div>
           </div>
@@ -3856,6 +4731,13 @@ function App() {
       </div>
     </div>
   );
+}
+
+// Configure Chart.js global typography to match Wellness Design System
+if (window.Chart) {
+  Chart.defaults.font.family = "'Plus Jakarta Sans', system-ui, -apple-system, sans-serif";
+  Chart.defaults.font.size = 12;
+  Chart.defaults.color = '#637D8B';
 }
 
 ReactDOM.createRoot(document.getElementById('root')).render(<App />);
