@@ -514,8 +514,8 @@ const API_TIMEOUT_MS = 75000;       // 75s timeout to accommodate Render free-ti
 const PREDICT_TIMEOUT_MS = 90000;   // 90s timeout for model inference on cold starts
 
 // Default production endpoints (overridable via localStorage or window.APP_CONFIG)
-const DEFAULT_PROD_API = 'https://stressguard-backend.onrender.com/api';
-const DEFAULT_PROD_ML = 'https://stressguard-ml-service.onrender.com';
+const DEFAULT_PROD_API = 'https://stressguard-backend-l5mp.onrender.com/api';
+const DEFAULT_PROD_ML = 'https://ai-based-human-stress-prediction-system.onrender.com';
 
 const getApiBase = () => {
   const custom = localStorage.getItem('api_endpoint');
