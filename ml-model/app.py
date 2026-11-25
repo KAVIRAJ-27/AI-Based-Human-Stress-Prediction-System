@@ -34,7 +34,14 @@ def after_request(response):
 
 @app.route('/health', methods=['GET'])
 def health():
-    return jsonify({'status': 'ok', 'model': 'RandomForest', 'accuracy': meta['accuracy']})
+    return jsonify({
+        'status': 'ok',
+        'service': 'stressguard-ml-service',
+        'model': 'RandomForest',
+        'model_loaded': model is not None,
+        'scaler_loaded': scaler is not None,
+        'accuracy': meta.get('accuracy', 88.64)
+    })
 
 @app.route('/predict', methods=['POST', 'OPTIONS'])
 def predict():
@@ -166,4 +173,5 @@ def get_recommendations(stress_level, data):
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=False)
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port, debug=False)

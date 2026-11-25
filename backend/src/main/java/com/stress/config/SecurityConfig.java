@@ -2,6 +2,7 @@ package com.stress.config;
 
 import com.stress.security.JwtAuthFilter;
 import com.stress.service.CustomUserDetailsService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -31,6 +32,9 @@ public class SecurityConfig {
     private final JwtAuthFilter jwtAuthFilter;
     private final CustomUserDetailsService userDetailsService;
 
+    @Value("${cors.allowed-origins:*}")
+    private String allowedOrigins;
+
     public SecurityConfig(JwtAuthFilter jwtAuthFilter, CustomUserDetailsService userDetailsService) {
         this.jwtAuthFilter = jwtAuthFilter;
         this.userDetailsService = userDetailsService;
@@ -57,7 +61,15 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOriginPatterns(List.of("*"));
+        if (allowedOrigins != null && !allowedOrigins.trim().equals("*")) {
+            List<String> origins = Arrays.stream(allowedOrigins.split(","))
+                    .map(String::trim)
+                    .filter(s -> !s.isEmpty())
+                    .toList();
+            config.setAllowedOriginPatterns(origins);
+        } else {
+            config.setAllowedOriginPatterns(List.of("*"));
+        }
         config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(false);

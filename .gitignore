@@ -1,3 +1,7 @@
-﻿backend/target/
+backend/target/
 *.class
 .env
+application-local.properties
+backend/src/main/resources/application-local.properties
+__pycache__/
+*.pyc

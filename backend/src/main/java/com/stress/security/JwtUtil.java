@@ -2,6 +2,7 @@ package com.stress.security;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
+import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
@@ -20,6 +21,23 @@ public class JwtUtil {
 
     @Value("${jwt.expiration}")
     private long expiration;
+
+    private static final String DEFAULT_DEV_SECRET = "StressPredictionSecretKey2024VeryLongAndSecureKeyForJWTTokenGeneration";
+
+    @PostConstruct
+    public void validateSecret() {
+        if (secret == null || secret.trim().isEmpty()) {
+            throw new IllegalStateException("CRITICAL SECURITY ERROR: JWT secret is empty. Please set JWT_SECRET.");
+        }
+        if (secret.getBytes().length < 32) {
+            throw new IllegalStateException("CRITICAL SECURITY ERROR: JWT secret must be at least 32 bytes (256 bits) long for secure HS256 signing.");
+        }
+        // In cloud production, fail fast if the developer forgot to set a custom secret
+        String isRender = System.getenv("RENDER");
+        if ("true".equalsIgnoreCase(isRender) && DEFAULT_DEV_SECRET.equals(secret)) {
+            throw new IllegalStateException("CRITICAL SECURITY ERROR: Running in production with default development JWT secret! Please configure a unique JWT_SECRET in your Render environment variables.");
+        }
+    }
 
     private Key getSigningKey() {
         return Keys.hmacShaKeyFor(secret.getBytes());

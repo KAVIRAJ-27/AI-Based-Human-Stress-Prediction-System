@@ -475,6 +475,12 @@
       to { transform: translateY(0); opacity: 1; }
     }
 
+    @keyframes spinPulse {
+      0% { transform: scale(1) rotate(0deg); opacity: 0.85; }
+      50% { transform: scale(1.15) rotate(180deg); opacity: 1; filter: drop-shadow(0 0 16px rgba(99,102,241,0.6)); }
+      100% { transform: scale(1) rotate(360deg); opacity: 0.85; }
+    }
+
     /* Print Styles */
     @media print {
       .sidebar, .topbar, .ambient-bg, .btn-glow, .btn-glass, .btn-icon, .preset-pill { display: none !important; }
@@ -503,16 +509,36 @@
 <script type="text/babel">
 const { useState, useEffect, useRef, useMemo } = React;
 
-// ─── API Layer with Direct Cloud AI Fallback ─────────────────────────────────
-const CLOUD_ML_URL = 'https://ai-based-human-stress-prediction-system.onrender.com';
+// ─── Production API Layer & Cloud Endpoint Configuration ─────────────────────
+const API_TIMEOUT_MS = 75000;       // 75s timeout to accommodate Render free-tier cold starts
+const PREDICT_TIMEOUT_MS = 90000;   // 90s timeout for model inference on cold starts
+
+// Default production endpoints (overridable via localStorage or window.APP_CONFIG)
+const DEFAULT_PROD_API = 'https://stressguard-backend.onrender.com/api';
+const DEFAULT_PROD_ML = 'https://stressguard-ml-service.onrender.com';
 
 const getApiBase = () => {
   const custom = localStorage.getItem('api_endpoint');
   if (custom) return custom.replace(/\/+$/, '');
+  if (window.APP_CONFIG && window.APP_CONFIG.API_URL) {
+    return window.APP_CONFIG.API_URL.replace(/\/+$/, '');
+  }
   if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
     return 'http://localhost:8080/api';
   }
-  return 'https://stress-prediction-backend.onrender.com/api';
+  return DEFAULT_PROD_API;
+};
+
+const getMlBase = () => {
+  const custom = localStorage.getItem('ml_endpoint');
+  if (custom) return custom.replace(/\/+$/, '');
+  if (window.APP_CONFIG && window.APP_CONFIG.ML_URL) {
+    return window.APP_CONFIG.ML_URL.replace(/\/+$/, '');
+  }
+  if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+    return 'http://localhost:5000';
+  }
+  return DEFAULT_PROD_ML;
 };
 
 const toSnakeCase = (obj) => {
@@ -543,10 +569,13 @@ const api = {
     'Authorization': `Bearer ${api.token()}`
   }),
 
-  async post(path, body, auth = false) {
+  async post(path, body, auth = false, customTimeout = null) {
+    const timeoutDuration = customTimeout || (path === '/predict' ? PREDICT_TIMEOUT_MS : API_TIMEOUT_MS);
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), timeoutDuration);
+    let serverResponded = false;
+
     try {
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 4000);
       const res = await fetch(getApiBase() + path, {
         method: 'POST',
         headers: auth ? { 'Content-Type': 'application/json' } : api.headers(),
@@ -554,78 +583,112 @@ const api = {
         signal: controller.signal
       });
       clearTimeout(timeoutId);
+      serverResponded = true;
+
       const text = await res.text();
       let data = {};
       if (text) {
         try { data = JSON.parse(text); } catch { data = { message: text }; }
       }
-      if (!res.ok) throw new Error(data.message || data.error || 'Request failed');
+      if (!res.ok) {
+        const errorMsg = data.message || data.error || `Server responded with HTTP ${res.status}`;
+        const err = new Error(errorMsg);
+        err.status = res.status;
+        throw err;
+      }
       return data;
     } catch (err) {
-      // Direct Cloud AI Fallback for predictions
-      if (path === '/predict') {
-        const cloudRes = await fetch(CLOUD_ML_URL + '/predict', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(toSnakeCase(body))
-        });
-        if (cloudRes.ok) {
-          const ml = await cloudRes.json();
-          const record = {
-            id: Date.now(),
-            stressLevel: ml.stress_level,
-            stressLabel: ml.stress_label,
-            confidence: ml.confidence,
-            probabilities: ml.probabilities,
-            topContributingFactors: ml.top_contributing_factors,
-            recommendations: ml.recommendations,
-            createdAt: new Date().toISOString()
-          };
-          const hist = JSON.parse(localStorage.getItem('local_predictions') || '[]');
-          hist.unshift(record);
-          localStorage.setItem('local_predictions', JSON.stringify(hist));
-          return record;
+      clearTimeout(timeoutId);
+
+      // If server explicitly returned an error (e.g. 401 Bad credentials, 400 Validation), do NOT bypass into demo login
+      if (serverResponded || (err.status && err.status >= 400)) {
+        throw err;
+      }
+
+      const isNetworkOrTimeout = err.name === 'AbortError' || err.message?.includes('fetch') || err.message?.includes('Network');
+
+      // Direct Cloud AI Fallback for predictions if backend is down or waking up
+      if (path === '/predict' && isNetworkOrTimeout) {
+        try {
+          const cloudRes = await fetch(getMlBase() + '/predict', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(toSnakeCase(body))
+          });
+          if (cloudRes.ok) {
+            const ml = await cloudRes.json();
+            const record = {
+              id: Date.now(),
+              stressLevel: ml.stress_level,
+              stressLabel: ml.stress_label,
+              confidence: ml.confidence,
+              probabilities: ml.probabilities,
+              topContributingFactors: ml.top_contributing_factors,
+              recommendations: ml.recommendations,
+              createdAt: new Date().toISOString()
+            };
+            const hist = JSON.parse(localStorage.getItem('local_predictions') || '[]');
+            hist.unshift(record);
+            localStorage.setItem('local_predictions', JSON.stringify(hist));
+            return record;
+          }
+        } catch (mlErr) {
+          throw new Error('Prediction microservice is warming up on the cloud. Please retry in 30 seconds.');
         }
       }
 
-      // Offline / Demo Auth Fallback for static hosting (GitHub Pages)
-      if (path === '/auth/login') {
-        const u = body.username || 'demo';
-        const isAdmin = u.toLowerCase() === 'admin';
-        return {
-          token: 'demo-jwt-token-' + Date.now(),
-          username: u,
-          email: `${u}@stressguard.ai`,
-          fullName: isAdmin ? 'Administrator' : u.charAt(0).toUpperCase() + u.slice(1),
-          role: isAdmin ? 'ADMIN' : 'USER',
-          userId: 1
-        };
+      // Offline / Demo Auth Fallback ONLY when network is completely unreachable
+      const allowOfflineDemo = localStorage.getItem('allow_offline_demo') === 'true' || window.location.protocol === 'file:';
+      if (allowOfflineDemo && isNetworkOrTimeout) {
+        if (path === '/auth/login') {
+          const u = body.username || 'demo';
+          const isAdmin = u.toLowerCase() === 'admin';
+          return {
+            token: 'demo-jwt-token-' + Date.now(),
+            username: u,
+            email: `${u}@stressguard.ai`,
+            fullName: isAdmin ? 'Administrator (Offline Demo)' : u.charAt(0).toUpperCase() + u.slice(1),
+            role: isAdmin ? 'ADMIN' : 'USER',
+            userId: 1
+          };
+        }
+        if (path === '/auth/register') {
+          return {
+            token: 'demo-jwt-token-' + Date.now(),
+            username: body.username,
+            email: body.email,
+            fullName: body.fullName || body.username,
+            role: 'USER',
+            userId: Date.now()
+          };
+        }
       }
 
-      if (path === '/auth/register') {
-        return {
-          token: 'demo-jwt-token-' + Date.now(),
-          username: body.username,
-          email: body.email,
-          fullName: body.fullName || body.username,
-          role: 'USER',
-          userId: Date.now()
-        };
+      if (err.name === 'AbortError') {
+        throw new Error('Request timed out while connecting to cloud server. If the server was sleeping, please retry.');
       }
-
-      throw err;
+      throw new Error(err.message || 'Unable to connect to backend server. Please verify your connection.');
     }
   },
 
   async get(path) {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), API_TIMEOUT_MS);
+    let serverResponded = false;
+
     try {
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 4000);
       const res = await fetch(getApiBase() + path, {
         headers: api.headers(),
         signal: controller.signal
       });
       clearTimeout(timeoutId);
+      serverResponded = true;
+
+      if (res.status === 401 || res.status === 403) {
+        localStorage.removeItem('jwt_token');
+        throw new Error('Session expired or unauthorized. Please sign in again.');
+      }
+
       const text = await res.text();
       let data = {};
       if (text) {
@@ -634,6 +697,11 @@ const api = {
       if (!res.ok) throw new Error(data.message || data.error || 'Request failed');
       return data;
     } catch (err) {
+      clearTimeout(timeoutId);
+      if (serverResponded && err.message.includes('Session expired')) {
+        throw err;
+      }
+
       // Local fallback for History & Dashboard
       const hist = JSON.parse(localStorage.getItem('local_predictions') || '[]');
       if (path === '/predict/history') {
@@ -648,32 +716,36 @@ const api = {
           myLowCount: low,
           myMediumCount: med,
           myHighCount: high,
-          latestStressLabel: hist[0]?.stressLabel || 'Low',
-          latestConfidence: hist[0]?.confidence || 88.6,
+          latestStressLabel: hist[0]?.stressLabel || 'N/A',
+          latestConfidence: hist[0]?.confidence || null,
           recentHistory: hist.slice(0, 5)
         };
       }
       if (path === '/admin/stats') {
         return {
-          totalUsers: 5,
-          totalPredictions: hist.length + 12,
-          lowStressCount: hist.filter(h => h.stressLabel === 'Low').length + 6,
-          mediumStressCount: hist.filter(h => h.stressLabel === 'Medium').length + 4,
-          highStressCount: hist.filter(h => h.stressLabel === 'High').length + 2,
-          averageConfidence: 86.4,
-          activeUsersWithPredictions: 4
+          totalUsers: 1,
+          totalPredictions: hist.length,
+          lowStressCount: hist.filter(h => h.stressLabel === 'Low').length,
+          mediumStressCount: hist.filter(h => h.stressLabel === 'Medium').length,
+          highStressCount: hist.filter(h => h.stressLabel === 'High').length,
+          averageConfidence: 88.6,
+          activeUsersWithPredictions: hist.length > 0 ? 1 : 0
         };
       }
       if (path === '/admin/stress-distribution') {
-        return { 'Low': 6, 'Medium': 4, 'High': 2 };
+        return {
+          'Low': hist.filter(h => h.stressLabel === 'Low').length,
+          'Medium': hist.filter(h => h.stressLabel === 'Medium').length,
+          'High': hist.filter(h => h.stressLabel === 'High').length
+        };
       }
       if (path.startsWith('/admin/recent-predictions')) {
         return hist.slice(0, 10);
       }
       if (path === '/admin/users') {
+        const u = JSON.parse(localStorage.getItem('user_info') || '{}');
         return [
-          { id: 1, username: 'admin', fullName: 'Administrator', email: 'admin@stressguard.ai', totalPredictions: hist.length, lastStressLabel: hist[0]?.stressLabel || 'Low', active: true },
-          { id: 2, username: 'testuser', fullName: 'Test Patient', email: 'test@example.com', totalPredictions: 4, lastStressLabel: 'Medium', active: true }
+          { id: u.userId || 1, username: u.username || 'admin', fullName: u.fullName || 'Administrator', email: u.email || 'admin@stressguard.ai', totalPredictions: hist.length, lastStressLabel: hist[0]?.stressLabel || 'N/A', active: true }
         ];
       }
       throw err;
@@ -998,26 +1070,36 @@ function AuthView({ onLogin }) {
   const [error, setError] = useState('');
 
   const submitLogin = async (e) => {
-    e.preventDefault(); setLoading(true); setError('');
+    e.preventDefault();
+    if (loading) return;
+    setLoading(true); setError('');
     try {
       const data = await api.post('/auth/login', form, true);
       localStorage.setItem('jwt_token', data.token);
       localStorage.setItem('user_info', JSON.stringify(data));
       onLogin(data);
-    } catch(err) { setError(err.message); }
-    setLoading(false);
+    } catch(err) {
+      setError(err.message || 'Login failed. Please verify credentials or server status.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   const submitRegister = async (e) => {
-    e.preventDefault(); setLoading(true); setError('');
+    e.preventDefault();
+    if (loading) return;
+    setLoading(true); setError('');
     try {
       const payload = { ...regForm, age: parseInt(regForm.age) || null };
       const data = await api.post('/auth/register', payload, true);
       localStorage.setItem('jwt_token', data.token);
       localStorage.setItem('user_info', JSON.stringify(data));
       onLogin(data);
-    } catch(err) { setError(err.message); }
-    setLoading(false);
+    } catch(err) {
+      setError(err.message || 'Registration failed. Please try again.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -1065,7 +1147,7 @@ function AuthView({ onLogin }) {
               />
             </div>
             <button type="submit" className="btn-glow w-100" style={{ padding: '0.8rem' }} disabled={loading}>
-              {loading ? '⏳ Verifying Credentials...' : '🔐 Sign In to Platform'}
+              {loading ? '⏳ Verifying Credentials (wake-up ~45s if idle)...' : '🔐 Sign In to Platform'}
             </button>
             <div className="text-center mt-3" style={{ fontSize: '0.86rem', color: 'var(--text-secondary)' }}>
               Need an account?{' '}
@@ -1111,7 +1193,7 @@ function AuthView({ onLogin }) {
               </div>
             </div>
             <button type="submit" className="btn-glow w-100" style={{ padding: '0.8rem' }} disabled={loading}>
-              {loading ? 'Creating Profile...' : '✅ Complete Registration'}
+              {loading ? '⏳ Creating Account on Server...' : '✅ Complete Registration'}
             </button>
             <div className="text-center mt-3" style={{ fontSize: '0.86rem', color: 'var(--text-secondary)' }}>
               Already registered?{' '}
@@ -1422,14 +1504,16 @@ function PredictionView() {
 
   const handlePredict = async (e) => {
     e.preventDefault();
+    if (loading) return;
     setLoading(true); setError(''); setResult(null);
     try {
       const data = await api.post('/predict', vals);
       setResult(data);
     } catch(err) {
-      setError(err.message);
+      setError(err.message || 'Inference request failed. Please check backend connection.');
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   // Probability Distribution Bar Chart
@@ -1718,6 +1802,22 @@ function PredictionView() {
                     </div>
                   ))}
                 </div>
+              </div>
+            </div>
+          ) : loading ? (
+            <div className="card-glass" style={{ padding: '3.5rem 2rem', textAlign: 'center' }}>
+              <div style={{ fontSize: '3.5rem', marginBottom: '1.2rem', animation: 'spinPulse 2.5s infinite ease-in-out' }}>
+                🧠
+              </div>
+              <h4 style={{ fontFamily: 'var(--font-heading)', fontWeight: 700, color: 'var(--primary-light)' }}>
+                Running Random Forest AI Analysis...
+              </h4>
+              <p style={{ color: 'var(--text-secondary)', fontSize: '0.88rem', maxWidth: 320, margin: '0.5rem auto 1.5rem', lineHeight: 1.6 }}>
+                Synthesizing 20 biometric biomarkers across psychological, physiological, and environmental dimensions.
+              </p>
+              <div style={{ display: 'inline-flex', flexDirection: 'column', gap: '0.5rem', padding: '0.8rem 1.2rem', borderRadius: 14, background: 'var(--bg-surface-elevated)', border: '1px solid var(--border-subtle)', fontSize: '0.8rem', color: 'var(--text-muted)', textAlign: 'left' }}>
+                <div>⚡ Evaluating 100 Decision Trees</div>
+                <div>⏳ If cloud instance was sleeping, initial wake-up takes ~45s...</div>
               </div>
             </div>
           ) : (
@@ -2407,6 +2507,27 @@ function App() {
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', padding: '0.35rem 0.85rem', borderRadius: 20, background: 'var(--bg-surface-elevated)', border: '1px solid var(--border-subtle)', fontSize: '0.78rem' }}>
               <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#10b981', display: 'inline-block' }} />
               <span style={{ fontWeight: 600 }}>Random Forest: 88.6%</span>
+            </div>
+
+            {/* Cloud Backend Indicator & Config Pill */}
+            <div
+              onClick={() => {
+                const current = localStorage.getItem('api_endpoint') || getApiBase();
+                const next = prompt('Backend API Endpoint URL:\n(Leave empty to use default cloud backend)', current);
+                if (next !== null) {
+                  if (next.trim()) {
+                    localStorage.setItem('api_endpoint', next.trim());
+                  } else {
+                    localStorage.removeItem('api_endpoint');
+                  }
+                  window.location.reload();
+                }
+              }}
+              style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', padding: '0.35rem 0.85rem', borderRadius: 20, background: 'var(--bg-surface-elevated)', border: '1px solid var(--border-subtle)', fontSize: '0.78rem', cursor: 'pointer' }}
+              title="Click to configure backend API endpoint"
+            >
+              <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#6366f1', display: 'inline-block' }} />
+              <span style={{ fontWeight: 600 }}>API: Cloud</span>
             </div>
           </div>
         </div>
